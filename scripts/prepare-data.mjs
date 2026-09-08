@@ -1,12 +1,23 @@
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
 import { gunzipSync } from "node:zlib";
 import path from "node:path";
 
 const projectRoot = process.cwd();
-const sourcePath = path.join(projectRoot, "data", "clinics.json.gz");
+const sourceDirectory = path.join(projectRoot, "data");
 const outputPath = path.join(projectRoot, "public", "data", "clinics.json");
 
-const compressed = await readFile(sourcePath);
+const partNames = (await readdir(sourceDirectory))
+  .filter((name) => /^clinics\.json\.gz\.part\d+$/.test(name))
+  .sort();
+
+if (partNames.length === 0) {
+  throw new Error("Clinic data archive parts were not found.");
+}
+
+const parts = await Promise.all(
+  partNames.map((name) => readFile(path.join(sourceDirectory, name))),
+);
+const compressed = Buffer.concat(parts);
 const json = gunzipSync(compressed);
 const clinics = JSON.parse(json.toString("utf8"));
 
