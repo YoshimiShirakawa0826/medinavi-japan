@@ -82,6 +82,7 @@ Vercelの環境変数 `CONSULTATION_PAYMENT_LINK` に
 
 このリポジトリはアプリを直下に置いているため、VercelのRoot Directoryは空欄です。
 公開先は https://medinavi-japan.vercel.app/ です。
+`main` ブランチへの更新で、Vercelの本番デプロイが自動実行されます。
 
 2026-09-08の本番ビルドで、4,430件中4,316件の電話番号データ生成、Next.jsのコンパイル、
 TypeScript検査、ルート生成が正常完了しています。
