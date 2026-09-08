@@ -1,0 +1,35 @@
+{
+  "name": "medinavi-japan",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "prepare:data": "node scripts/prepare-data.mjs",
+    "predev": "npm run prepare:data",
+    "dev": "next dev",
+    "prebuild": "npm run prepare:data",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "test": "node --test tests/*.test.mjs"
+  },
+  "dependencies": {
+    "@react-google-maps/api": "^2.20.8",
+    "clsx": "^2.1.1",
+    "date-fns": "^4.4.0",
+    "lucide-react": "^1.18.0",
+    "next": "16.2.9",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "tailwind-merge": "^3.6.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.9",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
