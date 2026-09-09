@@ -90,13 +90,13 @@ export default function Home() {
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         try {
-          sessionStorage.setItem('mn_nearCoords', JSON.stringify({ lat: pos.coords.latitude, lng: pos.coords.longitude }));
+          sessionStorage.setItem('mn_nearCoords', JSON.stringify({ lat: pos.coords.latitude, lng: pos.coords.longitude, savedAt: Date.now() }));
         } catch {
           setLocationStatus('error');
           return;
         }
         setLocationStatus('granted');
-        quickSearch({ dist: 'near' });
+        quickSearch({ dist: 'near', location: 'device' });
       },
       (error) => setLocationStatus(getGeoFailureStatus(error)),
       { enableHighAccuracy: false, timeout: 10000, maximumAge: 60000 }
@@ -222,6 +222,7 @@ export default function Home() {
           {/* Open Now toggle */}
           <button
             onClick={() => setOpenNow(v => !v)}
+            aria-pressed={openNow}
             className={`w-full flex items-center gap-3 p-3.5 rounded-2xl border transition-all ${
               openNow ? 'bg-accent-50 border-accent-300' : 'bg-slate-50 border-slate-200 hover:border-slate-300'
             }`}
@@ -244,6 +245,7 @@ export default function Home() {
                 <button
                   key={d.id}
                   onClick={() => toggleDept(d.id)}
+                  aria-pressed={selectedDept === d.id}
                   className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl border text-left transition-all active:scale-95 ${
                     selectedDept === d.id
                       ? 'bg-brand-50 border-brand-400 text-brand-700 shadow-sm'
@@ -261,6 +263,7 @@ export default function Home() {
               {/* 自費診療対応: 診療科タイルの最後に配置（診療科ではなく支払い条件だが導線として並べる） */}
               <button
                 onClick={() => setSelfPay(v => !v)}
+                aria-pressed={selfPay}
                 className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl border text-left transition-all active:scale-95 ${
                   selfPay
                     ? 'bg-amber-50 border-amber-400 text-amber-700 shadow-sm'
@@ -287,6 +290,7 @@ export default function Home() {
                 <button
                   key={l.code}
                   onClick={() => toggleLang(l.code)}
+                  aria-pressed={selectedLang === l.code}
                   className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl border text-xs font-bold transition-all active:scale-95 ${
                     selectedLang === l.code
                       ? 'bg-brand-600 border-brand-600 text-white shadow-sm'
@@ -327,6 +331,7 @@ export default function Home() {
             <div>
               <button
                 onClick={() => setShowMore(v => !v)}
+                aria-expanded={showMore}
                 className="text-xs font-bold text-slate-500 hover:text-slate-700 transition-colors flex items-center gap-1"
               >
                 <ChevronRight className={`w-3.5 h-3.5 transition-transform ${showMore ? 'rotate-90' : ''}`} />
@@ -396,7 +401,7 @@ export default function Home() {
               <a href="tel:119" className="flex-grow inline-flex items-center justify-center py-2.5 px-4 text-sm font-extrabold rounded-2xl bg-white text-emergency-600 hover:bg-rose-50 transition-all shadow-md shadow-rose-900/10">
                 Call 119
               </a>
-              <Link href="/emergency" className="inline-flex items-center justify-center p-2.5 rounded-2xl bg-white/15 hover:bg-white/20 border border-white/10 text-white transition-all">
+              <Link href="/emergency" aria-label={t('nav.emergency')} className="inline-flex items-center justify-center p-2.5 rounded-2xl bg-white/15 hover:bg-white/20 border border-white/10 text-white transition-all">
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
@@ -418,7 +423,7 @@ export default function Home() {
               <a href="tel:%237119" className="flex-grow inline-flex items-center justify-center py-2.5 px-4 text-sm font-extrabold rounded-2xl bg-amber-500 text-white hover:bg-amber-600 transition-all shadow-md shadow-amber-100">
                 Call #7119
               </a>
-              <Link href="/emergency" className="inline-flex items-center justify-center p-2.5 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-600 border border-slate-200/50 transition-all">
+              <Link href="/emergency" aria-label={t('nav.emergency')} className="inline-flex items-center justify-center p-2.5 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-600 border border-slate-200/50 transition-all">
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>

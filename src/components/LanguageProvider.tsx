@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useEffect, useSyncExternalStore, ReactNode } from 'react';
 import { Language } from '@/types';
 import { uiMessages } from './ui-messages';
 
@@ -665,8 +665,28 @@ const translations = {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
+let activeLanguage: Language = 'en';
+const languageListeners = new Set<() => void>();
+function languageSnapshot(): Language {
+  try {
+    const saved = localStorage.getItem('medinavi-language');
+    if (saved && ['ja', 'en', 'zh', 'ko', 'es'].includes(saved)) activeLanguage = saved as Language;
+  } catch { /* Fall back to in-memory preference if storage is blocked. */ }
+  return activeLanguage;
+}
+function subscribeLanguage(listener: () => void) {
+  languageListeners.add(listener);
+  window.addEventListener('storage', listener);
+  return () => { languageListeners.delete(listener); window.removeEventListener('storage', listener); };
+}
+function setLanguage(language: Language) {
+  activeLanguage = language;
+  try { localStorage.setItem('medinavi-language', language); } catch { /* optional */ }
+  languageListeners.forEach(listener => listener());
+}
+
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguage] = useState<Language>('en');
+  const language = useSyncExternalStore(subscribeLanguage, languageSnapshot, () => 'en' as Language);
   useEffect(() => { document.documentElement.lang = language; }, [language]);
 
   const t = (key: string) => {

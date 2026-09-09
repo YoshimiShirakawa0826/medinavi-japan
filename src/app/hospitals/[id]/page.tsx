@@ -4,14 +4,18 @@ import { useLanguage } from '@/components/LanguageProvider';
 import { departments } from '@/types';
 import { MapPin, Phone, Clock, AlertTriangle, ArrowLeft, Info, ExternalLink, CheckCircle, CreditCard, Shield, Globe, Sparkles, Wallet, Receipt, FileText } from 'lucide-react';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 import { clinicMapUrl } from '@/lib/clinic-utils';
 import { useClinics } from '@/lib/use-clinics';
 import { telephoneHref, nabiiClinicUrl } from '@/lib/clinic-contact';
+import { safeSearchReturn, weekendStatus } from '@/lib/search-state';
 
-export default function HospitalDetail() {
+function HospitalDetailContent() {
   const { language, t } = useLanguage();
   const params = useParams();
+  const searchParams = useSearchParams();
+  const returnTo = safeSearchReturn(searchParams.get('returnTo'));
   const { hospitals, loading, error } = useClinics();
   const hospital = hospitals.find(h => h.id === params.id);
 
@@ -30,7 +34,7 @@ export default function HospitalDetail() {
     return (
       <div className="max-w-3xl mx-auto px-4 py-16 text-center">
         <h1 className="text-2xl font-bold mb-4">{t('clinic.notFound')}</h1>
-        <Link href="/hospitals" className="text-brand-600 hover:underline">
+        <Link href={returnTo} className="text-brand-600 hover:underline">
           {t('list.back')}
         </Link>
       </div>
@@ -43,26 +47,29 @@ export default function HospitalDetail() {
           const d = departments.find(d => d.id === id);
           return d ? (d.name[language as keyof typeof d.name] || d.name.en) : id;
         }).join(', ')
-      : '—';
+      : t('detail.deptUnknown');
   };
 
   const getVerificationMethodLabel = (method?: string) => {
     switch(method) {
-      case 'phone': return 'Direct Phone Call Verification';
-      case 'ai_interview': return 'AI Phone Interview Verification';
-      case 'manual_visit': return 'Manual Site Visit & Verification';
-      case 'official_website': return 'Official Website Scrape';
-      default: return 'Open Data Directory (MHLW)';
+      case 'phone': return t('detail.methodPhone');
+      case 'ai_interview': return t('detail.methodAI');
+      case 'manual_visit': return t('detail.methodVisit');
+      case 'official_website': return t('detail.website');
+      default: return t('data.mhlwOpenData');
     }
   };
 
   const mapUrl = clinicMapUrl(hospital);
   const callHref = telephoneHref(hospital.phone);
   const nabiiUrl = nabiiClinicUrl(hospital.id);
+  const weekend = weekendStatus(hospital);
+  const capability = (value?: boolean) => value === true ? t('detail.listed')
+    : value === false && hospital.verification.status === 'verified' ? t('selfpay.notAvailable') : t('selfpay.needConfirm');
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
-      <Link href="/hospitals" className="inline-flex items-center text-sm font-semibold text-slate-500 hover:text-brand-600 transition-colors mb-6">
+      <Link href={returnTo} className="inline-flex items-center text-sm font-semibold text-slate-500 hover:text-brand-600 transition-colors mb-6">
         <ArrowLeft className="w-4 h-4 mr-1.5" /> {t('list.back')}
       </Link>
 
@@ -75,11 +82,11 @@ export default function HospitalDetail() {
               <div className="flex items-center gap-2 mb-2">
                 {hospital.verification.status === 'verified' ? (
                   <span className="inline-flex items-center gap-1 bg-accent-50 text-accent-700 text-xs px-2.5 py-1 rounded-full font-bold border border-accent-200">
-                    <CheckCircle className="w-3.5 h-3.5 text-accent-600" /> Verified Pilot Data
+                    <CheckCircle className="w-3.5 h-3.5 text-accent-600" /> {t('filter.verified')}
                   </span>
                 ) : (
                   <span className="inline-flex items-center gap-1 bg-slate-50 text-slate-500 text-xs px-2.5 py-1 rounded-full font-semibold border border-slate-200">
-                    Open Data Source
+                    {t('data.open')}
                   </span>
                 )}
               </div>
@@ -87,14 +94,14 @@ export default function HospitalDetail() {
               <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
                 {hospital.name[language] || hospital.name.en || hospital.name.ja}
               </h1>
-              {hospital.name.en && hospital.name.en !== hospital.name.ja && (
+              {language !== 'ja' && (hospital.name[language] || hospital.name.en) !== hospital.name.ja && (
                 <p className="text-sm text-slate-500 mt-1">{hospital.name.ja}</p>
               )}
             </div>
 
             {hospital.emergencyAccepted && (
               <span className="inline-flex items-center gap-1.5 bg-emergency-100/80 text-emergency-800 px-4 py-2 rounded-2xl font-extrabold text-sm border border-emergency-200">
-                <AlertTriangle className="w-4 h-4 text-emergency-600 animate-pulse" /> Emergency Accepted
+                <AlertTriangle className="w-4 h-4 text-emergency-600 animate-pulse" /> {t('detail.emergency')}
               </span>
             )}
           </div>
@@ -106,7 +113,7 @@ export default function HospitalDetail() {
           {/* Left Column */}
           <div className="space-y-6">
             <section className="space-y-4">
-              <h2 className="text-sm font-bold text-slate-400 uppercase tracking-wider border-b border-slate-100 pb-2">Location & Contacts</h2>
+              <h2 className="text-sm font-bold text-slate-500 uppercase tracking-wider border-b border-slate-100 pb-2">{t('detail.contacts')}</h2>
 
               <div className="space-y-4">
                 <div className="flex items-start">
@@ -119,7 +126,7 @@ export default function HospitalDetail() {
                       rel="noopener noreferrer"
                       className="inline-flex items-center mt-2.5 text-sm font-bold text-brand-600 hover:text-brand-700 transition-colors"
                     >
-                      Open in Google Maps <ExternalLink className="w-3.5 h-3.5 ml-1" />
+                      {t('btn.openMap')} <ExternalLink className="w-3.5 h-3.5 ml-1" />
                     </a>
                   </div>
                 </div>
@@ -171,7 +178,7 @@ export default function HospitalDetail() {
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1.5 text-sm font-bold text-brand-600 hover:text-brand-700 transition-colors"
                     >
-                      <Globe className="w-4 h-4" /> Official Website <ExternalLink className="w-3.5 h-3.5" />
+                      <Globe className="w-4 h-4" /> {t('detail.website')} <ExternalLink className="w-3.5 h-3.5" />
                     </a>
                   </div>
                 )}
@@ -180,17 +187,17 @@ export default function HospitalDetail() {
 
             {/* Medical Department & Status */}
             <section className="space-y-4 pt-4 border-t border-slate-100">
-              <h2 className="text-sm font-bold text-slate-400 uppercase tracking-wider border-b border-slate-100 pb-2">Medical Services</h2>
+              <h2 className="text-sm font-bold text-slate-500 uppercase tracking-wider border-b border-slate-100 pb-2">{t('detail.services')}</h2>
               <div className="bg-slate-50 rounded-2xl p-5 border border-slate-100 space-y-4">
                 <div>
-                  <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Departments</p>
+                  <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">{t('detail.departments')}</p>
                   <p className="text-slate-800 font-semibold text-sm">{getDeptNames(hospital.departments)}</p>
                 </div>
 
                 <div className="pt-3 border-t border-slate-200/60 space-y-3">
-                  <div className="flex items-center justify-between">
+                  <div className="flex flex-wrap gap-4 items-center justify-between">
                     <div>
-                      <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Today&apos;s Status</p>
+                      <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">{t('detail.today')}</p>
                       <div className="flex items-center gap-2">
                         <Clock className="w-4 h-4 text-slate-400" />
                         {hospital.isOpenNow === true ? (
@@ -201,28 +208,23 @@ export default function HospitalDetail() {
                       </div>
                     </div>
                     <div>
-                      <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Weekend</p>
-                      {hospital.accessInfo.weekendOpen ? (
-                        <span className="text-slate-700 font-bold text-xs bg-white px-2.5 py-0.5 rounded border border-slate-200">Open on Weekends</span>
-                      ) : (
-                        <span className="text-slate-400 font-semibold text-xs bg-slate-100 px-2.5 py-0.5 rounded border border-slate-200">Weekdays Only</span>
-                      )}
+                      <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">{t('detail.weekend')}</p>
+                      <span className="text-slate-700 font-semibold text-xs">{t(weekend === true ? 'detail.weekendListed' : weekend === false ? 'detail.weekendClosed' : 'selfpay.needConfirm')}</span>
                     </div>
                   </div>
                   {/* 診療時間表 */}
                   {hospital.openingHours && (
                     <div className="pt-2">
-                      <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Opening Hours</p>
-                      <div className="grid grid-cols-4 gap-1 text-[10px]">
-                        {(['mon','tue','wed','thu','fri','sat','sun'] as const).map((day, i) => {
-                          const labels = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+                      <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">{t('detail.hours')}</p>
+                      <div className="space-y-1 text-xs">
+                        {(['mon','tue','wed','thu','fri','sat','sun'] as const).map((day) => {
                           const slots = hospital.openingHours?.[day];
                           const closed = hospital.closedDays?.[day];
                           return (
-                            <div key={day} className={`text-center p-1 rounded ${closed ? 'bg-slate-100 text-slate-300' : 'bg-white border border-slate-200'}`}>
-                              <p className="font-bold text-slate-500">{labels[i]}</p>
+                            <div key={day} className={`flex justify-between gap-3 p-2 rounded ${closed ? 'bg-slate-100 text-slate-500' : 'bg-white border border-slate-200'}`}>
+                              <p className="font-bold text-slate-600">{t(`day.${day}`)}</p>
                               {closed ? (
-                                <p>—</p>
+                                <p>{t('detail.closed')}</p>
                               ) : slots && slots.length > 0 ? (
                                 <div className="space-y-0.5">
                                   {slots.map((slot, si) => (
@@ -245,7 +247,7 @@ export default function HospitalDetail() {
             {/* Supported Languages */}
             <p className="text-xs leading-relaxed text-slate-500">{t('status.notice')}</p>
             <section className="space-y-3 pt-4 border-t border-slate-100">
-              <h2 className="text-sm font-bold text-slate-400 uppercase tracking-wider border-b border-slate-100 pb-2">Supported Languages</h2>
+              <h2 className="text-sm font-bold text-slate-500 uppercase tracking-wider border-b border-slate-100 pb-2">{t('detail.languages')}</h2>
               <div className="flex flex-wrap gap-2">
                 {hospital.supportedLanguages.map(lang => (
                   <span key={lang} className="bg-brand-50 text-brand-700 text-xs px-3 py-1 rounded-lg font-bold border border-brand-100 uppercase">
@@ -261,58 +263,63 @@ export default function HospitalDetail() {
 
             {/* Verification Report */}
             <section className="space-y-4">
-              <h2 className="text-sm font-bold text-slate-400 uppercase tracking-wider border-b border-slate-100 pb-2">Verification Report</h2>
+              <h2 className="text-sm font-bold text-slate-500 uppercase tracking-wider border-b border-slate-100 pb-2">{t('detail.provenance')}</h2>
               <div className="bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-2xl p-5 space-y-3 shadow-md">
                 <div className="flex items-center justify-between border-b border-white/10 pb-2">
-                  <span className="text-xs font-bold text-brand-300">Method</span>
+                  <span className="text-xs font-bold text-brand-300">{t('detail.method')}</span>
                   <span className="text-xs font-bold text-slate-200">{getVerificationMethodLabel(hospital.verification.confirmedBy)}</span>
                 </div>
                 <div className="flex items-center justify-between border-b border-white/10 pb-2">
-                  <span className="text-xs font-bold text-brand-300">Data Updated</span>
+                  <span className="text-xs font-bold text-brand-300">{t('detail.updated')}</span>
                   <span className="text-xs font-bold text-slate-200">{hospital.updatedAt}</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-brand-300">Source</span>
-                  <span className="text-xs font-bold text-slate-200">{hospital.dataSource}</span>
+                  <span className="text-xs font-bold text-brand-300">{t('detail.source')}</span>
+                  <span className="text-xs font-bold text-slate-200">{hospital.verification.confirmedBy === 'open_data' ? t('phone.nabiiSource') : hospital.dataSource}</span>
                 </div>
               </div>
             </section>
 
             {/* Access Capabilities Grid */}
             <section className="space-y-4 pt-4 border-t border-slate-100">
-              <h2 className="text-sm font-bold text-slate-400 uppercase tracking-wider border-b border-slate-100 pb-2">Access Capabilities</h2>
+              <h2 className="text-sm font-bold text-slate-500 uppercase tracking-wider border-b border-slate-100 pb-2">{t('detail.access')}</h2>
+              <p className="text-xs text-slate-500">{t('data.notice')}</p>
               <div className="grid grid-cols-2 gap-3">
                 <div className="p-3 bg-slate-50 border border-slate-200/60 rounded-xl flex items-center gap-2">
                   <Globe className={`w-4 h-4 ${hospital.accessInfo.englishSupportToday ? 'text-brand-500' : 'text-slate-300'}`} />
                   <div>
-                    <p className="text-[10px] text-slate-400 font-bold">English Support</p>
-                    <p className="text-xs font-extrabold text-slate-700">{hospital.accessInfo.englishSupportToday ? 'Available' : 'Limited'}</p>
+                    <p className="text-xs text-slate-500 font-bold">{t('filter.englishToday')}</p>
+                    <p className="text-xs font-extrabold text-slate-700">{hospital.supportedLanguages.includes('en') ? t('detail.listed') : t('selfpay.needConfirm')}</p>
                   </div>
                 </div>
 
                 <div className="p-3 bg-slate-50 border border-slate-200/60 rounded-xl flex items-center gap-2">
                   <CreditCard className={`w-4 h-4 ${hospital.accessInfo.creditCardAccepted ? 'text-brand-500' : 'text-slate-300'}`} />
                   <div>
-                    <p className="text-[10px] text-slate-400 font-bold">Credit Card</p>
-                    <p className="text-xs font-extrabold text-slate-700">{hospital.accessInfo.creditCardAccepted ? 'Accepted' : 'Unconfirmed'}</p>
+                    <p className="text-xs text-slate-500 font-bold">{t('selfpay.creditCard')}</p>
+                    <p className="text-xs font-extrabold text-slate-700">{capability(hospital.accessInfo.creditCardAccepted)}</p>
                   </div>
                 </div>
 
                 <div className="p-3 bg-slate-50 border border-slate-200/60 rounded-xl flex items-center gap-2">
                   <Shield className={`w-4 h-4 ${hospital.accessInfo.overseasInsuranceAccepted ? 'text-brand-500' : 'text-slate-300'}`} />
                   <div>
-                    <p className="text-[10px] text-slate-400 font-bold">Travel Insurance</p>
-                    <p className="text-xs font-extrabold text-slate-700">{hospital.accessInfo.overseasInsuranceAccepted ? 'Docs Prepared' : 'Unconfirmed'}</p>
+                    <p className="text-xs text-slate-500 font-bold">{t('selfpay.overseasInsurance')}</p>
+                    <p className="text-xs font-extrabold text-slate-700">{capability(hospital.accessInfo.overseasInsuranceAccepted)}</p>
                   </div>
                 </div>
 
                 <div className="p-3 bg-slate-50 border border-slate-200/60 rounded-xl flex items-center gap-2">
                   <Sparkles className={`w-4 h-4 ${hospital.hasHolidayService ? 'text-brand-500' : 'text-slate-300'}`} />
                   <div>
-                    <p className="text-[10px] text-slate-400 font-bold">Holiday Service</p>
-                    <p className="text-xs font-extrabold text-slate-700">{hospital.verification.status === 'verified' ? (hospital.hasHolidayService ? 'Available' : 'Closed') : t('selfpay.needConfirm')}</p>
+                    <p className="text-xs text-slate-500 font-bold">{t('detail.holiday')}</p>
+                    <p className="text-xs font-extrabold text-slate-700">{capability(hospital.verification.status === 'verified' ? hospital.hasHolidayService : undefined)}</p>
                   </div>
                 </div>
+              </div>
+              <div className="p-3 bg-slate-50 border border-slate-200/60 rounded-xl">
+                <p className="text-xs font-bold text-slate-500">{t('filter.walkIn')}</p>
+                <p className="text-xs font-bold text-slate-700">{capability(hospital.accessInfo.walkInAvailable)}</p>
               </div>
             </section>
 
@@ -337,7 +344,7 @@ export default function HospitalDetail() {
                     <div className="min-w-0">
                       <p className="text-[10px] text-slate-400 font-bold leading-tight">{row.label}</p>
                       <p className={`text-xs font-extrabold ${row.val === true ? 'text-accent-700' : row.val === false ? 'text-slate-400' : 'text-amber-600'}`}>
-                        {row.val === true ? '✓' : row.val === false ? t('selfpay.notAvailable') : t('selfpay.needConfirm')}
+                        {capability(row.val)}
                       </p>
                     </div>
                   </div>
@@ -372,12 +379,12 @@ export default function HospitalDetail() {
             {/* Document Notices */}
             <div className="bg-brand-50/50 border border-brand-100 p-5 rounded-2xl space-y-3">
               <h3 className="flex items-center gap-2 text-brand-800 font-bold text-xs uppercase tracking-wider">
-                <Info className="w-4 h-4 text-brand-600" /> Important Checklist
+                <Info className="w-4 h-4 text-brand-600" /> {t('detail.checklist')}
               </h3>
               <ul className="text-xs text-brand-900/80 leading-relaxed font-semibold list-disc pl-4 space-y-1">
-                <li>Bring your Passport or Residence Card (if resident).</li>
-                <li>Bring your Travel Insurance Certificate for smooth claims.</li>
-                <li>Write down your current symptoms and medical history in advance.</li>
+                <li>{t('detail.bringID')}</li>
+                <li>{t('detail.bringInsurance')}</li>
+                <li>{t('detail.prepareSymptoms')}</li>
               </ul>
             </div>
           </div>
@@ -386,4 +393,13 @@ export default function HospitalDetail() {
       </div>
     </div>
   );
+}
+
+function DetailLoading() {
+  const { t } = useLanguage();
+  return <p className="p-8 text-center">{t('clinic.loading')}</p>;
+}
+
+export default function HospitalDetail() {
+  return <Suspense fallback={<DetailLoading />}><HospitalDetailContent /></Suspense>;
 }

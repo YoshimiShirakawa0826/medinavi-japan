@@ -123,7 +123,7 @@ export default function EmergencyGuide() {
       <section className="bg-slate-50 border border-slate-200 rounded-3xl p-6 sm:p-8 space-y-4">
         <h2 className="flex items-center gap-2 font-bold text-slate-800"><MapPin className="w-5 h-5 text-brand-600" />{t('emergency.locationTitle')}</h2>
         <p className="text-sm text-slate-600">{t('emergency.locationPrompt')}</p>
-        <button onClick={geo.request} disabled={geo.status === 'prompting'} className="rounded-xl bg-brand-600 px-5 py-3 font-bold text-white disabled:opacity-50">
+        <button onClick={() => geo.request()} disabled={geo.status === 'prompting'} className="rounded-xl bg-brand-600 px-5 py-3 font-bold text-white disabled:opacity-50">
           {t(geo.status === 'prompting' ? 'btn.locating' : 'distance.useLocation')}
         </button>
         {isGeoFailureStatus(geo.status) && <p role="alert" className="text-sm text-amber-800">{t(`location.${geo.status}`)}</p>}

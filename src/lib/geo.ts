@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { calculateDistance } from "./utils";
 import { hasClinicCoordinates } from './clinic-utils';
 
@@ -42,7 +42,7 @@ export interface GeoState {
   coords: Coords | null;
   status: GeoStatus;
   /** 位置情報の取得を要求する（ユーザー操作起点で呼ぶこと） */
-  request: () => void;
+  request: (onLocated?: (coords: Coords) => void) => void;
   /** 取得済み位置をクリア（フォールバックに戻す） */
   clear: () => void;
 }
@@ -54,8 +54,11 @@ export interface GeoState {
 export function useGeolocation(): GeoState {
   const [coords, setCoords] = useState<Coords | null>(null);
   const [status, setStatus] = useState<GeoStatus>("idle");
+  const requestId = useRef(0);
+  useEffect(() => () => { requestId.current++; }, []);
 
-  const request = useCallback(() => {
+  const request = useCallback((onLocated?: (coords: Coords) => void) => {
+    const id = ++requestId.current;
     setCoords(null);
     if (typeof navigator === "undefined" || !("geolocation" in navigator)) {
       setStatus("unsupported");
@@ -64,15 +67,20 @@ export function useGeolocation(): GeoState {
     setStatus("prompting");
     navigator.geolocation.getCurrentPosition(
       (pos) => {
-        setCoords({ lat: pos.coords.latitude, lng: pos.coords.longitude });
+        if (id !== requestId.current) return;
+        const next = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+        if (!hasClinicCoordinates(next.lat, next.lng)) { setStatus('unavailable'); return; }
+        setCoords(next);
         setStatus("granted");
+        onLocated?.(next);
       },
-      (err) => setStatus(getGeoFailureStatus(err)),
+      (err) => { if (id === requestId.current) setStatus(getGeoFailureStatus(err)); },
       { enableHighAccuracy: false, timeout: 10000, maximumAge: 60000 }
     );
   }, []);
 
   const clear = useCallback(() => {
+    requestId.current++;
     setCoords(null);
     setStatus("idle");
   }, []);

@@ -1,4 +1,5 @@
 import type { Language } from '@/types';
+import { auditMessages } from './audit-messages';
 
 export const uiMessages: Record<string, Record<Language, string>> = {
   'phone.missing': {
@@ -322,5 +323,6 @@ export const uiMessages: Record<string, Record<Language, string>> = {
     "zh": "不支持（已确认）",
     "ko": "미지원 (확인됨)",
     "es": "No disponible (confirmado)"
-  }
+  },
+  ...auditMessages,
 };

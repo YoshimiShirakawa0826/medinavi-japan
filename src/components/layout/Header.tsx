@@ -19,13 +19,13 @@ export function Header() {
             <div className="bg-gradient-to-tr from-rose-500 to-brand-600 p-2 rounded-xl text-white shadow-md shadow-indigo-100/50 group-hover:scale-105 transition-transform">
               <HeartPulse className="w-5 h-5" />
             </div>
-            <span className="font-extrabold text-xl bg-gradient-to-r from-slate-900 via-slate-800 to-slate-700 bg-clip-text text-transparent group-hover:opacity-90 transition-opacity">
+            <span className="font-extrabold text-base sm:text-xl bg-gradient-to-r from-slate-900 via-slate-800 to-slate-700 bg-clip-text text-transparent group-hover:opacity-90 transition-opacity">
               {t('app.name')}
             </span>
           </Link>
           
           <div className="flex items-center gap-4">
-            <nav className="hidden md:flex gap-6 mr-4">
+            <nav className="hidden lg:flex gap-6 mr-4">
               <Link href="/" className="text-sm font-semibold text-slate-600 hover:text-brand-600 transition-colors">
                 {t('nav.home')}
               </Link>
@@ -63,6 +63,12 @@ export function Header() {
             </div>
           </div>
         </div>
+        <nav aria-label={t('nav.mobile')} className="lg:hidden flex gap-4 overflow-x-auto whitespace-nowrap pb-3 text-xs font-bold">
+          <Link href="/" className="text-slate-700">{t('nav.home')}</Link>
+          <Link href="/hospitals" className="text-brand-700">{t('nav.hospitals')}</Link>
+          <Link href="/emergency" className="text-emergency-600">{t('nav.emergency')}</Link>
+          <Link href={ONLINE_CONSULT_URL} className="text-brand-700">{t('nav.online')} · {t('common.paid')}</Link>
+        </nav>
       </div>
     </header>
   );

@@ -17,8 +17,8 @@ export function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-xs border-t border-slate-800/50 pt-8">
           <p className="font-medium">&copy; {new Date().getFullYear()} {t('app.name')}. All rights reserved.</p>
           <div className="flex gap-6">
-            <span className="hover:text-white transition-colors cursor-pointer font-medium">Terms of Service</span>
-            <span className="hover:text-white transition-colors cursor-pointer font-medium">Privacy Policy</span>
+            <span className="font-medium">{t('footer.termsPending')}</span>
+            <span className="font-medium">{t('footer.privacyPending')}</span>
           </div>
         </div>
       </div>
