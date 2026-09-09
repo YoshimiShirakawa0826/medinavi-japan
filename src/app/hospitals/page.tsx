@@ -11,7 +11,7 @@ import { clinicMapUrl, hasClinicCoordinates, loadClinics, matchesDepartment, pag
 import { telephoneHref, nabiiClinicUrl } from '@/lib/clinic-contact';
 import { matchesKeyword, searchRadius, updateSearch, readSearchLocation, saveSearchLocation, RESULT_PAGE_SIZE, weekendStatus } from '@/lib/search-state';
 import {
-  useGeolocation, distanceKm, formatDistance, DISTANCE_OPTIONS, SHINJUKU_CENTER, AREA_PRESETS,
+  useGeolocation, distanceKm, formatDistance, DISTANCE_OPTIONS, AREA_PRESETS,
 } from '@/lib/geo';
 
 // スマホでも操作しやすい20件単位。全件をページ切替で閲覧できる。
@@ -70,7 +70,7 @@ function HospitalsContent() {
   // 距離検索には、現在地取得または明示的な駅選択が必要。
   const geo = useGeolocation();
 
-  // フォールバック: 位置情報が使えない場合にユーザーが選ぶエリア/駅（任意）。
+  // 現在地の利用有無にかかわらず、エリア・駅を選べる。
   const manualPoint = AREA_PRESETS.find(a => a.name === searchParams.get('area')) ?? null;
 
   // 実際の現在地（一覧のボタン取得 or ホームからの受け渡し）。
@@ -88,7 +88,7 @@ function HospitalsContent() {
     resultsRef.current?.scrollTo({ top: 0 });
   };
 
-  // フォールバックのエリアを選んだときも近い順にする。位置情報は端末内のみで使用（サーバー送信なし）。
+  // 駅を選んだときも近い順にする。距離計算は端末内で行う。
   const selectArea = (a: { name: string; lat: number; lng: number }) => {
     geo.clear();
     setSeededCoords(null);
@@ -118,8 +118,21 @@ function HospitalsContent() {
   // 地図表示（要件3: 初期はリストのみ。ユーザーが「地図を表示」を押したときだけ OSM を読み込む）。
   // OpenStreetMap 埋め込みはキー不要・無料で、Google Maps API 課金は一切発生しない。
   const [mapVisible, setMapVisible] = useState(false);
+  const [mapSupported, setMapSupported] = useState(false);
   const [mapTarget, setMapTarget] = useState<{ lat: number; lng: number; name: string } | null>(null);
-  const mapCenter = mapTarget ?? { ...(refPoint ?? SHINJUKU_CENTER), name: manualPoint ? t(`area.${manualPoint.name}`) : t('distance.useLocation') };
+  const mapCenter = mapTarget ?? (refPoint ? { ...refPoint, name: manualPoint ? t(`area.${manualPoint.name}`) : t('distance.useLocation') } : null);
+  const openMap = () => {
+    // OSM's embedded map needs WebGL. Check only after an explicit map action.
+    try {
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('webgl2') ?? canvas.getContext('webgl');
+      setMapSupported(!!context);
+      context?.getExtension('WEBGL_lose_context')?.loseContext();
+    } catch {
+      setMapSupported(false);
+    }
+    setMapVisible(true);
+  };
   const osmSrc = (lat: number, lng: number) => {
     const d = 0.012; // 約1km四方
     const bbox = `${lng - d}%2C${lat - d}%2C${lng + d}%2C${lat + d}`;
@@ -127,7 +140,7 @@ function HospitalsContent() {
   };
   const showClinicOnMap = (lat: number, lng: number, name: string) => {
     setMapTarget({ lat, lng, name });
-    setMapVisible(true);
+    openMap();
     mapRef.current?.scrollIntoView({ block: 'start', behavior: 'smooth' });
   };
 
@@ -332,10 +345,9 @@ function HospitalsContent() {
                 : geo.status === 'denied' ? t('distance.denied')
                 : geo.status === 'unsupported' ? t('distance.unsupported')
                 : geo.status === 'error' ? t('location.error')
-                : needsAreaSelection ? t('distance.chooseArea')
-                : t('distance.chooseArea')}
+                : t('distance.originNeeded')}
             </p>
-            {/* フォールバック: 取得できない/拒否時にエリア・駅を選んで基準点にする */}
+            {/* エリア・駅を選んで検索の基準点にする */}
             {(
               <div className="pt-2 space-y-1.5 border-t border-slate-100">
                 <p className="text-[11px] font-bold text-slate-500">{t('distance.chooseArea')}</p>
@@ -503,7 +515,7 @@ function HospitalsContent() {
 
         {/* Map Area — OpenStreetMap（要件3: ユーザーが押したときだけ読込。Google Maps API 不使用・課金ゼロ） */}
         <div ref={mapRef} className="scroll-mt-36 w-full lg:w-1/2 h-[450px] lg:h-[750px] relative overflow-hidden rounded-3xl border border-slate-200 shadow-lg lg:sticky lg:top-20">
-          {!mapVisible ? (
+          {!mapVisible || !mapCenter ? (
             <div className="absolute inset-0 bg-slate-950 flex items-center justify-center">
               <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#6366f1_1px,transparent_1px)] [background-size:24px_24px]"></div>
               <div className="absolute w-96 h-96 rounded-full bg-brand-500/10 blur-3xl -top-20 -right-20"></div>
@@ -518,7 +530,7 @@ function HospitalsContent() {
                   <p className="text-slate-400 text-sm leading-relaxed">{t('map.hint')}</p>
                 </div>
                 <button
-                  onClick={() => setMapVisible(true)}
+                  onClick={openMap}
                   disabled={!refPoint}
                   className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl text-sm font-bold text-white bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-700 hover:to-indigo-700 transition-all shadow-md disabled:opacity-40 disabled:cursor-not-allowed"
                 >
@@ -529,12 +541,21 @@ function HospitalsContent() {
             </div>
           ) : (
             <div className="absolute inset-0 bg-white">
-              <iframe
+              {mapSupported ? <iframe
                 title="OpenStreetMap"
                 className="w-full h-full border-0"
                 loading="lazy"
                 src={osmSrc(mapCenter.lat, mapCenter.lng)}
-              />
+                onError={() => setMapSupported(false)}
+              /> : (
+                <div className="flex h-full items-center justify-center bg-slate-50 p-8 text-center">
+                  <div className="max-w-sm space-y-4">
+                    <MapPin className="mx-auto h-10 w-10 text-brand-600" />
+                    <h3 className="font-bold text-slate-800">{mapCenter.name}</h3>
+                    <p role="status" className="text-sm leading-relaxed text-slate-600">{t('map.unavailable')}</p>
+                  </div>
+                </div>
+              )}
               {/* 上部オーバーレイ: 対象名 + 閉じる */}
               <div className="absolute top-3 left-3 right-3 flex items-center justify-between gap-2 pointer-events-none">
                 <span className="pointer-events-auto max-w-[65%] truncate bg-white/95 backdrop-blur border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-bold text-slate-700 shadow-sm">
@@ -548,16 +569,14 @@ function HospitalsContent() {
                 </button>
               </div>
               {/* 対象への経路案内は Google Maps（外部リンク・URLスキーム・無料）で */}
-              {mapTarget && (
                 <a
-                  href={`https://www.google.com/maps/search/?api=1&query=${mapTarget.lat},${mapTarget.lng}`}
+                  href={`https://www.google.com/maps/search/?api=1&query=${mapCenter.lat},${mapCenter.lng}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="absolute bottom-3 right-3 inline-flex items-center gap-1.5 bg-brand-600 text-white rounded-xl px-3 py-2 text-xs font-bold shadow-md hover:bg-brand-700 transition-colors"
                 >
                   <ExternalLink className="w-3.5 h-3.5" /> {t('btn.openMap')}
                 </a>
-              )}
             </div>
           )}
         </div>
