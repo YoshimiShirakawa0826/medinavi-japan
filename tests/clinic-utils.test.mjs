@@ -32,7 +32,7 @@ test('missing, malformed, overnight and holiday schedules never become an open b
   assert.equal(scheduledOpenStatus(schedule, new Date('2028-09-05T01:00:00Z')), null);
 });
 
-test('invalid clinic coordinates use the Japanese name and address in map searches', () => {
+test('map links identify clinics by name and address, even with valid coordinates', () => {
   assert.equal(hasClinicCoordinates(0, 0), false);
   assert.equal(hasClinicCoordinates(NaN, 139), false);
   assert.equal(hasClinicCoordinates(91, 139), false);
@@ -40,6 +40,9 @@ test('invalid clinic coordinates use the Japanese name and address in map search
   assert.equal(hasClinicCoordinates(35.6, 139.7), true);
   const clinic = { latitude: 0, longitude: 0, name: { ja: 'テスト医院' }, address: { ja: '東京都新宿区' } };
   assert.equal(new URL(clinicMapUrl(clinic)).searchParams.get('query'), 'テスト医院 東京都新宿区');
+  assert.equal(new URL(clinicMapUrl({ ...clinic, latitude: 35.6, longitude: 139.7 })).searchParams.get('query'), 'テスト医院 東京都新宿区');
+  assert.equal(new URL(clinicMapUrl({ ...clinic, name: { ja: 'ＴＯＫＹＯ医院' } })).searchParams.get('query'), 'TOKYO医院 東京都新宿区');
+  assert.equal(new URL(clinicMapUrl({ latitude: 35.6, longitude: 139.7, name: {}, address: {} })).searchParams.get('query'), '35.6,139.7');
 });
 
 test('department searches exclude records with no department', () => {

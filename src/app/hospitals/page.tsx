@@ -119,7 +119,7 @@ function HospitalsContent() {
   // OpenStreetMap 埋め込みはキー不要・無料で、Google Maps API 課金は一切発生しない。
   const [mapVisible, setMapVisible] = useState(false);
   const [mapSupported, setMapSupported] = useState(false);
-  const [mapTarget, setMapTarget] = useState<{ lat: number; lng: number; name: string } | null>(null);
+  const [mapTarget, setMapTarget] = useState<{ lat: number; lng: number; name: string; url: string } | null>(null);
   const mapCenter = mapTarget ?? (refPoint ? { ...refPoint, name: manualPoint ? t(`area.${manualPoint.name}`) : t('distance.useLocation') } : null);
   const openMap = () => {
     // OSM's embedded map needs WebGL. Check only after an explicit map action.
@@ -138,8 +138,8 @@ function HospitalsContent() {
     const bbox = `${lng - d}%2C${lat - d}%2C${lng + d}%2C${lat + d}`;
     return `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${lat}%2C${lng}`;
   };
-  const showClinicOnMap = (lat: number, lng: number, name: string) => {
-    setMapTarget({ lat, lng, name });
+  const showClinicOnMap = (hospital: Hospital) => {
+    setMapTarget({ lat: hospital.latitude, lng: hospital.longitude, name: hospital.name[language] || hospital.name.en || hospital.name.ja, url: clinicMapUrl(hospital) });
     openMap();
     mapRef.current?.scrollIntoView({ block: 'start', behavior: 'smooth' });
   };
@@ -493,7 +493,7 @@ function HospitalsContent() {
                     </a>
                     {/* この施設を右の OSM 地図パネルに表示（内部プレビュー・無料） */}
                     <button
-                      onClick={() => showClinicOnMap(hospital.latitude, hospital.longitude, hospital.name[language] || hospital.name.en || hospital.name.ja)}
+                      onClick={() => showClinicOnMap(hospital)}
                       disabled={!hasClinicCoordinates(hospital.latitude, hospital.longitude)}
                       aria-label={`${t('map.show')}: ${hospital.name[language] || hospital.name.ja}`}
                       title={t(hasClinicCoordinates(hospital.latitude, hospital.longitude) ? 'map.show' : 'list.coordinatesMissing')}
@@ -570,7 +570,7 @@ function HospitalsContent() {
               </div>
               {/* 対象への経路案内は Google Maps（外部リンク・URLスキーム・無料）で */}
                 <a
-                  href={`https://www.google.com/maps/search/?api=1&query=${mapCenter.lat},${mapCenter.lng}`}
+                  href={mapTarget?.url ?? `https://www.google.com/maps/search/?api=1&query=${mapCenter.lat},${mapCenter.lng}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="absolute bottom-3 right-3 inline-flex items-center gap-1.5 bg-brand-600 text-white rounded-xl px-3 py-2 text-xs font-bold shadow-md hover:bg-brand-700 transition-colors"

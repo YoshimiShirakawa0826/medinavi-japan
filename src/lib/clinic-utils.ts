@@ -14,9 +14,12 @@ export function hasClinicCoordinates(lat: number, lng: number): boolean {
 }
 
 export function clinicMapUrl(hospital: Pick<Hospital, 'latitude' | 'longitude' | 'name' | 'address'>): string {
-  const query = hasClinicCoordinates(hospital.latitude, hospital.longitude)
-    ? `${hospital.latitude},${hospital.longitude}`
-    : `${hospital.name.ja} ${hospital.address.ja}`;
+  // A coordinate-only query opens a pin; name + address can resolve the clinic's listing.
+  // Keep this a Maps URL, without paid Places / Geocoding requests.
+  const place = [hospital.name.ja || hospital.name.en, hospital.address.ja || hospital.address.en]
+    .filter(Boolean).join(' ').normalize('NFKC').trim();
+  const query = place || (hasClinicCoordinates(hospital.latitude, hospital.longitude)
+    ? `${hospital.latitude},${hospital.longitude}` : '東京都 医療機関');
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
 }
 

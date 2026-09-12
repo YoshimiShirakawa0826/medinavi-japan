@@ -2,6 +2,9 @@ import type { Language } from '@/types';
 
 // JA, EN, ZH, KO, ES. Keeping each row together makes omissions easy to check.
 const rows: Record<string, [string, string, string, string, string]> = {
+  'home.areaLabel': ['エリア・駅', 'Area or station', '地区或车站', '지역·역', 'Zona o estación'],
+  'home.allAreas': ['東京全域', 'All Tokyo', '东京全域', '도쿄 전역', 'Todo Tokio'],
+  'home.listedHoursSearch': ['診療時間内の施設（目安）', 'Within listed opening hours', '登记营业时间内的机构', '등록 진료시간 내 기관', 'Dentro del horario publicado'],
   'search.keyword': ['医療機関名・住所で検索', 'Search clinic name or address', '按机构名称或地址搜索', '의료기관명·주소 검색', 'Buscar por nombre o dirección'],
   'search.placeholder': ['例：千代田区、Tokyo Clinic', 'e.g. Chiyoda, Tokyo Clinic', '例如：千代田区、Tokyo Clinic', '예: 千代田区, Tokyo Clinic', 'Ej.: Chiyoda, Tokyo Clinic'],
   'search.button': ['検索', 'Search', '搜索', '검색', 'Buscar'],

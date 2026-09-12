@@ -2,14 +2,14 @@
 
 import { useLanguage } from '@/components/LanguageProvider';
 import { departments } from '@/types';
-import { getGeoFailureStatus, isGeoFailureStatus, type GeoStatus } from '@/lib/geo';
+import { AREA_PRESETS, getGeoFailureStatus, isGeoFailureStatus, type GeoStatus } from '@/lib/geo';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import {
   AlertCircle, Search, Clock, Stethoscope, Languages,
   Shield, CreditCard, CheckCircle, ArrowRight, ChevronRight,
-  MapPin, Zap, ExternalLink, MessageCircle, Info,
+  MapPin, ExternalLink, MessageCircle, Info,
 } from 'lucide-react';
 
 // 有料の看護師相談。サービス説明から外部窓口・設定済み決済へ案内する。
@@ -47,6 +47,8 @@ export default function Home() {
   const router = useRouter();
 
   const [selectedDept, setSelectedDept] = useState('');
+  const [keyword, setKeyword] = useState('');
+  const [selectedArea, setSelectedArea] = useState('');
   const [selectedLang, setSelectedLang] = useState('');
   const [openNow,      setOpenNow]      = useState(false);
   const [englishToday, setEnglishToday] = useState(false);
@@ -62,6 +64,12 @@ export default function Home() {
 
   const handleSearch = () => {
     const p = new URLSearchParams();
+    if (keyword.trim()) p.set('q', keyword.trim());
+    if (selectedArea) {
+      p.set('area', selectedArea);
+      p.set('location', 'manual');
+      p.set('dist', 'near');
+    }
     if (selectedDept)  p.set('dept',         selectedDept);
     if (selectedLang)  p.set('lang',         selectedLang);
     if (openNow)       p.set('open',         'true');
@@ -110,10 +118,10 @@ export default function Home() {
     (d.name[language as keyof typeof d.name] as string) || d.name.en;
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-10 sm:py-16 space-y-10">
+    <div className="max-w-4xl mx-auto px-4 py-6 sm:py-8 space-y-6">
 
       {/* ── 1. TITLE ── */}
-      <div className="text-center space-y-4">
+      <div className="text-center space-y-3">
         <div className="flex flex-wrap items-center justify-center gap-3">
           <span className="inline-flex items-center gap-1.5 bg-brand-50 border border-brand-200/80 rounded-full px-3.5 py-1 text-xs font-bold text-brand-700 shadow-xs">
             {t('home.badgeData')}
@@ -123,10 +131,10 @@ export default function Home() {
             {t('home.badgeVerified')}
           </span>
         </div>
-        <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight">
+        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 leading-tight">
           MediNavi <span className="bg-gradient-to-r from-brand-600 to-indigo-500 bg-clip-text text-transparent">JAPAN</span>
         </h1>
-        <p className="text-base text-slate-500 font-semibold">
+        <p className="text-sm text-slate-500 font-medium">
           {t('home.subtitle')}
         </p>
       </div>
@@ -135,31 +143,44 @@ export default function Home() {
       <div className="glass-panel rounded-3xl shadow-xl shadow-indigo-100/40 border border-slate-200/40 overflow-hidden">
 
         {/* Header */}
-        <div className="bg-gradient-to-r from-brand-600 to-indigo-600 px-6 py-5 sm:px-8 flex items-center gap-3">
-          <div className="bg-white/10 p-2 rounded-xl text-white">
-            <Search className="w-5 h-5" />
-          </div>
-          <h2 className="text-xl font-bold text-white">{t('search.title')}</h2>
+        <div className="border-b border-slate-100 px-5 py-3 sm:px-6">
+          <h2 className="text-base font-bold text-slate-800">{t('search.title')}</h2>
         </div>
 
-        <div className="p-6 sm:p-8 space-y-7">
+        <div className="p-5 sm:p-6 space-y-5">
+          <form role="search" onSubmit={event => { event.preventDefault(); handleSearch(); }} className="space-y-3">
+            <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_12rem]">
+              <label className="space-y-1.5 text-sm font-bold text-slate-700">
+                <span>{t('search.keyword')}</span>
+                <input type="search" value={keyword} onChange={event => setKeyword(event.target.value)} placeholder={t('search.placeholder')} className="w-full min-h-12 rounded-xl border border-slate-300 bg-white px-3 py-2.5 font-normal text-slate-900" />
+              </label>
+              <label className="space-y-1.5 text-sm font-bold text-slate-700">
+                <span>{t('home.areaLabel')}</span>
+                <select value={selectedArea} onChange={event => setSelectedArea(event.target.value)} className="w-full min-h-12 rounded-xl border border-slate-300 bg-white px-3 py-2.5 font-normal text-slate-900">
+                  <option value="">{t('home.allAreas')}</option>
+                  {AREA_PRESETS.map(area => <option key={area.name} value={area.name}>{t(`area.${area.name}`)}</option>)}
+                </select>
+              </label>
+            </div>
+            <button type="submit" className="flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-brand-600 px-4 py-3 font-bold text-white hover:bg-brand-700"><Search className="h-5 w-5" />{t('search.button')}</button>
+          </form>
 
           {/* ── 最優先アクション（3タップ以内で医療機関へ, 要件4）── */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <button
               onClick={() => quickSearch({ open: 'true' })}
-              className="flex items-center gap-3 bg-gradient-to-r from-emergency-600 to-rose-600 text-white rounded-2xl px-5 py-4 shadow-lg hover:scale-[1.01] active:scale-95 transition-all"
+              className="flex items-center gap-3 bg-white border border-slate-200 text-slate-700 rounded-2xl px-4 py-3 hover:bg-slate-50 active:scale-95 transition-all"
             >
-              <Zap className="w-6 h-6 flex-shrink-0" />
-              <span className="text-base font-extrabold text-left leading-tight">{t('btn.needCareNow')}</span>
+              <Clock className="w-5 h-5 flex-shrink-0 text-brand-600" />
+              <span className="text-sm font-bold text-left leading-tight">{t('home.listedHoursSearch')}</span>
             </button>
             <button
               onClick={findNearby}
               disabled={locating}
-              className="flex items-center gap-3 bg-gradient-to-r from-brand-600 to-indigo-600 text-white rounded-2xl px-5 py-4 shadow-lg hover:scale-[1.01] active:scale-95 transition-all disabled:opacity-70 disabled:cursor-wait"
+              className="flex items-center gap-3 bg-brand-50 border border-brand-200 text-brand-700 rounded-2xl px-4 py-3 hover:bg-brand-100 active:scale-95 transition-all disabled:opacity-70 disabled:cursor-wait"
             >
-              <MapPin className={`w-6 h-6 flex-shrink-0 ${locating ? 'animate-pulse' : ''}`} />
-              <span className="text-base font-extrabold text-left leading-tight">{locating ? t('btn.locating') : t('btn.findNearby')}</span>
+              <MapPin className={`w-5 h-5 flex-shrink-0 ${locating ? 'animate-pulse' : ''}`} />
+              <span className="text-sm font-bold text-left leading-tight">{locating ? t('btn.locating') : t('btn.findNearby')}</span>
             </button>
           </div>
 

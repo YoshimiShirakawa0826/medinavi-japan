@@ -1,4 +1,7 @@
 export const CONSULTATION_INFO_URL = 'https://ghjapan2025.github.io/nurse-guide-japan/';
+export const CONSULTATION_PHONE = '070-9036-9655';
+export const CONSULTATION_PHONE_INTERNATIONAL = '+81 70-9036-9655';
+export const CONSULTATION_PHONE_HREF = 'tel:+817090369655';
 
 /** Configured by the operator, never from request parameters. */
 export function paymentLinkFromConfig(value: string | undefined): string | null {
