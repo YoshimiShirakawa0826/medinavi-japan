@@ -2,12 +2,13 @@
 
 import { useLanguage } from '@/components/LanguageProvider';
 import { departments } from '@/types';
-import { MapPin, Phone, Clock, AlertTriangle, ArrowLeft, Info, ExternalLink, CheckCircle, CreditCard, Shield, Globe, Sparkles, Wallet, Receipt, FileText } from 'lucide-react';
+import { MapPin, Phone, Clock, AlertTriangle, ArrowLeft, Info, ExternalLink, CheckCircle, Shield, Globe, Wallet, Receipt, FileText } from 'lucide-react';
 import Link from 'next/link';
 import { useParams, useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
 import { clinicMapUrl } from '@/lib/clinic-utils';
 import { useClinics } from '@/lib/use-clinics';
+import { ClinicAccessPanel } from '@/components/ClinicAccessPanel';
 import { telephoneHref, nabiiClinicUrl } from '@/lib/clinic-contact';
 import { safeSearchReturn, weekendStatus } from '@/lib/search-state';
 
@@ -280,48 +281,7 @@ function HospitalDetailContent() {
               </div>
             </section>
 
-            {/* Access Capabilities Grid */}
-            <section className="space-y-4 pt-4 border-t border-slate-100">
-              <h2 className="text-sm font-bold text-slate-500 uppercase tracking-wider border-b border-slate-100 pb-2">{t('detail.access')}</h2>
-              <p className="text-xs text-slate-500">{t('data.notice')}</p>
-              <div className="grid grid-cols-2 gap-3">
-                <div className="p-3 bg-slate-50 border border-slate-200/60 rounded-xl flex items-center gap-2">
-                  <Globe className={`w-4 h-4 ${hospital.accessInfo.englishSupportToday ? 'text-brand-500' : 'text-slate-300'}`} />
-                  <div>
-                    <p className="text-xs text-slate-500 font-bold">{t('filter.englishToday')}</p>
-                    <p className="text-xs font-extrabold text-slate-700">{hospital.supportedLanguages.includes('en') ? t('detail.listed') : t('selfpay.needConfirm')}</p>
-                  </div>
-                </div>
-
-                <div className="p-3 bg-slate-50 border border-slate-200/60 rounded-xl flex items-center gap-2">
-                  <CreditCard className={`w-4 h-4 ${hospital.accessInfo.creditCardAccepted ? 'text-brand-500' : 'text-slate-300'}`} />
-                  <div>
-                    <p className="text-xs text-slate-500 font-bold">{t('selfpay.creditCard')}</p>
-                    <p className="text-xs font-extrabold text-slate-700">{capability(hospital.accessInfo.creditCardAccepted)}</p>
-                  </div>
-                </div>
-
-                <div className="p-3 bg-slate-50 border border-slate-200/60 rounded-xl flex items-center gap-2">
-                  <Shield className={`w-4 h-4 ${hospital.accessInfo.overseasInsuranceAccepted ? 'text-brand-500' : 'text-slate-300'}`} />
-                  <div>
-                    <p className="text-xs text-slate-500 font-bold">{t('selfpay.overseasInsurance')}</p>
-                    <p className="text-xs font-extrabold text-slate-700">{capability(hospital.accessInfo.overseasInsuranceAccepted)}</p>
-                  </div>
-                </div>
-
-                <div className="p-3 bg-slate-50 border border-slate-200/60 rounded-xl flex items-center gap-2">
-                  <Sparkles className={`w-4 h-4 ${hospital.hasHolidayService ? 'text-brand-500' : 'text-slate-300'}`} />
-                  <div>
-                    <p className="text-xs text-slate-500 font-bold">{t('detail.holiday')}</p>
-                    <p className="text-xs font-extrabold text-slate-700">{capability(hospital.verification.status === 'verified' ? hospital.hasHolidayService : undefined)}</p>
-                  </div>
-                </div>
-              </div>
-              <div className="p-3 bg-slate-50 border border-slate-200/60 rounded-xl">
-                <p className="text-xs font-bold text-slate-500">{t('filter.walkIn')}</p>
-                <p className="text-xs font-bold text-slate-700">{capability(hospital.accessInfo.walkInAvailable)}</p>
-              </div>
-            </section>
+            <ClinicAccessPanel hospital={hospital} />
 
             {/* Insurance / Self-pay ── 自費診療タブ（要件1）── */}
             <section className="space-y-4 pt-4 border-t border-slate-100">
@@ -334,8 +294,6 @@ function HospitalDetailContent() {
                 {[
                   { label: t('selfpay.selfPayOk'),         val: hospital.accessInfo?.selfPayAvailable,          icon: <Receipt className="w-4 h-4" /> },
                   { label: t('selfpay.noInsuranceOk'),     val: hospital.accessInfo?.noInsuranceAccepted,       icon: <Shield className="w-4 h-4" /> },
-                  { label: t('selfpay.creditCard'),        val: hospital.verification.status === 'verified' ? hospital.accessInfo?.creditCardAccepted : undefined, icon: <CreditCard className="w-4 h-4" /> },
-                  { label: t('selfpay.overseasInsurance'), val: hospital.verification.status === 'verified' ? hospital.accessInfo?.overseasInsuranceAccepted : undefined, icon: <Shield className="w-4 h-4" /> },
                   { label: t('selfpay.certJa'),            val: hospital.accessInfo?.medicalCertificateJa,      icon: <FileText className="w-4 h-4" /> },
                   { label: t('selfpay.certEn'),            val: hospital.accessInfo?.medicalCertificateEn,      icon: <FileText className="w-4 h-4" /> },
                 ].map((row, i) => (

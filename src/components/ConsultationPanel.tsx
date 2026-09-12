@@ -60,9 +60,18 @@ const copy = {
   },
 };
 
-export function ConsultationPanel({ paymentLink }: { paymentLink: string | null }) {
+const chatCopy = {
+  ja: { title: 'テキストでのご相談', action: 'WhatsAppで問い合わせる', note: '外部のWhatsAppが開きます。最初は希望言語と相談の目的をお知らせください。返信時間は受付窓口でご確認ください。', pending: 'テキスト相談の窓口は準備中です。現在は電話でお問い合わせいただけます。' },
+  en: { title: 'Text enquiries', action: 'Enquire on WhatsApp', note: 'Opens WhatsApp. Start with your preferred language and the help you need. Confirm response times with the service.', pending: 'Text enquiries are being prepared. Please contact us by phone for now.' },
+  zh: { title: '文字咨询', action: '通过WhatsApp咨询', note: '将打开WhatsApp。请先告知希望语言及咨询目的，回复时间请向服务窗口确认。', pending: '文字咨询正在准备中，目前请通过电话联系。' },
+  ko: { title: '문자 상담 문의', action: 'WhatsApp으로 문의', note: 'WhatsApp이 열립니다. 희망 언어와 문의 목적부터 알려주세요. 답변 시간은 서비스 창구에 확인하세요.', pending: '문자 상담 창구를 준비 중입니다. 현재는 전화로 문의하실 수 있습니다.' },
+  es: { title: 'Consultas por texto', action: 'Consultar por WhatsApp', note: 'Se abre WhatsApp. Indique primero su idioma y la ayuda que necesita. Confirme los tiempos de respuesta con el servicio.', pending: 'Estamos preparando las consultas por texto. Por ahora, contacte por teléfono.' },
+};
+
+export function ConsultationPanel({ paymentLink, whatsAppLink }: { paymentLink: string | null; whatsAppLink: string | null }) {
   const { language, t } = useLanguage();
   const content = copy[language];
+  const chat = chatCopy[language];
   return <div className="max-w-3xl mx-auto px-4 py-10 space-y-6">
     <Link href="/" className="inline-flex items-center gap-2 text-sm text-brand-600"><ArrowLeft className="w-4 h-4" />{t('nav.home')}</Link>
     <section className="rounded-3xl border border-brand-100 bg-white p-6 sm:p-9 shadow-sm space-y-6">
@@ -75,6 +84,11 @@ export function ConsultationPanel({ paymentLink }: { paymentLink: string | null 
         {language === 'ja' && <p className="text-sm text-slate-600">{CONSULTATION_PHONE_INTERNATIONAL}</p>}
         <a href={CONSULTATION_PHONE_HREF} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-brand-600 text-white px-5 py-3 font-bold hover:bg-brand-700"><Phone className="w-4 h-4" />{content.call}</a>
         <p className="text-sm leading-relaxed text-slate-600">{content.phoneNote}</p>
+      </div>
+      <div className="rounded-2xl border border-slate-200 p-5 space-y-3">
+        <h2 className="font-bold text-slate-800">{chat.title}</h2>
+        <p className="text-sm leading-relaxed text-slate-600">{whatsAppLink ? chat.note : chat.pending}</p>
+        {whatsAppLink && <a href={whatsAppLink} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-brand-600 px-5 py-3 font-bold text-brand-700"><MessageCircle className="w-4 h-4" />{chat.action}<ExternalLink className="w-4 h-4" /></a>}
       </div>
       <ol className="list-decimal pl-5 space-y-3 text-sm leading-relaxed text-slate-700">{content.steps.map(step => <li key={step}>{step}</li>)}</ol>
       <a href={CONSULTATION_INFO_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-xl border border-brand-200 text-brand-700 px-5 py-3 font-bold">{content.info}<ExternalLink className="w-4 h-4" /></a>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useLanguage } from '@/components/LanguageProvider';
+import { hasWebsiteReview, matchesAccess } from '@/lib/clinic-access';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Hospital, Language, departments } from '@/types';
@@ -64,6 +65,7 @@ function HospitalsContent() {
   const nightWeekendFilter = searchParams.get('nightweekend') === 'true';
   const walkInFilter = searchParams.get('walkin') === 'true';
   const verifiedFilter = searchParams.get('verified') === 'true';
+  const reviewedFilter = searchParams.get('reviewed') === 'true';
   const selfPayFilter = searchParams.get('selfpay') === 'true';
   const keyword = searchParams.get('q') || '';
 
@@ -153,10 +155,11 @@ function HospitalsContent() {
       if (langFilter && !h.supportedLanguages.includes(langFilter as Language)) return false;
       if (openNowFilter && !h.isOpenNow) return false;
       if (engTodayFilter && !h.supportedLanguages.includes('en')) return false;
-      if (cardFilter && !h.accessInfo?.creditCardAccepted) return false;
-      if (insuranceFilter && !h.accessInfo?.overseasInsuranceAccepted) return false;
+      if (cardFilter && !matchesAccess(h, 'creditCardAccepted')) return false;
+      if (insuranceFilter && !matchesAccess(h, 'overseasInsuranceAccepted')) return false;
       if (nightWeekendFilter && !h.accessInfo?.nightOpen && weekendStatus(h) !== true) return false;
-      if (walkInFilter && !h.accessInfo?.walkInAvailable) return false;
+      if (walkInFilter && !matchesAccess(h, 'walkInAvailable')) return false;
+      if (reviewedFilter && !hasWebsiteReview(h)) return false;
       if (verifiedFilter && h.verification?.status !== 'verified') return false;
       if (selfPayFilter && !h.accessInfo?.selfPayAvailable) return false;
       return true;
@@ -170,7 +173,7 @@ function HospitalsContent() {
   }, [
     hospitals, refPoint, activeRadius, keyword,
     deptFilter, langFilter, openNowFilter, engTodayFilter, cardFilter,
-    insuranceFilter, nightWeekendFilter, walkInFilter, verifiedFilter, selfPayFilter,
+    insuranceFilter, nightWeekendFilter, walkInFilter, verifiedFilter, reviewedFilter, selfPayFilter,
   ]);
 
   const pagination = pageWindow(processed.length, searchParams.get('page'), RESULT_CAP);
@@ -211,6 +214,7 @@ function HospitalsContent() {
   if (nightWeekendFilter) activeFilters.push({ key: 'nightweekend', label: t('filter.nightWeekend') });
   if (walkInFilter)      activeFilters.push({ key: 'walkin',       label: t('filter.walkIn') });
   if (verifiedFilter)    activeFilters.push({ key: 'verified',     label: t('filter.verified') });
+  if (reviewedFilter) activeFilters.push({ key: 'reviewed', label: t('filter.websiteReviewed') });
   if (selfPayFilter)     activeFilters.push({ key: 'selfpay',      label: t('filter.selfPay') });
 
   if (loading) {
@@ -264,6 +268,22 @@ function HospitalsContent() {
           </div>
 
           <p className="text-xs leading-relaxed text-slate-500">{t('data.notice')} {t('status.notice')}</p>
+          <div className="rounded-xl border border-brand-100 bg-brand-50/50 p-4 space-y-3">
+            <p className="text-sm font-semibold text-slate-700">{t('access.coverage')}: {hospitals.filter(hasWebsiteReview).length.toLocaleString()} / {hospitals.length.toLocaleString()}</p>
+            <p className="text-xs leading-relaxed text-slate-600">{t('access.partial')}</p>
+            <div className="flex flex-wrap gap-2">
+              {[
+                { key: 'card', label: 'filter.creditCard', active: cardFilter },
+                { key: 'insurance', label: 'filter.insurance', active: insuranceFilter },
+                { key: 'walkin', label: 'filter.walkIn', active: walkInFilter },
+                { key: 'reviewed', label: 'filter.websiteReviewed', active: reviewedFilter },
+              ].map(filter => <button key={filter.key} type="button" aria-pressed={filter.active}
+                onClick={() => changeSearch({ [filter.key]: filter.active ? null : 'true' })}
+                className={`min-h-11 rounded-xl border px-3 py-2 text-xs font-bold ${filter.active ? 'border-brand-600 bg-brand-600 text-white' : 'border-slate-300 bg-white text-slate-700 hover:border-brand-400'}`}>
+                {t(filter.label)}
+              </button>)}
+            </div>
+          </div>
           <form key={keyword} role="search" onSubmit={event => {
             event.preventDefault();
             changeSearch({q: String(new FormData(event.currentTarget).get('q') || '').trim() || null});
@@ -390,6 +410,8 @@ function HospitalsContent() {
                       </span>
                     )}
 
+                    {hasWebsiteReview(hospital) && <span className="inline-flex items-center gap-1 bg-brand-50 text-brand-700 text-xs px-2.5 py-1 rounded-full border border-brand-100">{t('filter.websiteReviewed')}</span>}
+
                     {showDistance && Number.isFinite(dist) && (
                       <span className="inline-flex items-center gap-1 text-[10px] font-extrabold text-brand-600 bg-brand-50 border border-brand-100 px-2 py-0.5 rounded-full">
                         <Navigation className="w-3 h-3" />
@@ -439,10 +461,10 @@ function HospitalsContent() {
                       {hospital.isOpenNow === true && (
                         <span className="bg-accent-50 text-accent-700 text-[10px] px-2.5 py-1 rounded-lg font-bold border border-accent-100">{t('status.open')}</span>
                       )}
-                      {hospital.walkInAllowed && (
+                      {matchesAccess(hospital, 'walkInAvailable') && (
                         <span className="bg-slate-100 text-slate-700 text-[10px] px-2.5 py-1 rounded-lg font-bold border border-slate-200">{t('filter.walkIn')}</span>
                       )}
-                      {hospital.accessInfo?.creditCardAccepted && (
+                      {matchesAccess(hospital, 'creditCardAccepted') && (
                         <span className="bg-slate-100 text-slate-700 text-[10px] px-2.5 py-1 rounded-lg font-bold border border-slate-200 flex items-center gap-1">
                           <CreditCard className="w-3 h-3" /> {t('filter.creditCard')}
                         </span>
@@ -452,7 +474,7 @@ function HospitalsContent() {
                           <Wallet className="w-3 h-3" /> {t('filter.selfPay')}
                         </span>
                       )}
-                      {hospital.accessInfo?.overseasInsuranceAccepted && (
+                      {matchesAccess(hospital, 'overseasInsuranceAccepted') && (
                         <span className="bg-slate-100 text-slate-700 text-[10px] px-2.5 py-1 rounded-lg font-bold border border-slate-200 flex items-center gap-1">
                           <Shield className="w-3 h-3" /> {t('filter.insurance')}
                         </span>

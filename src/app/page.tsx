@@ -56,7 +56,7 @@ export default function Home() {
   const [insurance,    setInsurance]    = useState(false);
   const [nightWeekend, setNightWeekend] = useState(false);
   const [walkIn,       setWalkIn]       = useState(false);
-  const [verified,     setVerified]     = useState(false);
+  const [reviewed,     setReviewed]     = useState(false);
   const [selfPay,      setSelfPay]      = useState(false);
   const [showMore,     setShowMore]     = useState(false);
   const [locationStatus, setLocationStatus] = useState<GeoStatus>('idle');
@@ -78,7 +78,7 @@ export default function Home() {
     if (insurance)     p.set('insurance',    'true');
     if (nightWeekend)  p.set('nightweekend', 'true');
     if (walkIn)        p.set('walkin',       'true');
-    if (verified)      p.set('verified',     'true');
+    if (reviewed)      p.set('reviewed',     'true');
     if (selfPay)       p.set('selfpay',      'true');
     router.push(`/hospitals?${p}`);
   };
@@ -362,7 +362,7 @@ export default function Home() {
               {showMore && (
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-3">
                   {[
-                    { state: verified,     set: setVerified,     icon: <CheckCircle className="w-4 h-4 flex-shrink-0" />, label: t('filter.verified')     },
+                    { state: reviewed,     set: setReviewed,     icon: <CheckCircle className="w-4 h-4 flex-shrink-0" />, label: t('filter.websiteReviewed')     },
                     { state: englishToday, set: setEnglishToday, icon: <Languages   className="w-4 h-4 flex-shrink-0" />, label: t('filter.englishToday') },
                     { state: creditCard,   set: setCreditCard,   icon: <CreditCard  className="w-4 h-4 flex-shrink-0" />, label: t('filter.creditCard')   },
                     { state: insurance,    set: setInsurance,    icon: <Shield      className="w-4 h-4 flex-shrink-0" />, label: t('filter.insurance')    },

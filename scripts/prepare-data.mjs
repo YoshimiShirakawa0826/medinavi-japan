@@ -1,6 +1,8 @@
 import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
 import { gunzipSync } from "node:zlib";
 import path from "node:path";
+import { clinicAccessReviews } from '../data/clinic-access-reviews.mjs';
+import { applyAccessReviews } from './apply-access-reviews.mjs';
 
 const projectRoot = process.cwd();
 const sourceDirectory = path.join(projectRoot, "data");
@@ -31,5 +33,6 @@ if (phoneCount !== 4316) {
 }
 
 await mkdir(path.dirname(outputPath), { recursive: true });
-await writeFile(outputPath, json);
-console.log(`Prepared ${clinics.length} clinics with ${phoneCount} phone numbers.`);
+const reviewedClinics = applyAccessReviews(clinics, clinicAccessReviews);
+await writeFile(outputPath, JSON.stringify(reviewedClinics, null, 2) + '\n');
+console.log(`Prepared ${clinics.length} clinics with ${phoneCount} phone numbers and ${clinicAccessReviews.length} field-level website reviews.`);

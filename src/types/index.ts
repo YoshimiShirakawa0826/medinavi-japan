@@ -1,5 +1,13 @@
 export type Language = 'ja' | 'en' | 'zh' | 'ko' | 'es';
 
+export type AccessField = 'creditCardAccepted' | 'japaneseHealthInsurance' | 'overseasInsuranceAccepted' | 'walkInAvailable';
+export type AccessEvidence = {
+  status: 'yes' | 'conditional' | 'no' | 'information';
+  notes: Record<Language, string>;
+  billing?: 'direct_billing' | 'pay_first' | 'confirm';
+  sources: Array<{ kind: 'official_website'; url: string; checkedAt: string }>;
+};
+
 export type ClinicVerification = {
   status: "verified" | "in_progress" | "unverified";
   lastConfirmedAt?: string;
@@ -62,6 +70,7 @@ export interface Hospital {
   // New verification and access status
   verification: ClinicVerification;
   accessInfo: ClinicAccessInfo;
+  accessEvidence?: Partial<Record<AccessField, AccessEvidence>>;
 }
 
 export const departments = [
