@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/components/LanguageProvider";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
+import { PreviewShell } from "@/components/layout/PreviewShell";
 
 const sans = Plus_Jakarta_Sans({ 
   subsets: ["latin"],
@@ -11,8 +10,9 @@ const sans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "MediNavi JAPAN",
+  title: "MediNavi JAPAN · Design preview",
   description: "Find medical institutions in Japan for inbound tourists.",
+  robots: { index: false, follow: false },
 };
 
 export default function RootLayout({
@@ -24,11 +24,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${sans.className} min-h-screen flex flex-col antialiased`}>
         <LanguageProvider>
-          <Header />
-          <main className="flex-grow">
-            {children}
-          </main>
-          <Footer />
+          <PreviewShell>{children}</PreviewShell>
         </LanguageProvider>
       </body>
     </html>

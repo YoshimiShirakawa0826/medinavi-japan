@@ -36,3 +36,25 @@ export function reportedDepartmentMatches(rawName: string, department: string): 
 export function hasWebsiteReview(hospital: Pick<Hospital, 'accessEvidence'>): boolean {
   return !!hospital.accessEvidence && Object.keys(hospital.accessEvidence).length > 0;
 }
+
+export function bookingSummary(hospital: Pick<Hospital, 'accessEvidence'>, department?: string | null, language?: string | null) {
+  const evidence = hospital.accessEvidence?.walkInAvailable;
+  if (!evidence || evidence.status === 'information') return 'confirm';
+  if (language && evidence.languageReservations?.some(row => reportedLanguages[language]?.includes(row.name) && row.reservation === '要予約')) return 'languageBooking';
+  if (department && evidence.departments) {
+    const rows = evidence.departments.filter(row => reportedDepartmentMatches(row.name, department));
+    if (!rows.length || rows.every(row => row.status === 'unknown')) return 'specialtyUnknown';
+    if (evidence.status === 'no' || rows.every(row => row.status === 'no')) return 'bookingNeeded';
+    return rows.some(row => row.status === 'yes') ? 'walkListed' : 'confirm';
+  }
+  return evidence.status === 'no' ? 'bookingNeeded' : 'walkListed';
+}
+
+// Use explicit source department names, never a clinic's brand name. Missing
+// evidence remains available in unfiltered searches and is not inferred as care.
+export function matchesPurpose(hospital: Pick<Hospital, 'accessEvidence'>, purpose: string | null) {
+  if (!purpose || !['general', 'cosmetic'].includes(purpose)) return true;
+  const names = hospital.accessEvidence?.walkInAvailable?.departments?.map(row => row.name.normalize('NFKC').replace(/\s/g, '')) ?? [];
+  if (purpose === 'cosmetic') return names.some(name => ['美容皮膚科', '美容外科'].includes(name));
+  return names.some(name => Object.keys(reportedSpecialties).some(dept => reportedDepartmentMatches(name, dept)));
+}

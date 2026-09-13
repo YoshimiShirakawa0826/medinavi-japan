@@ -2,18 +2,19 @@
 
 import type { AccessField, Hospital } from '@/types';
 import { useLanguage } from './LanguageProvider';
+import { patientText } from './patient-messages';
 
 const rows: Array<[AccessField, string]> = [
+  ['walkInAvailable', 'access.walkIn'],
   ['creditCardAccepted', 'selfpay.creditCard'],
   ['japaneseHealthInsurance', 'access.japaneseInsurance'],
   ['overseasInsuranceAccepted', 'selfpay.overseasInsurance'],
-  ['walkInAvailable', 'access.walkIn'],
 ];
 
-export function ClinicAccessPanel({ hospital }: { hospital: Hospital }) {
+export function ClinicAccessPanel({ hospital, department, visitLanguage }: { hospital: Hospital; department?: string | null; visitLanguage?: string | null }) {
   const { language, t } = useLanguage();
-  return <section className="space-y-4 pt-4 border-t border-slate-100">
-    <h2 className="text-sm font-bold text-slate-700 border-b border-slate-100 pb-2">{t('access.title')}</h2>
+  return <section className="space-y-4">
+    <h2 className="text-base font-bold text-slate-700 border-b border-slate-100 pb-3">{t('access.title')}</h2>
     <p className="text-xs leading-relaxed text-slate-600">{t('access.notice')}</p>
     <dl className="space-y-3">
       {rows.map(([field, label]) => {
@@ -28,7 +29,7 @@ export function ClinicAccessPanel({ hospital }: { hospital: Hospital }) {
             <p className={`text-sm font-bold ${evidence?.status === 'yes' ? 'text-accent-700' : 'text-slate-700'}`}>{t(statusKey)}</p>
             {evidence && <>
               <p className="text-sm leading-relaxed text-slate-600">{evidence.notes[language]}</p>
-              {!!evidence.departments?.length && <details className="text-sm text-slate-700">
+              {!!evidence.departments?.length && <details open={!!department} className="text-sm text-slate-700">
                 <summary className="cursor-pointer font-semibold py-1">{t('access.departmentDetails')}</summary>
                 <p className="text-xs text-slate-500 py-1">{t('access.originalNames')}</p>
                 <ul className="space-y-1 mt-1">
@@ -37,7 +38,7 @@ export function ClinicAccessPanel({ hospital }: { hospital: Hospital }) {
                   </li>)}
                 </ul>
               </details>}
-              {!!evidence.languageReservations?.length && <details className="text-sm text-slate-700">
+              {!!evidence.languageReservations?.length && <details open={!!visitLanguage} className="text-sm text-slate-700">
                 <summary className="cursor-pointer font-semibold py-1">{t('access.languageReservations')}</summary>
                 <p className="text-xs text-slate-500 py-1">{t('access.originalNames')}</p>
                 <ul className="space-y-2 mt-1">
@@ -47,13 +48,13 @@ export function ClinicAccessPanel({ hospital }: { hospital: Hospital }) {
                   </li>)}
                 </ul>
               </details>}
-              <ul className="text-xs text-slate-500 space-y-1">
+              <details className="source-disclosure"><summary>{patientText(language, 'sources')}</summary><ul className="text-xs text-slate-500 space-y-1">
                 {evidence.sources.map(source => <li key={source.url}>
                   <a href={source.url} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 text-brand-700">{t(source.kind === 'nabii_report' ? 'access.nabiiSource' : 'access.officialSource')}</a>
                   {' · '}{t('access.checked')}: <time dateTime={source.checkedAt}>{source.checkedAt}</time>
                   {source.sourceUpdatedAt && <span className="block mt-1">{t('access.sourceUpdated')}: <time dateTime={source.sourceUpdatedAt}>{source.sourceUpdatedAt}</time></span>}
                 </li>)}
-              </ul>
+              </ul></details>
             </>}
           </dd>
         </div>;

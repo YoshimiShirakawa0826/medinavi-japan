@@ -5,7 +5,10 @@ import { hasWebsiteReview, matchesAccess } from '@/lib/clinic-access';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Hospital, Language, departments } from '@/types';
-import { MapPin, Phone, AlertTriangle, ArrowLeft, CheckCircle, CreditCard, Shield, Sparkles, Navigation, ExternalLink, Wallet, LocateFixed, Info, X } from 'lucide-react';
+import { MapPin, Phone, ArrowLeft, ArrowRight, ExternalLink, LocateFixed, X, SlidersHorizontal } from 'lucide-react';
+import { patientText } from '@/components/patient-messages';
+import { EmergencyStrip, PatientSteps, VisitSummary } from '@/components/PatientUI';
+import { matchesPurpose } from '@/lib/clinic-access';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Suspense } from 'react';
 import { clinicMapUrl, hasClinicCoordinates, loadClinics, matchesDepartment, pageWindow, scheduledOpenStatus } from '@/lib/clinic-utils';
@@ -21,6 +24,8 @@ const RESULT_CAP = RESULT_PAGE_SIZE;
 function HospitalsContent() {
   const { language, t } = useLanguage();
   const searchParams = useSearchParams();
+  const p = (key: Parameters<typeof patientText>[1]) => patientText(language, key);
+  const purposeFilter = searchParams.get('purpose');
   const [hospitals, setHospitals] = useState<Hospital[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState(false);
@@ -97,7 +102,7 @@ function HospitalsContent() {
     setSeededCoords(null);
     saveSearchLocation(null);
     setMapTarget(null);
-    changeSearch({ area: a.name, location: 'manual', dist: 'near' });
+    changeSearch({ area: a.name, location: 'manual', dist: typeof activeRadius === 'number' ? String(activeRadius) : '3' });
   };
 
   const requestLocation = () => {
@@ -105,7 +110,7 @@ function HospitalsContent() {
     saveSearchLocation(null);
     setMapVisible(false);
     setMapTarget(null);
-    changeSearch({ area: null, location: 'device', dist: 'near' });
+    changeSearch({ area: null, location: 'device', dist: '3' });
     geo.request(coords => { setSeededCoords(coords); saveSearchLocation(coords); });
   };
 
@@ -147,11 +152,16 @@ function HospitalsContent() {
     mapRef.current?.scrollIntoView({ block: 'start', behavior: 'smooth' });
   };
 
+  useEffect(() => {
+    if (mapVisible && mapTarget) mapRef.current?.scrollIntoView({ block: 'start', behavior: 'smooth' });
+  }, [mapVisible, mapTarget]);
+
   // フィルタ→Haversine距離付与→（距離モード時）半径絞り込み＆近い順ソート。
   // 無関係な状態変化（地図の開閉・コピー等）での再計算を避けるため useMemo でメモ化する。
   const processed = useMemo(() => {
     const filtered = hospitals.filter(h => {
       if (!matchesDepartment(h, deptFilter)) return false;
+      if (!matchesPurpose(h, purposeFilter)) return false;
       if (!matchesKeyword(h, keyword)) return false;
       if (langFilter && !h.supportedLanguages.includes(langFilter as Language)) return false;
       if (openNowFilter && !h.isOpenNow) return false;
@@ -172,7 +182,7 @@ function HospitalsContent() {
     }
     return arr;
   }, [
-    hospitals, refPoint, activeRadius, keyword,
+    hospitals, refPoint, activeRadius, keyword, purposeFilter,
     deptFilter, langFilter, openNowFilter, engTodayFilter, cardFilter,
     insuranceFilter, nightWeekendFilter, walkInFilter, verifiedFilter, reviewedFilter, selfPayFilter,
   ]);
@@ -201,6 +211,7 @@ function HospitalsContent() {
     changeSearch({ [key]: null });
   };
   const activeFilters: Array<{ key: string; label: string }> = [];
+  if (purposeFilter) activeFilters.push({key: 'purpose', label: p(purposeFilter === 'general' ? 'generalPurpose' : 'cosmeticPurpose')});
   if (keyword) activeFilters.push({ key: 'q', label: keyword });
   if (deptFilter)        activeFilters.push({ key: 'dept',         label: getDeptNames([deptFilter]) });
   if (langFilter)        activeFilters.push({ key: 'lang',         label: langName(langFilter) });
@@ -229,381 +240,62 @@ function HospitalsContent() {
     </div>;
   }
 
-  return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
-
-      {/* Navigation & Data Source Header */}
-      <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <Link href="/" className="inline-flex items-center text-sm font-semibold text-slate-500 hover:text-brand-600 transition-colors">
-          <ArrowLeft className="w-4 h-4 mr-1.5" /> {t('list.backSearch')}
-        </Link>
-
-        <div className="bg-white border border-slate-200/80 rounded-2xl p-3 flex flex-col sm:flex-row sm:items-center gap-3 shadow-xs">
-          <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-brand-500 animate-pulse"></span>
-            <span className="text-xs font-bold text-slate-700">{t('home.advArea')}:</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-extrabold text-brand-600">{hospitals.length.toLocaleString()} · {t('data.mhlwOpenData')}</span>
-          </div>
-        </div>
-      </div>
-
-      <div className="flex flex-col lg:flex-row gap-8">
-
-        {/* Hospital List */}
-        <div className="w-full lg:w-1/2 space-y-6">
-          <div className="border-b border-slate-200 pb-3">
-            <h1 className="text-2xl font-bold text-slate-900">
-              {processed.length.toLocaleString()} <span className="text-slate-500 font-medium text-lg">{t('list.found')}</span>
-            </h1>
-            {processed.length > RESULT_CAP && (
-              <p className="text-[11px] text-slate-400 font-semibold mt-1">
-                {t('list.showing')} {pagination.start + 1}–{pagination.end} / {processed.length.toLocaleString()}
-              </p>
-            )}
-          </div>
-
-          <p className="text-xs leading-relaxed text-slate-500">{t('data.notice')} {t('status.notice')}</p>
-          <div className="rounded-xl border border-brand-100 bg-brand-50/50 p-4 space-y-3">
-            <p className="text-sm font-semibold text-slate-700">{t('access.coverage')}: {hospitals.filter(hasWebsiteReview).length.toLocaleString()} / {hospitals.length.toLocaleString()}</p>
-            <p className="text-xs leading-relaxed text-slate-600">{t('access.partial')}</p>
-            <div className="flex flex-wrap gap-2">
-              {[
-                { key: 'card', label: 'filter.creditCard', active: cardFilter },
-                { key: 'insurance', label: 'filter.insurance', active: insuranceFilter },
-                { key: 'walkin', label: 'filter.walkIn', active: walkInFilter },
-                { key: 'reviewed', label: 'filter.websiteReviewed', active: reviewedFilter },
-              ].map(filter => <button key={filter.key} type="button" aria-pressed={filter.active}
-                onClick={() => changeSearch({ [filter.key]: filter.active ? null : 'true' })}
-                className={`min-h-11 rounded-xl border px-3 py-2 text-xs font-bold ${filter.active ? 'border-brand-600 bg-brand-600 text-white' : 'border-slate-300 bg-white text-slate-700 hover:border-brand-400'}`}>
-                {t(filter.label)}
-              </button>)}
-            </div>
-          </div>
-          <form key={keyword} role="search" onSubmit={event => {
-            event.preventDefault();
-            changeSearch({q: String(new FormData(event.currentTarget).get('q') || '').trim() || null});
-          }} className="space-y-2">
-            <label htmlFor="clinic-search" className="block text-sm font-bold text-slate-700">{t('search.keyword')}</label>
-            <div className="flex gap-2">
-              <input id="clinic-search" name="q" type="search" defaultValue={keyword} maxLength={120} placeholder={t('search.placeholder')} className="min-w-0 flex-1 rounded-xl border border-slate-300 bg-white px-3 py-3 text-base" />
-              <button type="submit" className="rounded-xl bg-brand-600 px-4 py-3 font-bold text-white">{t('search.button')}</button>
-            </div>
-          </form>
-
-          {/* ── D: 適用中フィルタのチップ（× で解除・全解除可能） ── */}
-          {(activeFilters.length > 0 || refPoint || distParam) && (
-            <div className="flex flex-wrap items-center gap-2">
-              {activeFilters.map(f => (
-                <button
-                  key={f.key}
-                  onClick={() => removeFilter(f.key)}
-                  aria-label={`${t('filter.remove')}: ${f.label}`}
-                  className="inline-flex items-center gap-1.5 pl-2.5 pr-1.5 py-1 rounded-full text-xs font-bold bg-brand-50 border border-brand-200 text-brand-700 hover:bg-brand-100 transition-colors"
-                >
-                  {f.label}
-                  <X className="w-3.5 h-3.5 text-brand-400" />
-                </button>
-              ))}
-              <button
-                onClick={clearFilters}
-                className="text-xs font-bold text-slate-400 hover:text-slate-600 underline underline-offset-2 px-1"
-              >
-                {t('filter.clearAll')}
-              </button>
-            </div>
-          )}
-
-          {/* 距離フィルタ: 現在地取得は任意。いつでも駅を選択できる。 */}
-          <div className="bg-white border border-slate-200/80 rounded-2xl p-3 space-y-2.5 shadow-xs">
-            {/* 事前説明（許可を求める前に表示。位置情報は端末内のみで使用しサーバー送信しない旨を明記） */}
-            {!usingRealLocation && (
-              <p className="flex items-start gap-1.5 text-[11px] text-slate-500 font-semibold leading-relaxed">
-                <Info className="w-3.5 h-3.5 flex-shrink-0 mt-0.5 text-brand-400" />
-                {t('distance.consent')}
-              </p>
-            )}
-            <div className="flex flex-wrap items-center gap-2">
-              <button
-                onClick={requestLocation}
-                disabled={geo.status === 'prompting'}
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold border transition-all active:scale-95 ${
-                  usingRealLocation ? 'bg-accent-50 border-accent-300 text-accent-700' : 'bg-brand-50 border-brand-200 text-brand-700 hover:bg-brand-100'
-                } disabled:cursor-wait disabled:opacity-70`}
-              >
-                <LocateFixed className={`w-3.5 h-3.5 ${geo.status === 'prompting' ? 'animate-pulse' : ''}`} />
-                {geo.status === 'prompting' ? t('btn.locating') : t('distance.useLocation')}
-              </button>
-              {DISTANCE_OPTIONS.map(opt => {
-                const selected = activeRadius !== 'off' && activeRadius === opt.value;
-                return (
-                  <button
-                    key={String(opt.value)}
-                    onClick={() => changeSearch({dist: selected ? null : opt.value === null ? 'near' : String(opt.value)})}
-                    aria-pressed={selected}
-                    disabled={needsAreaSelection}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bold border transition-all active:scale-95 ${
-                      selected ? 'bg-brand-600 border-brand-600 text-white shadow-sm' : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300'
-                    } disabled:cursor-not-allowed disabled:opacity-40`}
-                  >
-                    {t(opt.labelKey)}
-                  </button>
-                );
-              })}
-            </div>
-            {/* 基準点と直線距離の説明 */}
-            <p className="text-[11px] text-slate-400 font-semibold leading-relaxed">
-              {usingRealLocation ? `📍 ${t('distance.useLocation')}`
-                : manualPoint ? `📍 ${t(`area.${manualPoint.name}`)} · ${t('distance.areaApprox')}`
-                : geo.status === 'prompting' ? t('btn.locating')
-                : geo.status === 'timeout' ? t('location.timeout')
-                : geo.status === 'unavailable' ? t('location.unavailable')
-                : geo.status === 'denied' ? t('distance.denied')
-                : geo.status === 'unsupported' ? t('distance.unsupported')
-                : geo.status === 'error' ? t('location.error')
-                : t('distance.originNeeded')}
-            </p>
-            {/* エリア・駅を選んで検索の基準点にする */}
-            {(
-              <div className="pt-2 space-y-1.5 border-t border-slate-100">
-                <p className="text-[11px] font-bold text-slate-500">{t('distance.chooseArea')}</p>
-                <div className="flex flex-wrap gap-1.5">
-                  {AREA_PRESETS.map(a => (
-                    <button
-                      key={a.name}
-                      onClick={() => selectArea(a)}
-                      aria-pressed={manualPoint?.name === a.name}
-                      className={`px-2.5 py-1 rounded-lg text-[11px] font-bold border transition-all active:scale-95 ${
-                        manualPoint?.name === a.name ? 'bg-brand-600 border-brand-600 text-white shadow-sm' : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300'
-                      }`}
-                    >
-                      {t(`area.${a.name}`)}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-
-          <div ref={resultsRef} className="scroll-mt-24 lg:overflow-y-auto lg:max-h-[750px] lg:pr-3 space-y-4 scrollbar-thin scrollbar-thumb-slate-200">
-            {processed.length === 0 ? (
-              <div className="bg-white/50 border border-slate-200 rounded-3xl p-8 text-center text-slate-500 font-medium">
-                {t('list.empty')}
-              </div>
-            ) : (
-              visible.map(({ h: hospital, dist }) => (
-                <div key={hospital.id} className={`hover-lift bg-white rounded-3xl border p-6 transition-all ${hospital.verification?.status === 'verified' ? 'border-brand-200 bg-brand-50/5' : 'border-slate-200/80 shadow-xs'}`}>
-
-                  {/* Upper Verification & Badges */}
-                  <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-                    {hospital.verification?.status === 'verified' ? (
-                      <span className="inline-flex items-center gap-1 bg-accent-50 text-accent-700 text-xs px-2.5 py-1 rounded-full font-bold border border-accent-200">
-                        <CheckCircle className="w-3.5 h-3.5 text-accent-600" /> {t('filter.verified')}
-                      </span>
-                    ) : (
-                      <span className="inline-flex items-center gap-1 bg-slate-50 text-slate-500 text-xs px-2.5 py-1 rounded-full font-semibold border border-slate-200">
-                        {t('data.open')}
-                      </span>
-                    )}
-
-                    {hasWebsiteReview(hospital) && <span className="inline-flex items-center gap-1 bg-brand-50 text-brand-700 text-xs px-2.5 py-1 rounded-full border border-brand-100">{t('filter.websiteReviewed')}</span>}
-
-                    {showDistance && Number.isFinite(dist) && (
-                      <span className="inline-flex items-center gap-1 text-[10px] font-extrabold text-brand-600 bg-brand-50 border border-brand-100 px-2 py-0.5 rounded-full">
-                        <Navigation className="w-3 h-3" />
-                        {formatDistance(dist)}{usingRealLocation ? ` ${t('distance.fromMe')}` : '*'}
-                      </span>
-                    )}
-                  </div>
-
-                  {!hasClinicCoordinates(hospital.latitude, hospital.longitude) && <p className="mb-3 text-xs text-slate-500">{t('list.coordinatesMissing')}</p>}
-                  <Link href={`/hospitals/${hospital.id}?returnTo=${encodeURIComponent(`/hospitals${searchParams.size ? `?${searchParams}` : ''}`)}`} className="block group" prefetch={false}>
-                    <div className="flex justify-between items-start gap-4 mb-3">
-                      <h2 className="text-lg font-bold leading-snug text-slate-900 group-hover:text-brand-600 transition-colors">
-                        {hospital.name[language] || hospital.name.en || hospital.name.ja}
-                      </h2>
-                      {hospital.emergencyAccepted && (
-                        <span className="inline-flex items-center gap-1 bg-emergency-50 text-emergency-700 text-xs px-2.5 py-1 rounded-full font-bold whitespace-nowrap border border-emergency-200">
-                          <AlertTriangle className="w-3.5 h-3.5" /> {t('detail.emergency')}
-                        </span>
-                      )}
-                    </div>
-
-                    <div className="text-sm text-slate-600 mb-4 space-y-2">
-                      <p className="font-semibold text-brand-700">{hospital.departments.length ? getDeptNames(hospital.departments) : t('detail.deptUnknown')}</p>
-                      <p className="flex items-start gap-2.5">
-                        <MapPin className="w-4 h-4 text-slate-400 mt-0.5 flex-shrink-0" />
-                        <span>{hospital.address[language] || hospital.address.ja}</span>
-                      </p>
-                    </div>
-
-                    {/* Language & status badges */}
-                    <div className="flex flex-wrap gap-2">
-                      {hospital.supportedLanguages.includes('en') && (
-                        <span className="bg-brand-50 text-brand-700 text-[10px] px-2.5 py-1 rounded-lg font-bold border border-brand-100 uppercase flex items-center gap-1">
-                          <Sparkles className="w-3 h-3" /> EN
-                        </span>
-                      )}
-                      {hospital.supportedLanguages.includes('zh') && (
-                        <span className="bg-slate-100 text-slate-700 text-[10px] px-2.5 py-1 rounded-lg font-bold border border-slate-200">ZH</span>
-                      )}
-                      {hospital.supportedLanguages.includes('ko') && (
-                        <span className="bg-slate-100 text-slate-700 text-[10px] px-2.5 py-1 rounded-lg font-bold border border-slate-200">KO</span>
-                      )}
-                      {hospital.supportedLanguages.includes('es') && (
-                        <span className="bg-slate-100 text-slate-700 text-[10px] px-2.5 py-1 rounded-lg font-bold border border-slate-200">ES</span>
-                      )}
-                      {/* 優先順位順: 言語 → 今開いている → 予約不要 → カード → 自費 → 海外保険 → 週末(優先外は末尾) */}
-                      {hospital.isOpenNow === true && (
-                        <span className="bg-accent-50 text-accent-700 text-[10px] px-2.5 py-1 rounded-lg font-bold border border-accent-100">{t('status.open')}</span>
-                      )}
-                      {matchesAccess(hospital, 'walkInAvailable', deptFilter, langFilter) && (
-                        <span className="bg-slate-100 text-slate-700 text-[10px] px-2.5 py-1 rounded-lg font-bold border border-slate-200">{t('filter.walkIn')}</span>
-                      )}
-                      {matchesAccess(hospital, 'creditCardAccepted') && (
-                        <span className="bg-slate-100 text-slate-700 text-[10px] px-2.5 py-1 rounded-lg font-bold border border-slate-200 flex items-center gap-1">
-                          <CreditCard className="w-3 h-3" /> {t('filter.creditCard')}
-                        </span>
-                      )}
-                      {hospital.accessInfo?.selfPayAvailable && (
-                        <span className="bg-amber-50 text-amber-700 text-[10px] px-2.5 py-1 rounded-lg font-bold border border-amber-200 flex items-center gap-1">
-                          <Wallet className="w-3 h-3" /> {t('filter.selfPay')}
-                        </span>
-                      )}
-                      {matchesAccess(hospital, 'overseasInsuranceAccepted') && (
-                        <span className="bg-slate-100 text-slate-700 text-[10px] px-2.5 py-1 rounded-lg font-bold border border-slate-200 flex items-center gap-1">
-                          <Shield className="w-3 h-3" /> {t('filter.insurance')}
-                        </span>
-                      )}
-                      {weekendStatus(hospital) === true && (
-                        <span className="bg-slate-100 text-slate-700 text-[10px] px-2.5 py-1 rounded-lg font-bold border border-slate-200">{t('detail.weekend')}</span>
-                      )}
-                    </div>
-                  </Link>
-
-                  {/* アクション: 電話 / 地図（Maps URL スキーム＝課金なし, 要件3）。Link の外に置き anchor ネストを回避 */}
-                  <div className="flex gap-2 pt-4 mt-4 border-t border-slate-100">
-                    {telephoneHref(hospital.phone) ? (
-                      <a
-                        href={telephoneHref(hospital.phone)!}
-                        aria-label={`${t('btn.callNow')}: ${hospital.name[language] || hospital.name.ja}, ${hospital.phone}`}
-                        className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-700 hover:to-indigo-700 transition-colors"
-                      >
-                        <Phone className="w-3.5 h-3.5" /> {t('btn.callNow')}
-                      </a>
-                    ) : (
-                      <a
-                        href={nabiiClinicUrl(hospital.id) || 'https://www.iryou.teikyouseido.mhlw.go.jp/'}
-                        target="_blank" rel="noopener noreferrer"
-                        aria-label={`${hospital.name[language] || hospital.name.ja}: ${t('phone.nabii')}`}
-                        className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-bold text-slate-600 bg-slate-50 border border-slate-200 hover:bg-slate-100"
-                      >
-                        <ExternalLink className="w-3.5 h-3.5 flex-shrink-0" /> {t('phone.nabii')}
-                      </a>
-                    )}
-                    <a
-                      href={clinicMapUrl(hospital)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-bold text-brand-700 bg-brand-50 border border-brand-200 hover:bg-brand-100 transition-colors"
-                    >
-                      <ExternalLink className="w-3.5 h-3.5" /> {t('btn.openMap')}
-                    </a>
-                    {/* この施設を右の OSM 地図パネルに表示（内部プレビュー・無料） */}
-                    <button
-                      onClick={() => showClinicOnMap(hospital)}
-                      disabled={!hasClinicCoordinates(hospital.latitude, hospital.longitude)}
-                      aria-label={`${t('map.show')}: ${hospital.name[language] || hospital.name.ja}`}
-                      title={t(hasClinicCoordinates(hospital.latitude, hospital.longitude) ? 'map.show' : 'list.coordinatesMissing')}
-                      className="inline-flex items-center justify-center py-2 px-3 rounded-xl text-slate-500 bg-slate-50 border border-slate-200 hover:bg-slate-100 hover:text-brand-600 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-                    >
-                      <MapPin className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
-                </div>
-              ))
-            )}
-          </div>
-          {pagination.pages > 1 && <nav aria-label={t('list.page')} className="flex flex-wrap items-center justify-between gap-3">
-            <button disabled={pagination.page === 1} onClick={() => goToPage(pagination.page - 1)} className="rounded-xl border px-4 py-3 text-sm font-bold disabled:opacity-40">{t('list.previous')}</button>
-            <span aria-live="polite" className="text-sm text-slate-500">{t('list.page')} {pagination.page} / {pagination.pages}</span>
-            <button disabled={pagination.page === pagination.pages} onClick={() => goToPage(pagination.page + 1)} className="rounded-xl bg-brand-600 px-4 py-3 text-sm font-bold text-white disabled:opacity-40">{t('list.next')}</button>
-          </nav>}
-        </div>
-
-        {/* Map Area — OpenStreetMap（要件3: ユーザーが押したときだけ読込。Google Maps API 不使用・課金ゼロ） */}
-        <div ref={mapRef} className="scroll-mt-36 w-full lg:w-1/2 h-[450px] lg:h-[750px] relative overflow-hidden rounded-3xl border border-slate-200 shadow-lg lg:sticky lg:top-20">
-          {!mapVisible || !mapCenter ? (
-            <div className="absolute inset-0 bg-slate-950 flex items-center justify-center">
-              <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#6366f1_1px,transparent_1px)] [background-size:24px_24px]"></div>
-              <div className="absolute w-96 h-96 rounded-full bg-brand-500/10 blur-3xl -top-20 -right-20"></div>
-              <div className="absolute w-96 h-96 rounded-full bg-accent-500/5 blur-3xl -bottom-20 -left-20"></div>
-
-              <div className="text-center p-8 relative z-10 max-w-sm space-y-5">
-                <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-tr from-brand-600 to-indigo-500 text-white rounded-3xl shadow-xl shadow-brand-500/20">
-                  <MapPin className="w-10 h-10" />
-                </div>
-                <div className="space-y-1.5">
-                  <h3 className="text-xl font-bold text-white">{t('detail.map')}</h3>
-                  <p className="text-slate-400 text-sm leading-relaxed">{t('map.hint')}</p>
-                </div>
-                <button
-                  onClick={openMap}
-                  disabled={!refPoint}
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl text-sm font-bold text-white bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-700 hover:to-indigo-700 transition-all shadow-md disabled:opacity-40 disabled:cursor-not-allowed"
-                >
-                  <MapPin className="w-4 h-4" /> {t('map.show')}
-                </button>
-                <p className="text-[11px] text-slate-500">© OpenStreetMap · {t('map.free')}</p>
-              </div>
-            </div>
-          ) : (
-            <div className="absolute inset-0 bg-white">
-              {mapSupported ? <iframe
-                title="OpenStreetMap"
-                className="w-full h-full border-0"
-                loading="lazy"
-                src={osmSrc(mapCenter.lat, mapCenter.lng)}
-                onError={() => setMapSupported(false)}
-              /> : (
-                <div className="flex h-full items-center justify-center bg-slate-50 p-8 text-center">
-                  <div className="max-w-sm space-y-4">
-                    <MapPin className="mx-auto h-10 w-10 text-brand-600" />
-                    <h3 className="font-bold text-slate-800">{mapCenter.name}</h3>
-                    <p role="status" className="text-sm leading-relaxed text-slate-600">{t('map.unavailable')}</p>
-                  </div>
-                </div>
-              )}
-              {/* 上部オーバーレイ: 対象名 + 閉じる */}
-              <div className="absolute top-3 left-3 right-3 flex items-center justify-between gap-2 pointer-events-none">
-                <span className="pointer-events-auto max-w-[65%] truncate bg-white/95 backdrop-blur border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-bold text-slate-700 shadow-sm">
-                  {mapCenter.name}
-                </span>
-                <button
-                  onClick={() => setMapVisible(false)}
-                  className="pointer-events-auto bg-white/95 backdrop-blur border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-bold text-slate-600 hover:text-brand-600 shadow-sm transition-colors"
-                >
-                  {t('map.hide')}
-                </button>
-              </div>
-              {/* 対象への経路案内は Google Maps（外部リンク・URLスキーム・無料）で */}
-                <a
-                  href={mapTarget?.url ?? `https://www.google.com/maps/search/?api=1&query=${mapCenter.lat},${mapCenter.lng}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="absolute bottom-3 right-3 inline-flex items-center gap-1.5 bg-brand-600 text-white rounded-xl px-3 py-2 text-xs font-bold shadow-md hover:bg-brand-700 transition-colors"
-                >
-                  <ExternalLink className="w-3.5 h-3.5" /> {t('btn.openMap')}
-                </a>
-            </div>
-          )}
-        </div>
-
-      </div>
+  return <div className="patient-container results-container">
+    <EmergencyStrip />
+    <div className="results-topline"><Link href={`/?${searchParams}`} className="patient-text-link"><ArrowLeft size={16} />{p('choices')}</Link><PatientSteps /></div>
+    <div className="results-heading"><div><p className="eyebrow">{manualPoint ? t(`area.${manualPoint.name}`) : usingRealLocation ? t('distance.useLocation') : p('allTokyo')}{typeof activeRadius === 'number' ? ` · ${activeRadius} km` : refPoint ? ` · ${p('noLimit')}` : ''}</p>
+      <h1 aria-live="polite">{processed.length.toLocaleString()} <span>{t('list.found')}</span></h1><p className="muted">{p('compareHint')}</p></div>
+      <p className="results-source">{hospitals.length.toLocaleString()} · {t('data.mhlwOpenData')}</p>
     </div>
-  );
+    <div className="patient-panel results-controls">
+      <div className="results-location">
+        <label className="field-label"><span>{p('area')}</span><select value={manualPoint?.name || ''} onChange={event => { const area = AREA_PRESETS.find(a => a.name === event.target.value); if (area) selectArea(area); else { geo.clear(); setSeededCoords(null); saveSearchLocation(null); changeSearch({area:null,location:null,dist:null}); } }}><option value="">{usingRealLocation ? t('distance.useLocation') : p('allTokyo')}</option>{AREA_PRESETS.map(a => <option key={a.name} value={a.name}>{t(`area.${a.name}`)}</option>)}</select></label>
+        <label className="field-label"><span>{p('range')}</span><select value={typeof activeRadius === 'number' ? String(activeRadius) : 'near'} disabled={needsAreaSelection} onChange={event => changeSearch({dist:event.target.value})}>{DISTANCE_OPTIONS.map(opt => <option key={String(opt.value)} value={opt.value === null ? 'near' : String(opt.value)}>{opt.value === null ? p('noLimit') : `${opt.value} km`}</option>)}</select></label>
+        <button type="button" onClick={requestLocation} disabled={geo.status === 'prompting'} className="patient-secondary"><LocateFixed size={17} />{t(geo.status === 'prompting' ? 'btn.locating' : 'distance.useLocation')}</button>
+      </div>
+      <p className="muted location-context">{refPoint ? `${p('from')}: ${manualPoint ? t(`area.${manualPoint.name}`) : t('distance.useLocation')} · ${p('directDistance')}` : geo.status !== 'idle' ? t(`location.${geo.status}`) : p('locationOptional')}</p>
+      <details className="results-refine">
+        <summary><SlidersHorizontal size={17} />{p('choices')}<span>{activeFilters.length ? `${activeFilters.length}` : ''}</span></summary>
+        <div className="refine-grid">
+          <label className="field-label"><span>{p('department')}</span><select value={deptFilter || ''} onChange={event => changeSearch({dept:event.target.value || null})}><option value="">{p('unsure')}</option>{departments.map(d => <option key={d.id} value={d.id}>{d.name[language]}</option>)}</select></label>
+          <label className="field-label"><span>{p('language')}</span><select value={langFilter || ''} onChange={event => changeSearch({lang:event.target.value || null})}><option value="">{p('anyLanguage')}</option>{['ja','en','zh','ko','es'].map(code => <option key={code} value={code}>{langName(code)}</option>)}</select></label>
+          <label className="field-label"><span>{p('purpose')}</span><select value={purposeFilter || ''} onChange={event => changeSearch({purpose:event.target.value || null})}><option value="">{p('any')}</option><option value="general">{p('generalPurpose')}</option><option value="cosmetic">{p('cosmeticPurpose')}</option></select></label>
+        </div>
+        {purposeFilter && <p className="muted">{p('purposeHint')}</p>}
+        <div className="filter-checks inline-checks">{[{key:'open',label:'filter.openNow',active:openNowFilter},{key:'card',label:'filter.creditCard',active:cardFilter},{key:'walkin',label:'filter.walkIn',active:walkInFilter},{key:'insurance',label:'filter.insurance',active:insuranceFilter},{key:'nightweekend',label:'filter.nightWeekend',active:nightWeekendFilter},{key:'selfpay',label:'filter.selfPay',active:selfPayFilter}].map(f => <label key={f.key}><input type="checkbox" checked={f.active} onChange={event => changeSearch({[f.key]:event.target.checked ? 'true' : null})} /><span>{t(f.label)}</span></label>)}</div>
+        <form key={keyword} role="search" onSubmit={event => { event.preventDefault(); changeSearch({q:String(new FormData(event.currentTarget).get('q') || '').trim() || null}); }} className="result-keyword"><label className="field-label"><span>{t('search.keyword')}</span><input name="q" type="search" defaultValue={keyword} maxLength={120} placeholder={t('search.placeholder')} /></label><button className="patient-secondary" type="submit">{t('search.button')}</button></form>
+        <p className="muted">{t('distance.consent')}</p>
+      </details>
+      {(activeFilters.length > 0 || refPoint || distParam) && <div className="active-filters">{activeFilters.map(f => <button key={f.key} onClick={() => removeFilter(f.key)} aria-label={`${t('filter.remove')}: ${f.label}`}>{f.label}<X size={14} /></button>)}<button onClick={clearFilters} className="clear-filters">{t('filter.clearAll')}</button></div>}
+    </div>
+    <p className="results-notice">{t('data.notice')} {t('access.partial')}</p>
+    {mapVisible && mapCenter && <section ref={mapRef} className="patient-panel result-map-panel">
+      <div className="section-title"><MapPin size={18} /><h2>{mapCenter.name}</h2><button className="patient-secondary" onClick={() => setMapVisible(false)}>{t('map.hide')}</button></div>
+      {mapSupported ? <iframe title="OpenStreetMap" className="result-map-frame" loading="lazy" src={osmSrc(mapCenter.lat,mapCenter.lng)} onError={() => setMapSupported(false)} /> : <p role="status" className="muted">{t('map.unavailable')}</p>}
+      <a className="patient-text-link" href={mapTarget?.url ?? `https://www.google.com/maps/search/?api=1&query=${mapCenter.lat},${mapCenter.lng}`} target="_blank" rel="noopener noreferrer">{t('btn.openMap')}<ExternalLink size={15} /></a><p className="muted">© OpenStreetMap</p>
+    </section>}
+    <div ref={resultsRef} className="clinic-results">
+      {processed.length === 0 ? <div className="patient-panel empty-results"><SearchPlaceholder /><h2>{t('list.empty')}</h2><p className="muted">{p('emptyHelp')}</p>{refPoint && activeRadius !== null && <button className="patient-secondary" onClick={() => changeSearch({dist:'near'})}>{p('noLimit')}</button>}<Link className="patient-text-link" href={`/?${searchParams}`}>{p('choices')}<ArrowRight size={16} /></Link></div>
+      : visible.map(({h:hospital,dist}) => <article className="patient-panel clinic-card" key={hospital.id}>
+        <div className="clinic-card-top"><span>{t('data.open')}</span>{showDistance && Number.isFinite(dist) && <strong><MapPin size={14} />{formatDistance(dist)} · {manualPoint ? t(`area.${manualPoint.name}`) : t('distance.useLocation')}</strong>}</div>
+        <Link className="clinic-name-link" prefetch={false} href={`/hospitals/${hospital.id}?returnTo=${encodeURIComponent(`/hospitals${searchParams.size ? `?${searchParams}` : ''}`)}`}><h2>{hospital.name[language] || hospital.name.en || hospital.name.ja}</h2></Link>
+        {language !== 'ja' && <p lang="ja" className="clinic-original-name">{hospital.name.ja}</p>}
+        <p className="clinic-departments">{hospital.departments.length ? getDeptNames(hospital.departments) : t('detail.deptUnknown')}</p>
+        <p className="clinic-address">{hospital.address[language] || hospital.address.ja}</p>
+        <VisitSummary hospital={hospital} department={deptFilter} visitLanguage={langFilter} compact />
+        <div className="clinic-actions"><Link className="patient-primary" prefetch={false} href={`/hospitals/${hospital.id}?returnTo=${encodeURIComponent(`/hospitals${searchParams.size ? `?${searchParams}` : ''}`)}`}>{p('details')}<ArrowRight size={16} /></Link>
+          <div>{telephoneHref(hospital.phone) ? <a className="patient-secondary" href={telephoneHref(hospital.phone)!} aria-label={`${p('callConfirm')}: ${hospital.name[language] || hospital.name.ja}, ${hospital.phone}`}><Phone size={16} />{t('btn.callNow')}</a> : <a className="patient-secondary" href={nabiiClinicUrl(hospital.id) || 'https://www.iryou.teikyouseido.mhlw.go.jp/'} target="_blank" rel="noopener noreferrer">{t('phone.nabii')}</a>}
+          <a className="patient-secondary" href={clinicMapUrl(hospital)} target="_blank" rel="noopener noreferrer"><MapPin size={16} />{t('btn.openMap')}</a>
+          <button type="button" className="patient-secondary map-preview-button" onClick={() => showClinicOnMap(hospital)} disabled={!hasClinicCoordinates(hospital.latitude,hospital.longitude)} aria-label={`${t('map.show')}: ${hospital.name[language] || hospital.name.ja}`}><ExternalLink size={15} /></button></div>
+        </div>
+      </article>)}
+    </div>
+    {pagination.pages > 1 && <nav aria-label={t('list.page')} className="result-pagination"><button className="patient-secondary" disabled={pagination.page === 1} onClick={() => goToPage(pagination.page - 1)}>{t('list.previous')}</button><span>{pagination.start + 1}–{pagination.end} / {processed.length.toLocaleString()}</span><button className="patient-secondary" disabled={pagination.page === pagination.pages} onClick={() => goToPage(pagination.page + 1)}>{t('list.next')}</button></nav>}
+    <details className="results-evidence"><summary>{p('sources')}</summary><p className="muted">{t('access.coverage')}: {hospitals.filter(hasWebsiteReview).length.toLocaleString()} / {hospitals.length.toLocaleString()}</p><p className="muted">{t('status.notice')}</p></details>
+  </div>;
 }
+
+function SearchPlaceholder() { return <MapPin size={30} className="empty-icon" />; }
 
 export default function Hospitals() {
   return (
