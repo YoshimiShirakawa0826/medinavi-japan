@@ -5,7 +5,9 @@ export type AccessEvidence = {
   status: 'yes' | 'conditional' | 'no' | 'information';
   notes: Record<Language, string>;
   billing?: 'direct_billing' | 'pay_first' | 'confirm';
-  sources: Array<{ kind: 'official_website'; url: string; checkedAt: string }>;
+  departments?: Array<{ name: string; status: 'yes' | 'no' | 'unknown' }>;
+  languageReservations?: Array<{ name: string; reservation: '要予約' | '予約不要'; note: string }>;
+  sources: Array<{ kind: 'official_website' | 'nabii_report'; url: string; checkedAt: string; sourceUpdatedAt?: string }>;
 };
 
 export type ClinicVerification = {

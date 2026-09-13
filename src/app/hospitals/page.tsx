@@ -158,7 +158,7 @@ function HospitalsContent() {
       if (cardFilter && !matchesAccess(h, 'creditCardAccepted')) return false;
       if (insuranceFilter && !matchesAccess(h, 'overseasInsuranceAccepted')) return false;
       if (nightWeekendFilter && !h.accessInfo?.nightOpen && weekendStatus(h) !== true) return false;
-      if (walkInFilter && !matchesAccess(h, 'walkInAvailable')) return false;
+      if (walkInFilter && !matchesAccess(h, 'walkInAvailable', deptFilter)) return false;
       if (reviewedFilter && !hasWebsiteReview(h)) return false;
       if (verifiedFilter && h.verification?.status !== 'verified') return false;
       if (selfPayFilter && !h.accessInfo?.selfPayAvailable) return false;
@@ -461,7 +461,7 @@ function HospitalsContent() {
                       {hospital.isOpenNow === true && (
                         <span className="bg-accent-50 text-accent-700 text-[10px] px-2.5 py-1 rounded-lg font-bold border border-accent-100">{t('status.open')}</span>
                       )}
-                      {matchesAccess(hospital, 'walkInAvailable') && (
+                      {matchesAccess(hospital, 'walkInAvailable', deptFilter) && (
                         <span className="bg-slate-100 text-slate-700 text-[10px] px-2.5 py-1 rounded-lg font-bold border border-slate-200">{t('filter.walkIn')}</span>
                       )}
                       {matchesAccess(hospital, 'creditCardAccepted') && (
