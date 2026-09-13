@@ -58,13 +58,17 @@ def parse_report(raw):
         clean(cell) == '保険医療機関' for cell in insurance.xpath('.//table[contains(@class,"ptn6Item")]//td')))
 
     departments = collections.defaultdict(set)
-    for area in css_class(root, 'ptn3DataArea'):
+    for area in css_class(root, 'ptn3DataArea') + css_class(root, 'ptn1DataArea'):
         names = area.xpath('./h3')
         if len(names) != 1:
             continue
         name = clean(names[0]).lstrip('◆').strip()
         annotations = ' '.join(clean(e) for e in css_class(area, 'annotation'))
         walk = re.search(r'予約外診察[：:]\s*([^、,）)\s]+)', annotations)
+        # Reports without a weekly timetable use pattern 1 for the same
+        # specialty annotation. Other pattern-1 tables are unrelated.
+        if not walk and 'ptn1DataArea' in area.get('class', '').split():
+            continue
         # Only the explicit appointment-free consultation field is used.
         status = {'可能': 'yes', '不可': 'no'}.get(walk[1] if walk else '', 'unknown')
         departments[name].add(status)
@@ -107,13 +111,17 @@ def main():
     parser.add_argument('--audit', type=pathlib.Path, required=True)
     args = parser.parse_args()
     clinics = json.loads(args.clinics.read_text())
+    progress_path = args.cache / 'fetch-progress.json'
+    progress = {r['id']: r for r in json.loads(progress_path.read_text())} if progress_path.exists() else {}
     reports, audit = [], []
     for clinic in clinics:
         if clinic.get('accessEvidence'):
             continue
         path = args.cache / (clinic['id'] + '.html.gz')
         if not path.exists():
-            audit.append({'id': clinic['id'], 'status': 'not_fetched'})
+            failure = progress.get(clinic['id'], {})
+            audit.append({'id': clinic['id'], 'status': failure.get('status', 'not_fetched'),
+                          **{k: failure[k] for k in ['code', 'reason'] if k in failure}})
             continue
         try:
             raw = gzip.decompress(path.read_bytes())

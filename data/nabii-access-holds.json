@@ -1,0 +1,2208 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": [
+    "2026-09-13"
+  ],
+  "records": [
+    {
+      "id": "clinic-1321310137810",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "お茶の水駅前生活習慣病クリニック",
+        "address": "東京都千代田区神田駿河台２－４－４ サンロイヤルビル４階",
+        "phone": "(050)3641-1067"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=1310137810&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1321310936427",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団癒合会 品川メディカルクリニック",
+        "address": "東京都品川区北品川１－２２－１７ニックハイム北品川１０９",
+        "phone": "0367123555"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=1310936427&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1321311433929",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "東中野糖尿病内科クリニック",
+        "address": "東京都中野区東中野１－５９－９ アトリエビル２階",
+        "phone": "(03)3668-7665"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=1311433929&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1321311638782",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "池袋耳鼻咽喉科 はやしクリニック",
+        "address": "東京都豊島区南池袋２－４５－３ としまエコミューゼタウン２階",
+        "phone": "(050)3623-4660"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=1311638782&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1321312135671",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "北綾瀬駅前みどり皮膚科・アレルギー科 ららテラス北綾瀬",
+        "address": "東京都足立区谷中４－８－１ ららテラス北綾瀬",
+        "phone": "(050)1726-4723"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=1312135671&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1321315532056",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団のびた やおやコドモくりにっく",
+        "address": "東京都世田谷区深沢３－９－１６ やおやコドモくりにっく",
+        "phone": null
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=1315532056&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1321315532155",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "九品仏駅前みやもと内科・腎臓内科クリニック",
+        "address": "東京都世田谷区奥沢６丁目２５番７号ウェルスクエアプラザ奥沢３階",
+        "phone": "05031097205"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=1315532155&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1321315533096",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "世田谷かみまちリウマチ整形外科",
+        "address": "東京都世田谷区世田谷２－６－３",
+        "phone": "(03)6432-6126"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=1315533096&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1321315624374",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "池上内科循環器コモンズクリニック",
+        "address": "東京都大田区池上６丁目５番地４号クレストコート池上１Ｆ",
+        "phone": "(050)3355-8387"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=1315624374&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1321315624416",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "しむらキッズクリニック",
+        "address": "東京都大田区北嶺町３１ー１０ ＯＮＴＡＫＥＳＡＮ ＦＣ ３Ｆ",
+        "phone": "(080)1377-5579"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=1315624416&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1321315725106",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人財団綜友会 新宿ファーストタワークリニック",
+        "address": "東京都新宿区西新宿５－１－１ 新宿ファーストタワー４階",
+        "phone": "03-6709-6334"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=1315725106&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1321315825468",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "ＭＹメディカルクリニック田町三田",
+        "address": "東京都港区芝５－３３－１１田町タワー４階",
+        "phone": "(03)5931-0221"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=1315825468&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1321315825641",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "足と歩行のクリニックｒｅｇｅ六本木院",
+        "address": "東京都港区六本木７丁目１５－１７ユニ六本木ビル３Ｆ",
+        "phone": "0120341019"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=1315825641&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1321315825682",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "一般社団法人再生医療皮膚科研究会 Ｔｏｋｙｏ Ｂｅａｕｔｙ Ｍａｓｔｅｒ Ｃｌｉｎｉｃ．",
+        "address": "東京都港区六本木７－８－８ミクニ六本木ビル４階",
+        "phone": null
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=1315825682&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1321315826631",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "ＡＺＡＢＵ ＴＳ ＣＬＩＮＩＣ",
+        "address": "東京都港区麻布十番３－１０－１ ６階 ＬＡ ＣＩＴＹ 麻布十番 ＣＥＬＥＳＴＥ",
+        "phone": "(03)6453-7123"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=1315826631&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1321315826706",
+      "status": "address_mismatch",
+      "sourceIdentity": {
+        "name": "田町駅前皮膚科 Ｃｌｉｎｉｃａ Ｒｉｖｉｅｒａ Ｓｈｉｂａｕｒａ",
+        "address": "東京都港区芝浦３－１１－１０ 恵谷ビル３Ｆ",
+        "phone": "(03)5232-1112"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=1315826706&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1321315921135",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "杉並ももい内科内視鏡クリニック荻窪院",
+        "address": "東京都杉並区桃井３－５－１ ヤオコー杉並桃井２階",
+        "phone": "(050)1809-4699"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=1315921135&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1321316021588",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "広尾ありま眼科",
+        "address": "東京都渋谷区広尾５－１７－３ グラスタワー広尾１階",
+        "phone": "(03)6432-5971"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=1316021588&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1321316021893",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "北参道メディカルクリニック",
+        "address": "東京都渋谷区千駄ヶ谷３－１３－２２－２０６",
+        "phone": "(03)4226-3810"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=1316021893&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322130316950",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": null,
+        "address": null,
+        "phone": null
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2130316950&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322130346380",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "築地糖尿病・代謝クリニック",
+        "address": "東京都中央区明石町１１－３ 築地アサカワビル２階",
+        "phone": "03-5148-0810"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2130346380&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322130403980",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "中山眼科医院",
+        "address": "東京都中央区日本橋２－１－１９ 三幸ビル １Ｆ",
+        "phone": "03-3271-9520"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2130403980&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322130410470",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "鉄鋼会館診療所",
+        "address": "東京都中央区日本橋茅場町３－２－１０ 鉄鋼会館５階",
+        "phone": "03-3669-4888"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2130410470&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322130723200",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "北青山診療所",
+        "address": "東京都港区北青山３－６－１９ 三和実業表参道ビル４Ｆ",
+        "phone": "03-3797-0551"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2130723200&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322130818210",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団喜生会 ハートクリニック飯田橋",
+        "address": "東京都新宿区新小川町６－４０ 入交ビル３階・４階",
+        "phone": "03-3235-5265"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2130818210&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322131023910",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団 腎研記念会 腎研クリニック",
+        "address": "東京都新宿区高田馬場１－３３－１３ 千年ビル２階",
+        "phone": "03-3209-5211"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2131023910&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322131211270",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": null,
+        "address": null,
+        "phone": null
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2131211270&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322131509690",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団 桐原医院",
+        "address": "東京都墨田区墨田３－１７－１２",
+        "phone": "0338288060"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2131509690&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322131721030",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団季邦会 街のクリニック 大島駅前",
+        "address": "東京都江東区大島５－３６－７ 白石ビル２Ｆ",
+        "phone": "03-5628-0571"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2131721030&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322131822360",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "飯塚医院",
+        "address": "東京都江東区冬木５－７",
+        "phone": "03-3820-3535"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2131822360&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322131828450",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": null,
+        "address": null,
+        "phone": null
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2131828450&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322131920660",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団 ケイメディカルオフィス ＫＭＯ五反田健診クリニック",
+        "address": "東京都品川区東五反田５－２８－９ 五反田第３花谷ビル７階",
+        "phone": "03-3494-2491"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2131920660&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322132025490",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団東光会 旗の台小池クリニック",
+        "address": "東京都品川区旗の台５－８－２３ ファインコート旗の台１Ｆ",
+        "phone": "03-5498-1681"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2132025490&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322132121640",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団晴晃会 育良クリニック",
+        "address": "東京都目黒区上目黒１－２６－１ 中目黒アトラスタワー４階・５階",
+        "phone": "03-3792-4103"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2132121640&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322132215190",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団高志会 はらまち整形外科",
+        "address": "東京都目黒区原町１－１１－７ 山梨ビル１階",
+        "phone": "03-3792-7070"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2132215190&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322132216230",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "学芸大駅前内科・内視鏡クリニック 目黒・世田谷",
+        "address": "東京都目黒区鷹番２丁目２０－１０ 学大８０ビル３Ｆ",
+        "phone": "03-3793-8170"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2132216230&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322132325190",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団眞恵会 いけがみ在宅クリニック",
+        "address": "東京都大田区池上６－９－６ フォルテ池上１０１号１０２号",
+        "phone": "03-3755-1661"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2132325190&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322132423100",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "北千束皮膚科クリニック",
+        "address": "東京都大田区北千束２－１５－２",
+        "phone": "03-6425-6831"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2132423100&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322132518820",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団英和会 町田整形外科",
+        "address": "東京都大田区西蒲田５－２０－３",
+        "phone": "03-3738-8151"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2132518820&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322132700125",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "さとう内科・脳神経クリニック",
+        "address": "東京都世田谷区奥沢２－４－１０",
+        "phone": "050-3172-9576"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2132700125&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322132700132",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団永研会 ちとせクリニック",
+        "address": "東京都世田谷区南烏山５－１９－１０ 賀茂ビル１階",
+        "phone": "03-5315-3363"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2132700132&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322132700191",
+      "status": "address_mismatch",
+      "sourceIdentity": {
+        "name": "東京ヒップジョイントクリニック",
+        "address": "東京都豊島区北大塚２－１６－８ バロックコート大塚２階",
+        "phone": "03-5931-8700"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2132700191&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322132730390",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "網野クリニック",
+        "address": "東京都世田谷区池尻２－２６－５",
+        "phone": "03-3412-6785"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2132730390&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322132740940",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団マグノリア会 かじわら整形外科 豪徳寺・松原院",
+        "address": "東京都世田谷区松原６－３５－６",
+        "phone": "03-5301-5656"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2132740940&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322132761310",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "倉田医院",
+        "address": "東京都世田谷区桜上水２－２５－１２",
+        "phone": "03-3302-8560"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2132761310&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322132764760",
+      "status": "address_mismatch",
+      "sourceIdentity": {
+        "name": "二子玉川美容外科クリニック",
+        "address": "東京都世田谷区玉川３ー６－６ Ｒｏｏｔｕｓ Ｆｕｔａｋｏ－ｔａｍａｇａｗａ ３Ｆ",
+        "phone": "03-5491-5588"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2132764760&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322132767240",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "ＪＭＣ自由が丘メディカルクリニック",
+        "address": "東京都世田谷区奥沢５－１９－１４",
+        "phone": "03-5731-9557"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2132767240&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322133100159",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団鉄結会 東京の粉瘤・ほくろ・できもの・赤ら顔・ワキガ治療 アイシークリニック新宿院 皮膚科・形成外科",
+        "address": "東京都渋谷区代々木２－５－３ イマス葵ビル２Ｆ",
+        "phone": "03-6276-3870"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2133100159&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322133100186",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団ＭＹメディカル ＭＹメディカルクリニック渋谷",
+        "address": "東京都渋谷区宇田川町２０ー１７ ＮＭＦ渋谷公園通りビル３Ｆ・４Ｆ・５Ｆ",
+        "phone": "03-4213-7219"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2133100186&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322133100281",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人慶聰会 矢澤クリニック渋谷",
+        "address": "東京都渋谷区上原１－３３－１１ ＴＯＰＣＯＵＲＴ４ ２階",
+        "phone": "03-3469-5582"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2133100281&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322133100293",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団鉄結会 東京の粉瘤・ほくろ・できもの・赤ら顔・ワキガ治療 アイシークリニック渋谷院",
+        "address": "東京都渋谷区渋谷３－１６－２ ニュー三水ビル５Ｆ",
+        "phone": "03-6419-7436"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2133100293&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322133100307",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団友志会 恵比寿先端医療クリニック",
+        "address": "東京都渋谷区恵比寿南１－２５－１ 恵比寿プラックスビル３０１",
+        "phone": "03-5773-5499"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2133100307&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322133100371",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団あしたば 恵比寿こどもクリニック",
+        "address": "東京都渋谷区恵比寿４－９－１３ 中健ビル３Ｆ",
+        "phone": "03-3442-2525"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2133100371&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322133100444",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "ＣＬＩＮＩＣ ＴＥＮ ＳＨＩＢＵＹＡ",
+        "address": "東京都渋谷区渋谷２－２０－１２ 日永ビル２Ｆ",
+        "phone": "050-3196-4637"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2133100444&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322133100472",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "ウェルネストクリニック",
+        "address": "東京都渋谷区道玄坂２－３－２ 大外ビル３Ｆ",
+        "phone": "03-6732-6001"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2133100472&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322133100564",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "モイストクリニック",
+        "address": "東京都渋谷区恵比寿西１－２－１ エビスマンション６１０",
+        "phone": "050-885-0783"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2133100564&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322133100593",
+      "status": "address_mismatch",
+      "sourceIdentity": {
+        "name": "Ｌ’ａｍｏｕｒ ｃｌｉｎｉｃ Ｔｏｋｙｏ",
+        "address": "東京都渋谷区桜丘町３−４ 渋谷サクラステージｓａｋｕｒａサイド３階",
+        "phone": "0120-7480-75"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2133100593&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322133156030",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人財団鎮目記念会 鎮目記念クリニック",
+        "address": "東京都渋谷区代々木２－１６－７ 山葉ビル６Ｆ",
+        "phone": "03-3299-3591"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2133156030&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322133178830",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "一般財団法人日本健康増進財団 恵比寿ハートビル診療所",
+        "address": "東京都渋谷区恵比寿１－２４－４ 恵比寿ハートビル",
+        "phone": "03-5420-8014"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2133178830&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322133181090",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団シーズ・メディカル シロノクリニック恵比寿",
+        "address": "東京都渋谷区広尾１－１－４０ 恵比寿プライムスクエアプラザ１・２Ｆ",
+        "phone": "0120-114-422"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2133181090&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322133227350",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "石坂整形外科",
+        "address": "東京都中野区中野６－３０－１４",
+        "phone": "03-3361-3522"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2133227350&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322133253870",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団広尾プライム 広尾プライム皮膚科",
+        "address": "東京都渋谷区広尾１－１－３９ 恵比寿プライムスクエアタワー２Ｆ",
+        "phone": "0120-255-302"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2133253870&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322133319040",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": null,
+        "address": null,
+        "phone": null
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2133319040&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322133620690",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "せいきょう診療所",
+        "address": "東京都杉並区松ノ木３－２３－８",
+        "phone": "03-3313-7365"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2133620690&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322133626360",
+      "status": "address_mismatch",
+      "sourceIdentity": {
+        "name": "種田医院",
+        "address": "東京都杉並区成田東４－３－１１",
+        "phone": "03-3316-3322"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2133626360&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322133700207",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団鉄結会 東京の粉瘤・ほくろ・できもの・赤ら顔・ワキガ治療 アイシークリニック池袋院",
+        "address": "東京都豊島区南池袋２－１５－３ 前田ビル９Ｆ",
+        "phone": "03-5924-6250"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2133700207&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322133700293",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "東池袋とつか整形",
+        "address": "東京都豊島区東池袋４－２－１ プラウドタワー東池袋ステーションアリーナ３０２",
+        "phone": "0335965046"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2133700293&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322133714300",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団 菅谷眼科医院",
+        "address": "東京都豊島区南大塚２－４５－１１メゾンドールアムビル２Ｆ",
+        "phone": "03-3941-5003"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2133714300&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322133917260",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団赤門会 村岡医院",
+        "address": "東京都北区堀船１－１２－１５",
+        "phone": "090-3316-0577"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2133917260&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322134211620",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": null,
+        "address": null,
+        "phone": null
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2134211620&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322134324940",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "板橋フルヤ眼科",
+        "address": "東京都板橋区板橋１－２２－８ 古谷ビル１Ｆ・２Ｆ",
+        "phone": "03-5375-4930"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2134324940&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322134513210",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "幸田整形外科医院",
+        "address": "東京都板橋区小豆沢２－２５－９",
+        "phone": "03-3965-6588"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2134513210&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322134617280",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団真成会 江古田のぐち医院",
+        "address": "東京都練馬区豊玉北１－１２－１－１階",
+        "phone": "03-3994-5018"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2134617280&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322134633310",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "ねりま駅前眼科",
+        "address": "東京都練馬区練馬１－４－４ ベストフルスビル５Ｆ",
+        "phone": "03-3557-8558"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2134633310&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322134725420",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": null,
+        "address": null,
+        "phone": null
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2134725420&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322134800042",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "ひかりクリニック城東",
+        "address": "東京都足立区綾瀬４－８－１７ 相善ビル４Ｆ５Ｆ",
+        "phone": "03-5849-3895"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2134800042&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322134800164",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団大坪会 東和透析クリニック",
+        "address": "東京都足立区東和４－１２－３",
+        "phone": "03-6802-5570"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2134800164&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322134832940",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団福寿会 福寿会クリニック",
+        "address": "東京都足立区西新井本町５－７－１４ Ｅ．Ｍ．Ｓビル １～３階",
+        "phone": "03-5888-6601"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2134832940&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322134841580",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団精華会 ミルディス皮フ科",
+        "address": "東京都足立区千住３－９８ 千住ミルディスⅡ番館３０２・３０５",
+        "phone": "050-3734-0692"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2134841580&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322134922030",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": null,
+        "address": null,
+        "phone": null
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2134922030&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322134926070",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "辰沼クリニック",
+        "address": "東京都足立区辰沼１－３－１１ 宮田コーポ１Ｆ",
+        "phone": "090-3316-0577"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2134926070&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322135000013",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団啓翔会 葛飾整形外科クリニック",
+        "address": "東京都葛飾区細田３－２９－１５",
+        "phone": "03-3672-9611"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2135000013&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322135000029",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "金町耳鼻咽喉科クリニック",
+        "address": "東京都葛飾区金町５－３１－１３金町クリニックビル３階",
+        "phone": "03-5699-1187"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2135000029&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322135022490",
+      "status": "address_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団仁謙会 立石医院",
+        "address": "東京都葛飾区立石１－２０－１２ 大昌ビル１階",
+        "phone": "03-3691-0251"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2135022490&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322135045460",
+      "status": "address_mismatch",
+      "sourceIdentity": {
+        "name": "いずみホームケアクリニック",
+        "address": "東京都葛飾区青戸５丁目３０－１６",
+        "phone": "03-6662-6466"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2135045460&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322135200001",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "江戸川区江戸川保健所（中央健康サポートセンター）",
+        "address": "東京都江戸川区中央４－２４－１９",
+        "phone": "03-5661-1122"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2135200001&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322135200122",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団友育会しゅんしゅんキッズクリニック西葛西院",
+        "address": "東京都江戸川区西葛西６－６－１",
+        "phone": "03-5658-3601"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2135200122&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322135200158",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団靭生会 えどがわ在宅 小岩クリニック",
+        "address": "東京都江戸川区南小岩２－１８－９",
+        "phone": "03-6801-7058"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2135200158&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322135219450",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団二木耳鼻咽喉科医院 二木・深谷耳鼻咽喉科医院",
+        "address": "東京都江戸川区東葛西５－１３－９－１０１",
+        "phone": "03-6663-8799"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2135219450&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322135400043",
+      "status": "address_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団桜心会 浅草ハートクリニック",
+        "address": "東京都台東区花川戸１－２－４ 丸善ビル８Ｆ",
+        "phone": "03-6231-7581"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2135400043&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322135400094",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団鉄結会 東京の粉瘤・ほくろ・できもの・赤ら顔・ワキガ治療 アイシークリニック上野院",
+        "address": "東京都台東区東上野３－１６－５ サンクユービル１Ｆ",
+        "phone": "03-6284-4848"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2135400094&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322135400168",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "れいめいクリニック浅草橋",
+        "address": "東京都台東区浅草橋１－１２－３浅草橋ＫＳビル１階",
+        "phone": "03-5809-3274"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2135400168&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322135409730",
+      "status": "address_mismatch",
+      "sourceIdentity": {
+        "name": "中村医院",
+        "address": "東京都台東区雷門１ー１３－１３",
+        "phone": "03-5806-2677"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2135409730&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322135500103",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": null,
+        "address": null,
+        "phone": null
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2135500103&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322135500108",
+      "status": "address_mismatch",
+      "sourceIdentity": {
+        "name": "おうちの診療所 目黒",
+        "address": "東京都目黒区鷹番２丁目１４−７ カーサ鷹番１Ｆ",
+        "phone": "03-6303-1542"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2135500108&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322135500110",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団松淨会 自由が丘松原医院内科皮ふ科",
+        "address": "東京都目黒区自由が丘３－１０－８",
+        "phone": "03-5701-6777"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2135500110&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322135500930",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "西小山診療所",
+        "address": "東京都目黒区目黒本町６－６－８",
+        "phone": "03-3715-9141"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2135500930&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322135508750",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "成子クリニック",
+        "address": "東京都目黒区上目黒３－３－１４ アサヒ電機朝日生命中目黒ビル２Ｆ",
+        "phone": "03-3760-0066"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2135508750&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322135514780",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団愛心高会 ウォブクリニック中目黒",
+        "address": "東京都目黒区中目黒１－１０－２３ シティーホームズ中目黒２Ｆ",
+        "phone": "0120-411-281"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2135514780&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322135600041",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "梅屋敷森田クリニック",
+        "address": "東京都大田区蒲田２－７－１ 第五山田ビル１Ｆ",
+        "phone": "03-5714-0750"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2135600041&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322135600150",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団足ノ会 足と歩行の診療所",
+        "address": "東京都大田区西蒲田８－１－７ グランタウンビル９Ｆ",
+        "phone": "03-6383-5185"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2135600150&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322135600180",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "ＣＬＩＮＩＣ ＵＰ 大森院",
+        "address": "東京都大田区大森西３－１－３８ マチノマ大森３Ｆ",
+        "phone": "03-5471-5556"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2135600180&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322135600221",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "馬込駅前あくつ小児科耳鼻咽喉科",
+        "address": "東京都大田区北馬込２－３０－２ ＭＯＡ馬込２Ｆ",
+        "phone": "050-3188-3361"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2135600221&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322135621880",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団双愛会 ツインハート在宅クリニック蒲田",
+        "address": "東京都大田区南蒲田２－４－１９ ＡＮＴビル４Ｆ",
+        "phone": "03-5480-1810"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2135621880&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322135700029",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "ちかだこどもクリニック",
+        "address": "東京都杉並区永福４－１９－３ パークフラッツ永福町２００号室",
+        "phone": "03-6379-5360"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2135700029&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322135700031",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団敬正会 あんクリニック訪問診療",
+        "address": "東京都杉並区高井戸東２－２５－７ 青柳ビル",
+        "phone": "03-5941-6053"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2135700031&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322135700038",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "ＳＯＬ整形外科荻窪",
+        "address": "東京都杉並区荻窪５－２８－１３ 荻窪駅前ビル３階",
+        "phone": null
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2135700038&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322135700046",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団勝榮会 方南町駅前クリニック 内科と耳鼻咽喉科と訪問診療",
+        "address": "東京都杉並区和泉４－５１－６ フォンティーヌ杉並１Ｆ",
+        "phone": "03-5305-5788"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2135700046&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322135700232",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "高円寺駅前整形外科リハビリテーションクリニック",
+        "address": "東京都杉並区高円寺北２−３−３ＷＨＡＲＦ高円寺３階",
+        "phone": "0363830133"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2135700232&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322135716210",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "河北サテライトクリニック",
+        "address": "東京都杉並区阿佐谷北１－３－１２ 欅ビルディングＢ館",
+        "phone": "03-3339-2121"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2135716210&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322135800108",
+      "status": "address_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人修志会 ファミリークリニック荒川",
+        "address": "東京都荒川区西日暮里５－２６－８ ６階Ｂ",
+        "phone": "03-6807-9311"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2135800108&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322135800890",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団渓声会 板橋たきのがわ皮膚科",
+        "address": "東京都北区滝野川６－６２－１－１０１Ｂ",
+        "phone": "03-3576-4717"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2135800890&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322135804540",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団隆和会 みらいメディカルクリニック赤羽",
+        "address": "東京都北区赤羽西１－４－１５ グランデージ赤羽１Ｆ",
+        "phone": "03-5948-2911"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2135804540&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322135900024",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": null,
+        "address": null,
+        "phone": null
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2135900024&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322135900125",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団ＰＡＮＤＡ うえのとしあき脳神経クリニック板橋",
+        "address": "東京都板橋区板橋２－６７－５ アクロスキューブ板橋１Ｆ",
+        "phone": "03-6915-5104"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2135900125&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136000141",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": null,
+        "address": null,
+        "phone": null
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136000141&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136000159",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "虎ノ門本間眼科",
+        "address": "東京都港区虎ノ門３－８ー２ 虎ノ門吾妻ビル６階",
+        "phone": "03-6435-8960"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136000159&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136000304",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団ＧＲＡＣＥ チームメディカルクリニック",
+        "address": "東京都港区西新橋１－５－１４ 内幸町１ビル１Ｆ",
+        "phone": "03-6206-1020"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136000304&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136000327",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": null,
+        "address": null,
+        "phone": null
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136000327&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136000346",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "ＭａｓｔＢｅａｕｔｙクリニック麻布十番",
+        "address": "東京都港区麻布十番１－６－５ ラミュウーズビル５Ｆ",
+        "phone": "03-3478-1007"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136000346&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136000395",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団おおきなへいわ ＴＯＫＵＮＡＫＡクリニック表参道本院",
+        "address": "東京都港区北青山３ー５ー２７ＡＯＫＩ表参道ビル８階",
+        "phone": "050-1721-6458"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136000395&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136000473",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団ＣＦＳ クリニックフォア新橋",
+        "address": "東京都港区新橋１丁目４番５号 ＦＰＧ・ｌｉｎｋｓ・ＳＨＩＭＢＡＳＨＩ ９階・１０階",
+        "phone": "03-6110-7106"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136000473&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136000487",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "ダリア銀座スキンクリニック",
+        "address": "東京都港区新橋１－５－５ グランベル銀座ビルⅡ ４Ｆ",
+        "phone": "03-6228-5426"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136000487&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136000564",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "Ｂｊクリニック美容外科・美容皮膚科",
+        "address": "東京都港区北青山３－５－４０ ＹＣビルＩＩ ２Ｆ",
+        "phone": "03-6438-9900"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136000564&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136000590",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "プルージュリジェンクリニック",
+        "address": "東京都港区港南２－４－１８ 第二秋山ビル４Ｆ",
+        "phone": "050-1780-1180"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136000590&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136000598",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "湘南美容クリニック表参道Ｏｃｕｌｕｓ院",
+        "address": "東京都港区北青山３－１１－７ ＡＯビル７Ｆ",
+        "phone": "0120-489-660"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136000598&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136000666",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団シャローム会 ＴＯＫＹＯウェルネスクリニック神谷町",
+        "address": "東京都港区虎ノ門４－１－１ 神谷町トラストタワー２Ｆ",
+        "phone": "03-6432-0547"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136000666&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136000718",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "斎藤クリニック",
+        "address": "東京都港区南青山６－６－２１ グロービル青山６Ｆ",
+        "phone": "03-6427-7714"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136000718&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136000722",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "Ｏｋｕｎｏ Ｃｌｉｎｉｃ． 東京 表参道",
+        "address": "東京都港区南青山５－６－２６ 青山２４６ビル３Ｆ",
+        "phone": "0120-305-598"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136000722&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136000768",
+      "status": "address_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人高橋医院 青山アレルギークリニック",
+        "address": "東京都港区北青山２－１２－１３青山KＹビル５階",
+        "phone": "03-6271-5083"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136000768&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136027900",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団雄仁会 メディカルケア虎ノ門",
+        "address": "東京都港区虎ノ門１－１６－１６ 虎ノ門１丁目ＭＧビル４Ｆ",
+        "phone": "03-6262-1666"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136027900&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136050070",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団ゆかり会 虎ノ門ウィメンズクリニック",
+        "address": "東京都港区虎ノ門１－１－１８ ヒューリック虎ノ門ビル１Ｆ",
+        "phone": "050-3526-1030"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136050070&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136200304",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団Ｈｅａｒｔｂｅａｔ 新宿内科クリニック",
+        "address": "東京都新宿区西新宿６－１４－１ 新宿グリーンタワービル２Ｆ",
+        "phone": "03-3343-0365"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136200304&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136200305",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "四谷甲状腺糖尿病クリニック",
+        "address": "東京都新宿区四谷１の８の１４ 四谷一丁目ビル２０２",
+        "phone": "03-5361-7117"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136200305&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136200460",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "湘南美容皮フ科新宿東口院",
+        "address": "東京都新宿区新宿３－２７－１０ 新宿武蔵野ビル５Ｆ",
+        "phone": "0120-834-124"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136200460&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136200538",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "ＳＫ新宿歌舞伎町美容外科・歯科",
+        "address": "東京都新宿区歌舞伎町１－２３－１５ ＳＵＺＵＹＡビル４Ｆ",
+        "phone": "03-6228-0761"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136200538&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136200556",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": null,
+        "address": null,
+        "phone": null
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136200556&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136200573",
+      "status": "address_mismatch",
+      "sourceIdentity": {
+        "name": "ＬＯＲＥ ＣＬＩＮＩＣ",
+        "address": "東京都新宿区新宿６－２８－１２ Ｄｓ新宿ビル７階",
+        "phone": "0362056062"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136200573&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136200589",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "西早稲田ライフケアクリニック",
+        "address": "東京都新宿区高田馬場１－１－１メトロシティ西早稲田３階Ａ",
+        "phone": "03-6809-6721"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136200589&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136217990",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": null,
+        "address": null,
+        "phone": null
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136217990&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136224800",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団慶門会 左門町皮膚科",
+        "address": "東京都新宿区左門町２０ 四谷メディカルビル２Ｆ",
+        "phone": "03-5368-0675"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136224800&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136226240",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団博由会 四谷内科",
+        "address": "東京都新宿区左門町２０ 四谷メディカルビル２Ｆ",
+        "phone": "03-5368-0675"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136226240&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136231260",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団三育会 新宿ヒロクリニック",
+        "address": "東京都新宿区大久保２－１１－１５ 大林ビル１・２Ｆ",
+        "phone": "03-5272-5610"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136231260&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136251568",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "小滝橋眼科クリニック",
+        "address": "東京都新宿区北新宿４－８－１６ 北新宿君嶋ビル３階",
+        "phone": "03-5389-0888"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136251568&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136300163",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団ＦＵ－ＷＡ 目黒みらい内科クリニック",
+        "address": "東京都品川区上大崎２－１３－２６ メイプルトップビル３Ｆ",
+        "phone": "050-3146-4574"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136300163&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136300169",
+      "status": "address_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団 長者丸 けいクリニック",
+        "address": "東京都目黒区下目黒１－３－２７アセンド目黒ビル７階",
+        "phone": "03-6456-2620"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136300169&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136300254",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "なみファミリークリニック",
+        "address": "東京都品川区旗の台２－７－２イオンタウン旗の台３０１",
+        "phone": "(03)5751-7375"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136300254&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136316170",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "おりしきみつるクリニック",
+        "address": "東京都品川区東大井２－１９－１１",
+        "phone": "03-5762-2789"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136316170&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136400221",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団豊栄会 アイクリニック東京サピアタワー",
+        "address": "東京都千代田区丸の内１－７－１２ サピアタワー７Ｆ",
+        "phone": "0120-971-162"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136400221&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136400285",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団ウェルエイジング ウェルスリープクリニック東京",
+        "address": "東京都千代田区丸の内１－１１－１ パシフィックセンチュリープレイス丸の内１０Ｆ",
+        "phone": "03-6665-0502"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136400285&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136400326",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団ＭＹメディカル ＭＹメディカルクリニック大手町",
+        "address": "東京都千代田区大手町２－３－１ 大手町プレイスＢ２Ｆ",
+        "phone": "(03)4213-7265"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136400326&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136400344",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "ＭＴＸスポーツ・関節クリニック",
+        "address": "東京都千代田区麹町６－４－１６ ＥＳＣＡＬＩＥＲ麹町２Ｆ",
+        "phone": "03-3262-5047"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136400344&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136400350",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "大手町クリニック",
+        "address": "東京都千代田区内神田１－１１－５－ ４０１",
+        "phone": "050-1793-1422"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136400350&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136400361",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "ＴＭクリニック麹町",
+        "address": "東京都千代田区麹町６－２－３０ 麹町 ニュー彌彦ビル２Ｆ",
+        "phone": "03-6869-6938"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136400361&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136403070",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "法政大学診療所",
+        "address": "東京都千代田区富士見２－１７－１ ボアソナード・タワー２階",
+        "phone": "03-3264-9503"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136403070&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136412320",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団慶洋会 ケイアイ飯田橋クリニック",
+        "address": "東京都千代田区飯田橋３－１０－１０ ガーデンエアータワー２Ｆ",
+        "phone": "03-3239-2777"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136412320&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136423850",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": null,
+        "address": null,
+        "phone": null
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136423850&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136500053",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": null,
+        "address": null,
+        "phone": null
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136500053&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136500157",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "社会福祉法人富士見会 富士見台診療所",
+        "address": "東京都練馬区富士見台２－３４－４",
+        "phone": "03-3998-4322"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136500157&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136500200",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "中島医院",
+        "address": "東京都練馬区石神井台３－１０－３０",
+        "phone": "090-2466-7943"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136500200&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136600031",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団ＬＳＭ 寺本内科歯科クリニック",
+        "address": "東京都文京区本郷５－２５－１３ スカイビジョンビル１Ｆ ２Ｆ",
+        "phone": "03-5684-0818"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136600031&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136600049",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団路是 りくぎえん皮膚科",
+        "address": "東京都文京区本駒込６－２－１ 栄泉堂ビル３０１号室",
+        "phone": "050-3188-3595"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136600049&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136600107",
+      "status": "address_mismatch",
+      "sourceIdentity": {
+        "name": "アゴラ内科クリニック",
+        "address": "東京都文京区本郷３－５－５ 野々村ビル５Ｆ",
+        "phone": "03-6803-0976"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136600107&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136618181",
+      "status": "address_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団美加未会 芝浦ホームクリニック",
+        "address": "東京都港区芝浦３－１１－７－４階",
+        "phone": "03-5419-7746"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136618181&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136800078",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "豊洲やまもと眼科",
+        "address": "東京都江東区豊洲３－４－８ スーパービバホーム豊洲店２階",
+        "phone": "050-3196-1250"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136800078&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136800138",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": null,
+        "address": null,
+        "phone": null
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136800138&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136800150",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": null,
+        "address": null,
+        "phone": null
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136800150&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136800151",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "アリオ北砂皮膚科・アレルギー科",
+        "address": "東京都江東区北砂２－１７－１ アリオ北砂３Ｆ",
+        "phone": "03-6666-2014"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136800151&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136800226",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団悠翔会 くらしケアクリニック城東",
+        "address": "東京都江東区亀戸６－２８－２ドゥーエ亀戸１Ｆ",
+        "phone": "03-5868-6415"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136800226&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136800480",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団天寿会 亀戸中央通りクリニック",
+        "address": "東京都江東区亀戸５－２０－２３ ホープハセガワ１Ｆ",
+        "phone": "0120-562-838"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136800480&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136900016",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "東京形成外科 人形町院",
+        "address": "東京都中央区日本橋人形町３－１２－１１ タスキプライム日本橋人形町４Ｆ",
+        "phone": "03-6231-1555"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136900016&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136900057",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団大樹会 新東京クリニック 立川駅前院",
+        "address": "東京都立川市曙町２－７－１８ ＭＩＳＵＭＩビル５Ｆ",
+        "phone": "042-548-8851"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136900057&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136900124",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団幸星会 日本橋白内障クリニック",
+        "address": "東京都中央区日本橋室町２－４－１ 浮世小路千疋屋ビル３Ｆ",
+        "phone": "0120-916-207"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136900124&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136900189",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "東京駅クリニック",
+        "address": "東京都中央区日本橋３－４－１６ 東和八重洲ビル３・５Ｆ",
+        "phone": "03-6262-1553"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136900189&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136900256",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人オーク会 オーク銀座レディースクリニック",
+        "address": "東京都中央区銀座２－６－１２ 大倉本館７Ｆ",
+        "phone": "0120-009-345"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136900256&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136900477",
+      "status": "address_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人清和会 ＨＭレディースクリニック銀座",
+        "address": "東京都中央区銀座１－８－１４ 銀座大新ビル ９階",
+        "phone": "03-6264-4105"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136900477&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136900484",
+      "status": "address_mismatch",
+      "sourceIdentity": {
+        "name": "あやメンタル日本橋クリニック",
+        "address": "東京都千代田区内神田２－７－１１ 中森ビル２階",
+        "phone": "03-6665-6350"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136900484&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136900553",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "ステムヒーラ日本橋クリニック",
+        "address": "東京都中央区日本橋室町３－３－１ ＥＴＳ室町ビル６階",
+        "phone": "03-6225-2640"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136900553&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136900560",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "一般社団法人志鴻会 ＧｉｎｚａＰｈｏｅｎｉｘＣｌｉｎｉｃ",
+        "address": "東京都中央区京橋２－４－１２ 京橋キノテラス３階",
+        "phone": "03-6263-8163"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136900560&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136900626",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "ＡＮＤキッズクリニック日本橋",
+        "address": "東京都中央区日本橋堀留町２－６－６ ライフサイエンスビル７Ｆ",
+        "phone": "03-6820-4059"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136900626&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136900683",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団鉄結会 東京の粉瘤・ほくろ・できもの・赤ら顔・ワキガ治療 アイシークリニック東京院",
+        "address": "東京都中央区日本橋３－６－２ 日本橋フロント３階Ｃ区画",
+        "phone": "03-6281-6970"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136900683&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136900724",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "東銀座皮ふ科",
+        "address": "東京都中央区築地１−１３−１ 銀座松竹スクエア１階",
+        "phone": "03-6281-5208"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136900724&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136916600",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団 銀座キューヴォクリニック",
+        "address": "東京都中央区銀座１－１６－１ 東貨ビル１Ｆ",
+        "phone": "03-5159-6126"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136916600&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136919630",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": null,
+        "address": null,
+        "phone": null
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136919630&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136925843",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人邦寿会 東京皮膚科・形成外科 銀座院",
+        "address": "東京都中央区銀座２－１１－８ ラウンドクロス銀座 ３階",
+        "phone": "03-3545-8000"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136925843&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322136925849",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "月島総合ファミリークリニック",
+        "address": "東京都中央区月島４－３－１－２Ｆ",
+        "phone": "03-6228-2020"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2136925849&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322137100065",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "井の頭公園前ヒフ科",
+        "address": "東京都三鷹市下連雀１－１２－５",
+        "phone": "050-3623-1852"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2137100065&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322137112508",
+      "status": "address_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団青翠会 武蔵野皮フ科クリニック",
+        "address": "東京都武蔵野市西久保１－６－２５ メディフロント武蔵野１Ｆ２Ｆ",
+        "phone": "0422-60-2856"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2137112508&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322137300077",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": null,
+        "address": null,
+        "phone": null
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2137300077&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322137300085",
+      "status": "address_mismatch",
+      "sourceIdentity": {
+        "name": "しんや内科",
+        "address": "東京都八王子市散田町３ー６―２４ ２Ｆ",
+        "phone": "042-673-3033"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2137300085&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322137308130",
+      "status": "address_mismatch",
+      "sourceIdentity": {
+        "name": "田中皮フ科クリニック",
+        "address": "東京都八王子市散田町３ー６―２４ １階",
+        "phone": "042-661-4800"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2137308130&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322137353390",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "西八王子やまたか消化器内視鏡クリニック",
+        "address": "東京都八王子市千人町２－３－１０ エクセレント２Ｆ",
+        "phone": "042-669-8288"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2137353390&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322137500098",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団壮俊会 町田駅前内科クリニック",
+        "address": "東京都町田市森野１－３９－１６ 渋谷一樹ビル３Ｆ",
+        "phone": "050-3355-7456"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2137500098&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322137500157",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": null,
+        "address": null,
+        "phone": null
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2137500157&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322137509940",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "青木医院",
+        "address": "東京都町田市相原町８１０",
+        "phone": "042-770-4114"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2137509940&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322137531970",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団楓の風ふくいんクリニック",
+        "address": "東京都町田市山崎町２２００番地山崎団地第３街区第２４号棟１０１号室",
+        "phone": "042-791-1307"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2137531970&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322137939000",
+      "status": "address_mismatch",
+      "sourceIdentity": {
+        "name": "中西クリニック",
+        "address": "東京都昭島市代官山２－３－２ モリタウン西館４Ｆ",
+        "phone": "042-541-2611"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2137939000&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322137941250",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": null,
+        "address": null,
+        "phone": null
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2137941250&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322138310680",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団昂昌会 鈴木小児科内科医院",
+        "address": "東京都小平市学園西町２－１１－２８",
+        "phone": "042-341-0353"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2138310680&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322138502010",
+      "status": "address_mismatch",
+      "sourceIdentity": {
+        "name": "御蔵島村国民健康保険直営御蔵島診療所",
+        "address": "東京都御蔵島村御蔵島無番地",
+        "phone": "04994-8-2206"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2138502010&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322138502720",
+      "status": "address_mismatch",
+      "sourceIdentity": {
+        "name": "青ヶ島村国民健康保険青ヶ島診療所",
+        "address": "東京都青ヶ島村無番地",
+        "phone": "04996-9-0123"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2138502720&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322138502850",
+      "status": "address_mismatch",
+      "sourceIdentity": {
+        "name": "小笠原村診療所",
+        "address": "東京都小笠原村父島字清瀬",
+        "phone": "04998-2-3800"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2138502850&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322138503020",
+      "status": "address_mismatch",
+      "sourceIdentity": {
+        "name": "海上自衛隊硫黄島航空基地医務室",
+        "address": "東京都小笠原村硫黄島無番地",
+        "phone": "090-2505-6950"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2138503020&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322138504030",
+      "status": "address_mismatch",
+      "sourceIdentity": {
+        "name": "小笠原村母島診療所",
+        "address": "東京都小笠原村母島字元地",
+        "phone": "04998-3-2115"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2138504030&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322138703530",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "トヨタ自動車羽村株式会社診療所",
+        "address": "東京都羽村市緑ケ丘３－１－１",
+        "phone": "042-579-0457"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2138703530&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322138906490",
+      "status": "address_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団七つ星 ななスキンケア皮膚科クリニック",
+        "address": "東京都西多摩郡日の出町平井 ２１６－１１",
+        "phone": "042-588-7711"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2138906490&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322139100077",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": null,
+        "address": null,
+        "phone": null
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2139100077&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322139114250",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "おやまクリニック",
+        "address": "東京都日野市高幡３２８ 森久保医療モール２０２",
+        "phone": "042-592-4976"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2139114250&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322139207240",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "ひろみこどもクリニック",
+        "address": "東京都国立市中２－２０－９",
+        "phone": "042-501-0088"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2139207240&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322139501300",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "仙川町きくち消化器内視鏡クリニック",
+        "address": "東京都調布市仙川町１－９－３７ キクチマンション１Ｆ",
+        "phone": "03-5384-4343"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2139501300&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322139504620",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団敬和慶友会 調布くびと腰の整形外科クリニック",
+        "address": "東京都調布市布田２－３３－６",
+        "phone": "042-452-8556"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2139504620&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322139508790",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "医療法人社団スリープクリニック スリープクリニック調布",
+        "address": "東京都調布市小島町２－５３－１",
+        "phone": "0120-490-770"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2139508790&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322139700002",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": null,
+        "address": null,
+        "phone": null
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2139700002&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1322139705850",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": "どんぐりこどもクリニック花小金井",
+        "address": "東京都小平市花小金井南町２－２１－７",
+        "phone": "042-465-2288"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=2139705850&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1325139900030",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": null,
+        "address": null,
+        "phone": null
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=5139900030&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1325139900530",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": null,
+        "address": null,
+        "phone": null
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=5139900530&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1325139900840",
+      "status": "address_mismatch",
+      "sourceIdentity": {
+        "name": "仁クリニック",
+        "address": "東京都港区西麻布４ー１１ー７秀和西麻布レジデンス４０２号",
+        "phone": "050-5469-7808"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=5139900840&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1325139901610",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "デジタルクリニック 渋谷院",
+        "address": "東京都渋谷区渋谷３丁目８－１１渋谷三丁目ＴＲビル３Ｆ",
+        "phone": "03-6822-6973"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=5139901610&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1325139903090",
+      "status": "name_mismatch",
+      "sourceIdentity": {
+        "name": null,
+        "address": null,
+        "phone": null
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=5139903090&kikanKbn=2&prefCd=13"
+    },
+    {
+      "id": "clinic-1325139903450",
+      "status": "phone_mismatch",
+      "sourceIdentity": {
+        "name": "道玄坂よろず相談処クリニック",
+        "address": "東京都渋谷区道玄坂２丁目１５番１号ノア道玄坂１００１号室",
+        "phone": "08033129910"
+      },
+      "url": "https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=5139903450&kikanKbn=2&prefCd=13"
+    }
+  ]
+}

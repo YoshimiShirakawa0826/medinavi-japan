@@ -1,5 +1,6 @@
 import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
 import { gunzipSync } from "node:zlib";
+import { createHash } from 'node:crypto';
 import path from "node:path";
 import { clinicAccessReviews } from '../data/clinic-access-reviews.mjs';
 import { additionalAccessReviews } from '../data/clinic-access-reviews-20260913.mjs';
@@ -37,7 +38,14 @@ if (phoneCount !== 4316) {
 await mkdir(path.dirname(outputPath), { recursive: true });
 const reportParts = (await readdir(sourceDirectory)).filter(name => /^nabii-access\.json\.gz\.part\d+$/.test(name)).sort();
 if (!reportParts.length) throw new Error('Nabii access report archive was not found');
-const reports = JSON.parse(gunzipSync(Buffer.concat(await Promise.all(reportParts.map(name => readFile(path.join(sourceDirectory, name)))))));
+const manifest = JSON.parse(await readFile(path.join(sourceDirectory, 'nabii-access-manifest.json'), 'utf8'));
+const reportJson = gunzipSync(Buffer.concat(await Promise.all(reportParts.map(name => readFile(path.join(sourceDirectory, name))))));
+const reports = JSON.parse(reportJson);
+if (manifest.schemaVersion !== 1 || manifest.reportCount !== reports.length
+  || JSON.stringify(manifest.parts) !== JSON.stringify(reportParts)
+  || createHash('sha256').update(reportJson).digest('hex') !== manifest.jsonSha256) {
+  throw new Error('Nabii archive does not match its reviewed manifest');
+}
 const governmentReviews = nabiiAccessReviews(clinics, reports);
 // Editorial clinic guidance overrides a government field only when explicitly reviewed.
 const websiteReviews = [...clinicAccessReviews, ...additionalAccessReviews];

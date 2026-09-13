@@ -21,6 +21,9 @@ test('Nabii answers preserve specialty scope and never infer travel-insurance di
   assert.equal(matchesAccess(result, 'walkInAvailable', 'dermatology'), true);
   const cosmetic = materialize({ ...source, departments: [{ name: '美容皮膚科', status: 'yes' }] });
   assert.equal(matchesAccess(cosmetic, 'walkInAvailable', 'dermatology'), false);
+  const restricted = materialize({ ...source, languageReservations: [{ name: '英語', reservation: '要予約', note: '-' }] });
+  assert.equal(matchesAccess(restricted, 'walkInAvailable', 'dermatology', 'en'), false);
+  assert.equal(matchesAccess(restricted, 'walkInAvailable', 'dermatology', 'ja'), true);
 });
 
 test('blank answers, electronic-payment-only negatives and absent designations stay out of positive filters', () => {
@@ -55,5 +58,6 @@ test('an explicit clinic-website correction takes priority without erasing other
   assert.equal(matchesAccess(corrected, 'creditCardAccepted'), false);
   assert.deepEqual(corrected.accessEvidence.japaneseHealthInsurance, first.accessEvidence.japaneseHealthInsurance);
   const { accessEvidence, ...base } = corrected;
+  assert.ok(accessEvidence);
   assert.deepEqual(base, clinic);
 });

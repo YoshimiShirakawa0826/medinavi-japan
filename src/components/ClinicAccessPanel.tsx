@@ -28,7 +28,7 @@ export function ClinicAccessPanel({ hospital }: { hospital: Hospital }) {
             <p className={`text-sm font-bold ${evidence?.status === 'yes' ? 'text-accent-700' : 'text-slate-700'}`}>{t(statusKey)}</p>
             {evidence && <>
               <p className="text-sm leading-relaxed text-slate-600">{evidence.notes[language]}</p>
-              {evidence.departments && <details className="text-sm text-slate-700">
+              {!!evidence.departments?.length && <details className="text-sm text-slate-700">
                 <summary className="cursor-pointer font-semibold py-1">{t('access.departmentDetails')}</summary>
                 <p className="text-xs text-slate-500 py-1">{t('access.originalNames')}</p>
                 <ul className="space-y-1 mt-1">

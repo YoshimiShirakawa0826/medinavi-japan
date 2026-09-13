@@ -35,6 +35,9 @@ class NabiiAccessTests(unittest.TestCase):
         self.assertEqual(result['departments'], [{'name': '内科', 'status': 'no'}, {'name': '皮膚科', 'status': 'yes'}])
         self.assertEqual(result['languageReservations'][0]['reservation'], '要予約')
         self.assertEqual(parse_report(report(area('内科', '-') + area('内科', '可能')))['departments'][0]['status'], 'unknown')
+        without_timetable = area('美容外科', '不可').replace('ptn3DataArea', 'ptn1DataArea')
+        unrelated = '<div class="ptn1DataArea"><h3>支払いの案内</h3><p>要確認</p></div>'
+        self.assertEqual(parse_report(report(without_timetable + unrelated))['departments'], [{'name': '美容外科', 'status': 'no'}])
 
     def test_moved_renamed_or_conflicting_phone_is_held(self):
         clinic = {'name': {'ja': 'テスト医院'}, 'address': {'ja': '東京都港区芝１－２－３　２階'}, 'phone': '03-1111-2222'}

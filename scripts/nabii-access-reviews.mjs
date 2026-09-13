@@ -40,9 +40,9 @@ export function nabiiAccessReviews(clinics, reports) {
     else if (report.electronicPayment === '不可') fields.creditCardAccepted = evidence('information', notes.electronicNo);
     if (report.japaneseInsuranceDesignation === true) fields.japaneseHealthInsurance = evidence('yes', notes.insurance);
     const departments = report.departments ?? [];
-    if (departments.some(d => ['yes', 'no'].includes(d.status))) {
+    if (departments.some(d => ['yes', 'no'].includes(d.status)) || report.languageReservations?.length) {
       const status = departments.some(d => d.status === 'yes') ? 'conditional'
-        : departments.every(d => d.status === 'no') ? 'no' : 'information';
+        : departments.length > 0 && departments.every(d => d.status === 'no') ? 'no' : 'information';
       fields.walkInAvailable = { ...evidence(status, notes.walk), departments,
         languageReservations: report.languageReservations ?? [] };
     }

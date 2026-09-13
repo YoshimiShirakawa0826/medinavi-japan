@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "reportCount": 4200,
+  "attemptedClinics": 4420,
+  "source": "医療情報ネット（ナビイ）施設詳細",
+  "checkedAt": [
+    "2026-09-13"
+  ],
+  "jsonSha256": "a905ae5e8256f7340d949ccae01f6eeef0b277b372dce94127b69951f4f73cd9",
+  "parts": [
+    "nabii-access.json.gz.part00",
+    "nabii-access.json.gz.part01",
+    "nabii-access.json.gz.part02",
+    "nabii-access.json.gz.part03",
+    "nabii-access.json.gz.part04",
+    "nabii-access.json.gz.part05"
+  ],
+  "reconciliation": {
+    "matched": 4200,
+    "phone_mismatch": 102,
+    "name_mismatch": 89,
+    "address_mismatch": 29
+  }
+}
