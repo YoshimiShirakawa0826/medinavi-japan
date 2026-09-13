@@ -2,7 +2,7 @@
 
 import { useLanguage } from '@/components/LanguageProvider';
 import { hasWebsiteReview, matchesAccess } from '@/lib/clinic-access';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Hospital, Language, departments } from '@/types';
 import { MapPin, Phone, AlertTriangle, ArrowLeft, CheckCircle, CreditCard, Shield, Sparkles, Navigation, ExternalLink, Wallet, LocateFixed, Info, X } from 'lucide-react';
@@ -21,7 +21,6 @@ const RESULT_CAP = RESULT_PAGE_SIZE;
 function HospitalsContent() {
   const { language, t } = useLanguage();
   const searchParams = useSearchParams();
-  const router = useRouter();
   const [hospitals, setHospitals] = useState<Hospital[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState(false);
@@ -86,7 +85,9 @@ function HospitalsContent() {
   const needsAreaSelection = !refPoint;
   const showDistance = !!refPoint;
   const changeSearch = (changes: Record<string, string | null>) => {
-    router.replace(updateSearch(searchParams.toString(), changes), { scroll: false });
+    // Filtering uses data already loaded on this page. Next.js synchronizes
+    // native history updates with useSearchParams without a server navigation.
+    window.history.replaceState(null, '', updateSearch(searchParams.toString(), changes));
     resultsRef.current?.scrollTo({ top: 0 });
   };
 
@@ -114,7 +115,7 @@ function HospitalsContent() {
     saveSearchLocation(null);
     setMapTarget(null);
     setMapVisible(false);
-    router.replace('/hospitals', { scroll: false });
+    window.history.replaceState(null, '', '/hospitals');
   };
 
   // 地図表示（要件3: 初期はリストのみ。ユーザーが「地図を表示」を押したときだけ OSM を読み込む）。
@@ -181,7 +182,7 @@ function HospitalsContent() {
   const goToPage = (page: number) => {
     const p = new URLSearchParams(searchParams.toString());
     p.set('page', String(page));
-    router.replace(`/hospitals?${p}`, { scroll: false });
+    window.history.replaceState(null, '', `/hospitals?${p}`);
     resultsRef.current?.scrollTo({ top: 0 });
     resultsRef.current?.scrollIntoView({ block: 'start' });
   };
@@ -197,11 +198,7 @@ function HospitalsContent() {
   const langName = (code: string) =>
     code === 'en' ? 'English' : code === 'zh' ? '中文' : code === 'ko' ? '한국어' : code === 'es' ? 'Español' : '日本語';
   const removeFilter = (key: string) => {
-    const p = new URLSearchParams(Array.from(searchParams.entries()));
-    p.delete(key);
-    p.delete('page');
-    const qs = p.toString();
-    router.replace(qs ? `/hospitals?${qs}` : '/hospitals');
+    changeSearch({ [key]: null });
   };
   const activeFilters: Array<{ key: string; label: string }> = [];
   if (keyword) activeFilters.push({ key: 'q', label: keyword });
