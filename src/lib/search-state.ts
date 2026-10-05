@@ -56,16 +56,18 @@ export function readSearchLocation(): SearchCoordinates | null {
   catch { return null; }
 }
 
-export function saveSearchLocation(coords: SearchCoordinates | null): void {
+export function saveSearchLocation(coords: SearchCoordinates | null): boolean {
   try {
     if (coords) sessionStorage.setItem(LOCATION_KEY, JSON.stringify({ ...coords, savedAt: Date.now() }));
     else sessionStorage.removeItem(LOCATION_KEY);
-  } catch { /* Storage is optional; the current screen still works. */ }
+    return true;
+  } catch { return false; }
 }
 
 // Legacy imports used false for unknown capabilities. Do not turn such defaults
 // into confirmed negatives. Weekend opening can instead be checked from slots.
-export function weekendStatus(hospital: Pick<Hospital, 'closedDays' | 'openingHours'>): boolean | undefined {
+export function weekendStatus(hospital: Pick<Hospital, 'closedDays' | 'openingHours' | 'careGuide'>): boolean | undefined {
+  if (hospital.careGuide?.scheduleNeedsConfirmation) return undefined;
   const days = ['sat', 'sun'];
   if (days.some(day => hospital.closedDays?.[day] !== true && hospital.openingHours?.[day]?.some(slot =>
     /^([01]\d|2[0-3]):[0-5]\d$/.test(slot.start) && /^([01]\d|2[0-3]):[0-5]\d$/.test(slot.end) && slot.start < slot.end

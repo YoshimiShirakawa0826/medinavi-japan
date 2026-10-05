@@ -5,7 +5,7 @@ import { gunzipSync } from 'node:zlib';
 import { clinicAccessReviews } from '../data/clinic-access-reviews.mjs';
 import { applyAccessReviews } from '../scripts/apply-access-reviews.mjs';
 import { hasWebsiteReview, matchesAccess } from '../src/lib/clinic-access.ts';
-import { whatsAppLinkFromConfig } from '../src/lib/consultation.ts';
+import { whatsAppLinkFromConfig, whatsAppEnquiryLink } from '../src/lib/consultation.ts';
 
 const parts = readdirSync('data').filter(name => /^clinics\.json\.gz\.part\d+$/.test(name)).sort();
 const base = JSON.parse(gunzipSync(Buffer.concat(parts.map(name => readFileSync(`data/${name}`)))));
@@ -58,4 +58,19 @@ test('WhatsApp stays disabled until registration is explicitly confirmed in depl
     assert.equal(whatsAppLinkFromConfig(value), null);
   }
   assert.equal(whatsAppLinkFromConfig('true'), 'https://wa.me/817090369655');
+});
+
+test('WhatsApp drafts request online care support at the confirmed recipient without any automatic send action', () => {
+  assert.equal(whatsAppEnquiryLink(null, 'en'), null);
+  assert.equal(whatsAppEnquiryLink('https://wa.me/819000000000', 'en'), null);
+  for (const language of ['ja', 'en', 'es']) {
+    const url = new URL(whatsAppEnquiryLink(whatsAppLinkFromConfig('true'), language));
+    assert.equal(url.origin, 'https://wa.me');
+    assert.equal(url.pathname, '/817090369655');
+    assert.deepEqual([...url.searchParams.keys()], ['text']);
+    const draft = url.searchParams.get('text');
+    assert.match(draft, /MediNavi JAPAN/);
+    assert.match(draft, language === 'ja' ? /やさしい日本語/ : language === 'es' ? /español/ : /Preferred language: \[please enter\]/);
+    assert.match(draft, language === 'ja' ? /オンライン診療を希望/ : language === 'es' ? /consulta médica en línea/ : /online medical consultation/);
+  }
 });

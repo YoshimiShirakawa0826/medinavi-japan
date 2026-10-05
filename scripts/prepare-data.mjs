@@ -6,6 +6,7 @@ import { clinicAccessReviews } from '../data/clinic-access-reviews.mjs';
 import { additionalAccessReviews } from '../data/clinic-access-reviews-20260913.mjs';
 import { applyAccessReviews } from './apply-access-reviews.mjs';
 import { nabiiAccessReviews } from './nabii-access-reviews.mjs';
+import { applyCareGuidance } from '../data/clinic-care-guidance.mjs';
 
 const projectRoot = process.cwd();
 const sourceDirectory = path.join(projectRoot, "data");
@@ -51,5 +52,5 @@ const governmentReviews = nabiiAccessReviews(clinics, reports);
 const websiteReviews = [...clinicAccessReviews, ...additionalAccessReviews];
 const reviewedClinics = applyAccessReviews(applyAccessReviews(clinics, governmentReviews), websiteReviews);
 // Compact JSON avoids shipping indentation for thousands of records.
-await writeFile(outputPath, JSON.stringify(reviewedClinics) + '\n');
+await writeFile(outputPath, JSON.stringify(applyCareGuidance(reviewedClinics)) + '\n');
 console.log(`Prepared ${clinics.length} clinics with ${phoneCount} phone numbers; ${governmentReviews.length} Nabii reviews and ${websiteReviews.length} clinic website reviews.`);

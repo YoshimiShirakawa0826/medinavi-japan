@@ -2,13 +2,14 @@
 
 import { useLanguage } from '@/components/LanguageProvider';
 import { departments } from '@/types';
-import { MapPin, Phone, Clock, AlertTriangle, ArrowLeft, Info, ExternalLink, CheckCircle, Shield, Globe, Wallet, Receipt, FileText } from 'lucide-react';
+import { MapPin, Phone, Clock, AlertTriangle, ArrowLeft, Info, ExternalLink, CheckCircle, Globe } from 'lucide-react';
 import Link from 'next/link';
 import { useParams, useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
 import { clinicMapUrl } from '@/lib/clinic-utils';
 import { useClinics } from '@/lib/use-clinics';
 import { ClinicAccessPanel } from '@/components/ClinicAccessPanel';
+import { ClinicCareGuide, JapaneseAddress } from '@/components/ClinicCareGuide';
 import { telephoneHref, nabiiClinicUrl } from '@/lib/clinic-contact';
 import { safeSearchReturn, weekendStatus } from '@/lib/search-state';
 
@@ -65,8 +66,6 @@ function HospitalDetailContent() {
   const callHref = telephoneHref(hospital.phone);
   const nabiiUrl = nabiiClinicUrl(hospital.id);
   const weekend = weekendStatus(hospital);
-  const capability = (value?: boolean) => value === true ? t('detail.listed')
-    : value === false && hospital.verification.status === 'verified' ? t('selfpay.notAvailable') : t('selfpay.needConfirm');
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
@@ -108,6 +107,7 @@ function HospitalDetailContent() {
           </div>
         </div>
 
+        <ClinicCareGuide hospital={hospital} />
         {/* Content details */}
         <div className="p-6 sm:p-8 grid grid-cols-1 md:grid-cols-2 gap-8">
 
@@ -121,6 +121,7 @@ function HospitalDetailContent() {
                   <MapPin className="w-5 h-5 text-slate-400 mt-0.5 mr-3 flex-shrink-0" />
                   <div>
                     <p className="text-slate-700 font-semibold text-sm leading-relaxed">{hospital.address[language] || hospital.address.ja}</p>
+                    {language !== 'ja' && <JapaneseAddress hospital={hospital} />}
                     <a
                       href={mapUrl}
                       target="_blank"
@@ -147,7 +148,8 @@ function HospitalDetailContent() {
                         </a>
                       </div>
                       {hospital.phoneSource && (
-                        <div className="text-xs text-slate-500 space-y-1 leading-relaxed">
+                        <details className="text-xs text-slate-500 space-y-1 leading-relaxed">
+                          <summary className="cursor-pointer py-2">{t('phone.source')}</summary>
                           <p>{t('phone.source')}: <a
                             href={hospital.phoneSource.kind === 'mhlw_directory'
                               ? 'https://kouseikyoku.mhlw.go.jp/kantoshinetsu/chousa/shitei.html'
@@ -157,7 +159,7 @@ function HospitalDetailContent() {
                           >{t(hospital.phoneSource.kind === 'mhlw_directory' ? 'phone.directory' : 'phone.nabiiSource')}</a></p>
                           {hospital.phoneSource.asOf && <p>{t('phone.asOf')}: {hospital.phoneSource.asOf}</p>}
                           <p>{t('phone.retrieved')}: {hospital.phoneSource.retrievedAt}</p>
-                        </div>
+                        </details>
                       )}
                     </div>
                   </div>
@@ -214,7 +216,8 @@ function HospitalDetailContent() {
                     </div>
                   </div>
                   {/* 診療時間表 */}
-                  {hospital.openingHours && (
+                  {hospital.careGuide?.scheduleNeedsConfirmation && <p className="text-sm text-amber-800">{t('care.hoursConflict')}</p>}
+                  {hospital.openingHours && !hospital.careGuide?.scheduleNeedsConfirmation && (
                     <div className="pt-2">
                       <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">{t('detail.hours')}</p>
                       <div className="space-y-1 text-xs">
@@ -263,8 +266,8 @@ function HospitalDetailContent() {
           <div className="space-y-6">
 
             {/* Verification Report */}
-            <section className="space-y-4">
-              <h2 className="text-sm font-bold text-slate-500 uppercase tracking-wider border-b border-slate-100 pb-2">{t('detail.provenance')}</h2>
+            <details className="space-y-4 rounded-xl border border-slate-200 p-4">
+              <summary className="cursor-pointer text-sm font-bold text-slate-500">{t('detail.provenance')}</summary>
               <div className="bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-2xl p-5 space-y-3 shadow-md">
                 <div className="flex items-center justify-between border-b border-white/10 pb-2">
                   <span className="text-xs font-bold text-brand-300">{t('detail.method')}</span>
@@ -279,54 +282,10 @@ function HospitalDetailContent() {
                   <span className="text-xs font-bold text-slate-200">{hospital.verification.confirmedBy === 'open_data' ? t('phone.nabiiSource') : hospital.dataSource}</span>
                 </div>
               </div>
-            </section>
+            </details>
 
             <ClinicAccessPanel hospital={hospital} />
 
-            {/* Insurance / Self-pay ── 自費診療タブ（要件1）── */}
-            <section className="space-y-4 pt-4 border-t border-slate-100">
-              <h2 className="text-sm font-bold text-slate-400 uppercase tracking-wider border-b border-slate-100 pb-2 flex items-center gap-2">
-                <Wallet className="w-4 h-4 text-brand-500" /> {t('selfpay.title')}
-              </h2>
-              <p className="text-xs text-slate-500 font-semibold">{t('selfpay.subtitle')}</p>
-
-              <div className="grid grid-cols-2 gap-3">
-                {[
-                  { label: t('selfpay.selfPayOk'),         val: hospital.accessInfo?.selfPayAvailable,          icon: <Receipt className="w-4 h-4" /> },
-                  { label: t('selfpay.noInsuranceOk'),     val: hospital.accessInfo?.noInsuranceAccepted,       icon: <Shield className="w-4 h-4" /> },
-                  { label: t('selfpay.certJa'),            val: hospital.accessInfo?.medicalCertificateJa,      icon: <FileText className="w-4 h-4" /> },
-                  { label: t('selfpay.certEn'),            val: hospital.accessInfo?.medicalCertificateEn,      icon: <FileText className="w-4 h-4" /> },
-                ].map((row, i) => (
-                  <div key={i} className="p-3 bg-slate-50 border border-slate-200/60 rounded-xl flex items-center gap-2">
-                    <span className={row.val === true ? 'text-accent-600' : row.val === false ? 'text-slate-300' : 'text-amber-500'}>{row.icon}</span>
-                    <div className="min-w-0">
-                      <p className="text-[10px] text-slate-400 font-bold leading-tight">{row.label}</p>
-                      <p className={`text-xs font-extrabold ${row.val === true ? 'text-accent-700' : row.val === false ? 'text-slate-400' : 'text-amber-600'}`}>
-                        {capability(row.val)}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* 概算費用: 医療機関が提供・許可した文言がある場合のみ表示。無ければ「要事前確認」（費用は捏造しない） */}
-              <div className="p-4 bg-white border border-slate-200 rounded-2xl">
-                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">{t('selfpay.estCost')}</p>
-                <p className="text-sm font-bold text-slate-800">
-                  {hospital.accessInfo?.estimatedCostNote || t('selfpay.needConfirm')}
-                </p>
-              </div>
-
-              {hospital.accessInfo?.selfPayNote && (
-                <p className="text-xs text-slate-500 leading-relaxed">{hospital.accessInfo.selfPayNote}</p>
-              )}
-
-              {/* 注意文（要件1: 費用は医療機関により異なるため必ず事前確認） */}
-              <div className="bg-amber-50 border border-amber-200 p-4 rounded-2xl flex items-start gap-3">
-                <Info className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
-                <p className="text-xs text-amber-800 font-semibold leading-relaxed">{t('selfpay.caution')}</p>
-              </div>
-            </section>
 
             {/* 安全表示（要件5: 情報は変更されうる／受診前に電話確認） */}
             <div className="bg-slate-50 border border-slate-200 p-4 rounded-2xl flex items-start gap-3">

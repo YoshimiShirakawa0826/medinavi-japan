@@ -1,103 +1,84 @@
 'use client';
-
 import Link from 'next/link';
-import { ArrowLeft, ExternalLink, MessageCircle, Phone } from 'lucide-react';
+import { ArrowLeft, ExternalLink, MessageCircle } from 'lucide-react';
 import { useLanguage } from './LanguageProvider';
-import { CONSULTATION_INFO_URL, CONSULTATION_PHONE, CONSULTATION_PHONE_INTERNATIONAL, CONSULTATION_PHONE_HREF } from '@/lib/consultation';
+import { whatsAppEnquiryLink } from '@/lib/consultation';
 
 const copy = {
   ja: {
-    title: '看護師による受診サポート',
-    lead: 'Nurse Guide Japanの有料相談サービスです。受診先探しや受診準備をサポートします。',
-    steps: ['まずサービス窓口で対応できる内容を確認します。', '料金・対応言語・提供日時・キャンセル条件を確認してから申し込みます。', '支払いの案内を受けたら決済し、サポートを受けます。'],
-    info: 'サービス内容・料金・連絡先を見る', pay: '案内された料金を支払う',
-    call: '相談の受付に電話する', contact: '有料相談の受付',
-    phoneNote: '通話料がかかる場合があります。相談内容・料金・対応日時は事前にご確認ください。',
-    paymentTitle: 'お支払い', paymentPending: 'オンライン決済の案内は準備中です。お支払い方法は受付窓口でご確認ください。',
-    note: '医師による診察・処方とは別のサービスです。診療費・薬代などの扱いは申し込み先で確認してください。緊急時は119へ。',
-    payment: '受付窓口から支払いの案内を受けた方のみ進んでください。決済画面の金額・通貨・商品名を確認し、支払い完了の記録を保管してください。サービスの開始は受付窓口で確認します。',
+    title: 'オンライン診療について、まずは相談',
+    lead: 'オンライン診療を希望する方のためのサポート窓口です。利用方法や予約の進め方を、WhatsAppでご案内します。',
+    action: 'WhatsAppでオンライン診療を相談',
+    pending: 'WhatsApp窓口は準備中です。受付を開始次第、この画面からご案内します。',
+    draftNote: 'オンライン診療を希望するメッセージの下書きが開きます。内容を確認して送信してください。',
+    steps: ['WhatsAppを開き、オンライン診療を希望することと希望言語を伝えます。', '担当者からの返信を待ち、利用条件や予約方法を確認します。', '案内に沿って、オンライン診療の予約・受診準備を進めます。'],
+    privacy: '外部のWhatsAppが開きます。最初のメッセージには、パスポート・保険証の画像や詳しい病歴などの機微情報を送らないでください。',
+    note: 'オンライン診療の利用をサポートする窓口です。この画面で診察・診断・処方は行いません。即時の返信やオンライン診療の利用を保証するものではありません。',
   },
   en: {
-    title: 'Nurse support for finding care',
-    lead: 'Paid support from Nurse Guide Japan for finding a clinic and preparing for a visit.',
-    steps: ['Contact the service to check what support is available.', 'Confirm the fee, language, timing and cancellation terms before booking.', 'Pay when instructed by the service, then receive support.'],
-    info: 'View services, fees and contact details', pay: 'Pay the agreed fee',
-    call: 'Call about nurse support', contact: 'Paid support enquiries',
-    phoneNote: 'Call charges may apply. Confirm the support, fee and available times before booking.',
-    paymentTitle: 'Payment', paymentPending: 'Online payment instructions are being prepared. Contact the service about payment options.',
-    note: 'This is separate from a doctor’s examination or prescription. Confirm how medical and medication costs are handled. In an emergency, call 119.',
-    payment: 'Continue only after receiving payment instructions. Check the amount, currency and service name at checkout, and keep your payment record. Confirm the start of support with the service.',
+    title: 'Questions about online medical care?',
+    lead: 'Support for people who want an online medical consultation. Get guidance on access and booking through WhatsApp.',
+    action: 'Ask about online care on WhatsApp',
+    pending: 'Our WhatsApp contact is being prepared. The link will appear here when the service opens.',
+    draftNote: 'Opens a draft requesting support for an online medical consultation. Review it and send it yourself.',
+    steps: ['Open WhatsApp and tell us you would like an online consultation and your preferred language.', 'Wait for a reply and confirm the conditions and booking process.', 'Follow the guidance to book and prepare for your online consultation.'],
+    privacy: 'Opens the external WhatsApp service. Do not include passport or insurance-card images, detailed medical history or other sensitive information in your first message.',
+    note: 'This service helps you access online medical care. No medical examination, diagnosis or prescription takes place on this page. Immediate replies and access to online medical care are not guaranteed.',
   },
   zh: {
-    title: '护士就医支持', lead: 'Nurse Guide Japan提供付费咨询，协助寻找医疗机构和准备就诊。',
-    steps: ['先联系服务窗口确认可提供的支持。', '预约前确认费用、服务语言、时间及取消条件。', '收到付款通知后支付费用并接受支持。'],
-    info: '查看服务、费用和联系方式', pay: '支付约定费用',
-    call: '致电咨询服务', contact: '付费咨询受理',
-    phoneNote: '可能产生通话费用。预约前请确认服务内容、费用及可提供服务的时间。',
-    paymentTitle: '付款', paymentPending: '在线付款指引正在准备中。请向服务窗口确认付款方式。',
-    note: '本服务与医生诊察、处方不同。请确认诊疗费及药费的处理方式。紧急情况请拨119。',
-    payment: '仅在收到付款通知后继续。请核对付款页面的金额、币种及服务名称，保存付款记录，并向服务窗口确认开始时间。',
+    title: '关于在线诊疗，先来咨询',
+    lead: '为希望使用在线诊疗的人士提供支持。通过WhatsApp了解使用方法和预约流程。',
+    action: '通过WhatsApp咨询在线诊疗',
+    pending: 'WhatsApp窗口正在准备中，开始服务后将在此显示入口。',
+    draftNote: '将打开申请在线诊疗支持的英文消息草稿。请核对内容、填写希望使用的语言后自行发送。',
+    steps: ['打开WhatsApp，告知您希望使用在线诊疗及希望使用的语言。', '等待回复，确认使用条件及预约方法。', '根据指引预约在线诊疗并做好就诊准备。'],
+    privacy: '将打开外部WhatsApp服务。请勿在首次消息中发送护照、保险证图片或详细病史等敏感信息。',
+    note: '本窗口提供在线诊疗的使用支持，不在此进行诊察、诊断或开具处方。不保证即时回复或一定可以使用在线诊疗。',
   },
   ko: {
-    title: '간호사의 진료 안내', lead: 'Nurse Guide Japan의 유료 상담으로 의료기관 찾기와 진료 준비를 돕습니다.',
-    steps: ['서비스 창구에 가능한 지원을 먼저 확인하세요.', '신청 전 요금, 언어, 일정 및 취소 조건을 확인하세요.', '결제 안내를 받은 후 결제하고 지원을 받으세요.'],
-    info: '서비스·요금·연락처 확인', pay: '안내받은 요금 결제',
-    call: '상담 접수처에 전화', contact: '유료 상담 접수',
-    phoneNote: '통화료가 발생할 수 있습니다. 예약 전 지원 내용, 요금 및 가능 시간을 확인하세요.',
-    paymentTitle: '결제', paymentPending: '온라인 결제 안내를 준비 중입니다. 결제 방법은 서비스 창구에 확인하세요.',
-    note: '의사의 진찰 및 처방과 별개인 서비스입니다. 진료비와 약값 처리 방식은 서비스 창구에 확인하세요. 응급 시 119에 전화하세요.',
-    payment: '결제 안내를 받은 경우에만 진행하세요. 결제 화면의 금액, 통화, 서비스명을 확인하고 결제 기록을 보관하세요. 지원 시작은 서비스 창구에 확인하세요.',
+    title: '온라인 진료, 먼저 문의하세요',
+    lead: '온라인 진료를 희망하는 분을 위한 지원 창구입니다. WhatsApp으로 이용 방법과 예약 절차를 안내합니다.',
+    action: 'WhatsApp으로 온라인 진료 문의',
+    pending: 'WhatsApp 창구를 준비 중입니다. 접수를 시작하면 여기에 링크를 안내합니다.',
+    draftNote: '온라인 진료 지원을 요청하는 영어 초안이 열립니다. 내용을 확인하고 희망 언어를 적은 후 직접 전송하세요.',
+    steps: ['WhatsApp을 열고 온라인 진료를 희망한다는 내용과 희망 언어를 알려주세요.', '답변을 기다린 후 이용 조건과 예약 방법을 확인하세요.', '안내에 따라 온라인 진료 예약과 진료 준비를 진행하세요.'],
+    privacy: '외부 WhatsApp 서비스가 열립니다. 첫 메시지에는 여권·보험증 사진이나 상세 병력 등 민감한 정보를 보내지 마세요.',
+    note: '온라인 진료 이용을 지원하는 창구이며 이 화면에서 진찰·진단·처방을 하지 않습니다. 즉시 답변이나 온라인 진료 이용을 보장하지 않습니다.',
   },
   es: {
-    title: 'Apoyo de enfermería para buscar atención', lead: 'Servicio de pago de Nurse Guide Japan para encontrar una clínica y preparar la visita.',
-    steps: ['Contacte con el servicio para confirmar el apoyo disponible.', 'Confirme el precio, idioma, horario y condiciones de cancelación antes de reservar.', 'Pague cuando se lo indiquen y reciba el apoyo.'],
-    info: 'Ver servicios, precios y contacto', pay: 'Pagar el importe acordado',
-    call: 'Llamar para consultar', contact: 'Consultas sobre el servicio de pago',
-    phoneNote: 'Pueden aplicarse cargos por la llamada. Confirme el servicio, precio y horario antes de reservar.',
-    paymentTitle: 'Pago', paymentPending: 'Estamos preparando las instrucciones de pago en línea. Consulte las opciones con el servicio.',
-    note: 'Es un servicio distinto de la consulta o prescripción médica. Confirme cómo se gestionan los gastos médicos y medicamentos. En emergencias, llame al 119.',
-    payment: 'Continúe solo después de recibir instrucciones de pago. Compruebe el importe, la moneda y el servicio, y guarde el comprobante. Confirme el inicio del apoyo con el servicio.',
+    title: '¿Preguntas sobre atención médica en línea?',
+    lead: 'Apoyo para quienes desean una consulta médica en línea. Le orientamos por WhatsApp sobre cómo acceder al servicio y reservar.',
+    action: 'Consultar por WhatsApp sobre atención en línea',
+    pending: 'Estamos preparando el contacto por WhatsApp. El enlace aparecerá cuando se abra el servicio.',
+    draftNote: 'Se abre un borrador para solicitar apoyo con una consulta médica en línea. Revíselo y envíelo usted mismo.',
+    steps: ['Abra WhatsApp e indique que desea una consulta en línea y su idioma preferido.', 'Espere una respuesta y confirme las condiciones y el proceso de reserva.', 'Siga las indicaciones para reservar y prepararse para su consulta en línea.'],
+    privacy: 'Se abre el servicio externo WhatsApp. No envíe imágenes del pasaporte o seguro, historial médico detallado ni otros datos sensibles en su primer mensaje.',
+    note: 'Este servicio le ayuda a acceder a atención médica en línea. En esta página no se realizan exámenes médicos, diagnósticos ni prescripciones. No se garantizan respuestas inmediatas ni acceso a atención médica en línea.',
   },
 };
 
-const chatCopy = {
-  ja: { title: 'テキストでのご相談', action: 'WhatsAppで問い合わせる', note: '外部のWhatsAppが開きます。最初は希望言語と相談の目的をお知らせください。返信時間は受付窓口でご確認ください。', pending: 'テキスト相談の窓口は準備中です。現在は電話でお問い合わせいただけます。' },
-  en: { title: 'Text enquiries', action: 'Enquire on WhatsApp', note: 'Opens WhatsApp. Start with your preferred language and the help you need. Confirm response times with the service.', pending: 'Text enquiries are being prepared. Please contact us by phone for now.' },
-  zh: { title: '文字咨询', action: '通过WhatsApp咨询', note: '将打开WhatsApp。请先告知希望语言及咨询目的，回复时间请向服务窗口确认。', pending: '文字咨询正在准备中，目前请通过电话联系。' },
-  ko: { title: '문자 상담 문의', action: 'WhatsApp으로 문의', note: 'WhatsApp이 열립니다. 희망 언어와 문의 목적부터 알려주세요. 답변 시간은 서비스 창구에 확인하세요.', pending: '문자 상담 창구를 준비 중입니다. 현재는 전화로 문의하실 수 있습니다.' },
-  es: { title: 'Consultas por texto', action: 'Consultar por WhatsApp', note: 'Se abre WhatsApp. Indique primero su idioma y la ayuda que necesita. Confirme los tiempos de respuesta con el servicio.', pending: 'Estamos preparando las consultas por texto. Por ahora, contacte por teléfono.' },
-};
-
-export function ConsultationPanel({ paymentLink, whatsAppLink }: { paymentLink: string | null; whatsAppLink: string | null }) {
+export function ConsultationPanel({ whatsAppLink }: { whatsAppLink: string | null }) {
   const { language, t } = useLanguage();
   const content = copy[language];
-  const chat = chatCopy[language];
-  return <div className="max-w-3xl mx-auto px-4 py-10 space-y-6">
-    <Link href="/" className="inline-flex items-center gap-2 text-sm text-brand-600"><ArrowLeft className="w-4 h-4" />{t('nav.home')}</Link>
+  const enquiryLanguage = language === 'ja' || language === 'es' ? language : 'en';
+  const enquiryLink = whatsAppEnquiryLink(whatsAppLink, enquiryLanguage);
+
+  return <div className="max-w-3xl mx-auto px-4 py-8 space-y-5">
+    <Link href="/" className="inline-flex min-h-11 items-center gap-2 text-sm text-brand-700"><ArrowLeft className="w-4 h-4" />{t('nav.home')}</Link>
+    <Link href="/emergency" className="block rounded-xl border border-rose-200 bg-rose-50 p-3 text-sm font-semibold text-rose-800">{t('home.emergencyShort')}</Link>
     <section className="rounded-3xl border border-brand-100 bg-white p-6 sm:p-9 shadow-sm space-y-6">
-      <MessageCircle className="w-10 h-10 text-brand-600" />
-      <h1 className="text-3xl font-extrabold text-slate-900">{content.title}</h1>
+      <MessageCircle className="w-10 h-10 text-brand-600" aria-hidden />
+      <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900">{content.title}</h1>
       <p className="text-slate-600 leading-relaxed">{content.lead}</p>
-      <div className="rounded-2xl border border-brand-100 bg-brand-50/50 p-5 space-y-3">
-        <h2 className="font-bold text-slate-800">{content.contact}</h2>
-        <p className="text-xl font-bold tracking-wide text-slate-900">{language === 'ja' ? CONSULTATION_PHONE : CONSULTATION_PHONE_INTERNATIONAL}</p>
-        {language === 'ja' && <p className="text-sm text-slate-600">{CONSULTATION_PHONE_INTERNATIONAL}</p>}
-        <a href={CONSULTATION_PHONE_HREF} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-brand-600 text-white px-5 py-3 font-bold hover:bg-brand-700"><Phone className="w-4 h-4" />{content.call}</a>
-        <p className="text-sm leading-relaxed text-slate-600">{content.phoneNote}</p>
-      </div>
-      <div className="rounded-2xl border border-slate-200 p-5 space-y-3">
-        <h2 className="font-bold text-slate-800">{chat.title}</h2>
-        <p className="text-sm leading-relaxed text-slate-600">{whatsAppLink ? chat.note : chat.pending}</p>
-        {whatsAppLink && <a href={whatsAppLink} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-brand-600 px-5 py-3 font-bold text-brand-700"><MessageCircle className="w-4 h-4" />{chat.action}<ExternalLink className="w-4 h-4" /></a>}
-      </div>
+      {enquiryLink ? <div className="space-y-3">
+        <a href={enquiryLink} target="_blank" rel="noopener noreferrer" className="flex min-h-12 items-center justify-center gap-2 rounded-xl bg-emerald-700 px-5 py-4 font-bold text-white hover:bg-emerald-800"><MessageCircle className="w-5 h-5 shrink-0" /><span>{content.action}</span><ExternalLink className="w-4 h-4 shrink-0" /></a>
+        <p className="text-xs leading-relaxed text-slate-600">{content.draftNote}</p>
+        <p className="text-center text-xs text-slate-500">WhatsApp · +81 70-9036-9655</p>
+      </div> : <p role="status" className="rounded-xl border border-slate-200 bg-slate-50 p-5 text-slate-700">{content.pending}</p>}
+      <p className="text-sm leading-relaxed text-slate-500">{content.privacy}</p>
       <ol className="list-decimal pl-5 space-y-3 text-sm leading-relaxed text-slate-700">{content.steps.map(step => <li key={step}>{step}</li>)}</ol>
-      <a href={CONSULTATION_INFO_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-xl border border-brand-200 text-brand-700 px-5 py-3 font-bold">{content.info}<ExternalLink className="w-4 h-4" /></a>
       <p className="rounded-2xl bg-amber-50 p-4 text-sm leading-relaxed text-amber-900">{content.note}</p>
-      <div className="border-t pt-6 space-y-4">
-        <h2 className="font-bold text-slate-800">{content.paymentTitle}</h2>
-        <p className="text-sm text-slate-600 leading-relaxed">{paymentLink ? content.payment : content.paymentPending}</p>
-        {paymentLink && <a href={paymentLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-xl border border-brand-600 px-5 py-3 font-bold text-brand-700">{content.pay}<ExternalLink className="w-4 h-4" /></a>}
-      </div>
+      <Link href="/hospitals" className="inline-flex min-h-11 items-center font-bold text-brand-700 underline underline-offset-4">{t('home.inPerson')}</Link>
     </section>
   </div>;
 }
