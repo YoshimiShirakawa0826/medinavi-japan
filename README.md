@@ -118,6 +118,10 @@ Google Maps APIは呼び出しません。外部地図リンクと、操作時�
 
 ## Vercel設定
 
+2026-10-05のPreviewでTurbopackの `next/font/google queries have exactly one entry` エラーが発生したため、
+ビルドはNext.jsの公式CLIオプション `next build --webpack` を使用しています。フォントやUIの指定は変更していません。
+参照: https://nextjs.org/docs/app/api-reference/cli/next#next-build-options
+
 このリポジトリはアプリを直下に置いているため、VercelのRoot Directoryは空欄です。
 公開先は https://medinavi-japan.vercel.app/ です。
 `main` ブランチへの更新で、Vercelの本番デプロイが自動実行されます。
