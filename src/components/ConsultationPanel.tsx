@@ -1,7 +1,10 @@
 'use client';
 import Link from 'next/link';
-import { ArrowLeft, ExternalLink, MessageCircle } from 'lucide-react';
+import { useState } from 'react';
+import { ArrowLeft, ExternalLink, MessageCircle, MapPin, Video, ClipboardList, FileText } from 'lucide-react';
 import { useLanguage } from './LanguageProvider';
+import { consultationGuide } from './consultation-guide';
+import { ENQUIRY_TOPICS, whatsAppEnquiryLink, type EnquiryLanguage, type EnquiryTopic } from '@/lib/consultation';
 
 const copy = {
   ja: {
@@ -44,17 +47,34 @@ const copy = {
 export function ConsultationPanel({ whatsAppLink }: { whatsAppLink: string | null }) {
   const { language, t } = useLanguage();
   const content = copy[language];
+  const guide = consultationGuide[language];
+  const [chosenLanguage, setChosenLanguage] = useState<EnquiryLanguage | null>(null);
+  const [topic, setTopic] = useState<EnquiryTopic>('online');
+  const enquiryLanguage = chosenLanguage ?? (language === 'ja' || language === 'es' ? language : 'en');
+  const enquiryLink = whatsAppEnquiryLink(whatsAppLink, enquiryLanguage, topic);
+  const topicIcons = [MapPin, Video, ClipboardList, FileText];
   return <div className="max-w-3xl mx-auto px-4 py-8 space-y-5">
     <Link href="/" className="inline-flex min-h-11 items-center gap-2 text-sm text-brand-700"><ArrowLeft className="w-4 h-4" />{t('nav.home')}</Link>
     <Link href="/emergency" className="block rounded-xl border border-rose-200 bg-rose-50 p-3 text-sm font-semibold text-rose-800">{t('home.emergencyShort')}</Link>
     <section className="rounded-3xl border border-brand-100 bg-white p-6 sm:p-9 shadow-sm space-y-6">
       <MessageCircle className="w-10 h-10 text-brand-600" aria-hidden />
-      <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900">{content.title}</h1>
-      <p className="text-slate-600 leading-relaxed">{content.lead}</p>
-      {whatsAppLink ? <a href={whatsAppLink} target="_blank" rel="noopener noreferrer" className="flex min-h-12 items-center justify-center gap-2 rounded-xl bg-emerald-700 px-5 py-4 font-bold text-white hover:bg-emerald-800"><MessageCircle className="w-5 h-5" />{content.action}<ExternalLink className="w-4 h-4" /></a>
-        : <p role="status" className="rounded-xl border border-slate-200 bg-slate-50 p-5 text-slate-700">{content.pending}</p>}
+      <p className="text-xs font-bold tracking-wide text-brand-700">{guide.badge}</p>
+      <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900">{guide.title}</h1>
+      <p className="text-slate-600 leading-relaxed">{guide.lead}</p>
+      <div className="rounded-2xl border border-emerald-200 bg-emerald-50/50 p-4 sm:p-5 space-y-4">
+        <div className="grid gap-4 sm:grid-cols-2">
+          <label className="space-y-2 text-sm font-bold text-slate-700"><span>{guide.chooseLanguage}</span><select value={enquiryLanguage} onChange={event => setChosenLanguage(event.target.value as EnquiryLanguage)} className="min-h-12 w-full rounded-xl border border-slate-300 bg-white px-3 text-base font-normal"><option value="en">English</option><option value="es">Español</option><option value="ja">やさしい日本語</option></select></label>
+          <label className="space-y-2 text-sm font-bold text-slate-700"><span>{guide.chooseTopic}</span><select value={topic} onChange={event => setTopic(event.target.value as EnquiryTopic)} className="min-h-12 w-full rounded-xl border border-slate-300 bg-white px-3 text-base font-normal">{ENQUIRY_TOPICS.map((value, index) => <option key={value} value={value}>{guide.topics[index][0]}</option>)}</select></label>
+        </div>
+        {enquiryLink ? <><a href={enquiryLink} target="_blank" rel="noopener noreferrer" className="flex min-h-12 items-center justify-center gap-2 rounded-xl bg-emerald-700 px-5 py-4 font-bold text-white hover:bg-emerald-800"><MessageCircle className="w-5 h-5 shrink-0" />{content.action}<ExternalLink className="w-4 h-4 shrink-0" /></a><p className="text-xs leading-relaxed text-slate-600">{guide.draftNote}</p><p className="text-center text-xs text-slate-500">WhatsApp · +81 70-9036-9655</p></>
+          : <p role="status" className="rounded-xl border border-slate-200 bg-slate-50 p-5 text-slate-700">{content.pending}</p>}
+      </div>
       <p className="text-sm leading-relaxed text-slate-500">{content.privacy}</p>
+      <section className="space-y-3"><h2 className="text-lg font-bold text-slate-900">{guide.topicsTitle}</h2><div className="grid gap-3 sm:grid-cols-2">{guide.topics.map(([title, description], index) => { const Icon = topicIcons[index]; return <div key={title} className="rounded-xl border border-slate-200 p-4 space-y-2"><Icon className="w-5 h-5 text-brand-600" aria-hidden /><h3 className="font-bold text-sm text-slate-900">{title}</h3><p className="text-sm leading-relaxed text-slate-600">{description}</p></div>; })}</div></section>
+      <section className="rounded-xl bg-brand-50 p-4 space-y-2"><h2 className="font-bold text-sm text-brand-900">{guide.languageTitle}</h2><p className="text-sm leading-relaxed text-slate-700">{guide.languageNote}</p></section>
+      <h2 className="text-lg font-bold text-slate-900">{guide.stepsTitle}</h2>
       <ol className="list-decimal pl-5 space-y-3 text-sm leading-relaxed text-slate-700">{content.steps.map(step => <li key={step}>{step}</li>)}</ol>
+      <section className="space-y-3"><h2 className="text-lg font-bold text-slate-900">{guide.faqTitle}</h2>{guide.faq.map(([question, answer]) => <details key={question} className="rounded-xl border border-slate-200 p-4"><summary className="cursor-pointer min-h-8 text-sm font-bold text-slate-800">{question}</summary><p className="mt-3 text-sm leading-relaxed text-slate-600">{answer}</p></details>)}</section>
       <p className="rounded-2xl bg-amber-50 p-4 text-sm leading-relaxed text-amber-900">{content.note}</p>
       <Link href="/hospitals" className="inline-flex min-h-11 items-center font-bold text-brand-700 underline underline-offset-4">{t('home.inPerson')}</Link>
     </section>
