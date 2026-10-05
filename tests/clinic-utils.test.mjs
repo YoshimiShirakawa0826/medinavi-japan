@@ -1,7 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { hasClinicCoordinates, clinicMapUrl, scheduledOpenStatus, matchesDepartment, pageWindow, loadClinics } from '../src/lib/clinic-utils.ts';
-import { paymentLinkFromConfig } from '../src/lib/consultation.ts';
 
 const schedule = { openingHours: { tue: [{ start: '09:00', end: '12:00' }, { start: '13:00', end: '17:00' }] } };
 
@@ -73,11 +72,9 @@ test('network errors are distinguishable from an empty clinic list', async t => 
   await assert.rejects(loadClinics(), /Invalid clinic data/);
   fetch.mock.mockImplementation(async () => new Response('[]', { status: 200 }));
   assert.deepEqual(await loadClinics(), []);
-});
-
-test('payment stays disabled until a valid HTTPS Stripe payment link is configured', () => {
-  for (const url of [undefined, '', 'javascript:alert(1)', 'http://buy.stripe.com/example', 'https://buy.stripe.com.evil.test/example', 'https://user:pass@buy.stripe.com/example', 'https://buy.stripe.com/']) {
-    assert.equal(paymentLinkFromConfig(url), null);
-  }
-  assert.equal(paymentLinkFromConfig('https://buy.stripe.com/test_example'), 'https://buy.stripe.com/test_example');
+  fetch.mock.mockImplementation(async () => { throw new Error('Should reuse validated data'); });
+  assert.deepEqual(await loadClinics(), []);
+  const aborted = new AbortController();
+  aborted.abort();
+  await assert.rejects(loadClinics(aborted.signal), { name: 'AbortError' });
 });

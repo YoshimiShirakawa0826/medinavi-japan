@@ -3,9 +3,9 @@
 import Link from 'next/link';
 import { useLanguage } from '@/components/LanguageProvider';
 import { Language } from '@/types';
-import { Globe, HeartPulse, ExternalLink } from 'lucide-react';
+import { Globe, HeartPulse, MessageCircle } from 'lucide-react';
 
-// 有料の看護師相談。サービス説明から外部窓口・設定済み決済へ案内する。
+// Enquiries only; no payment or medical consultation takes place on this site.
 const ONLINE_CONSULT_URL = '/consultation';
 
 export function Header() {
@@ -41,8 +41,7 @@ export function Header() {
                 className="text-sm font-semibold text-brand-600 hover:text-brand-700 transition-colors flex items-center gap-1.5"
               >
                 {t('nav.online')}
-                <span className="text-[10px] font-bold text-amber-600 bg-amber-50 border border-amber-200 rounded px-1 py-0.5 leading-none">{t('common.paid')}</span>
-                <ExternalLink className="w-3.5 h-3.5" />
+                <MessageCircle className="w-3.5 h-3.5" />
               </Link>
             </nav>
             
@@ -67,7 +66,7 @@ export function Header() {
           <Link href="/" className="text-slate-700">{t('nav.home')}</Link>
           <Link href="/hospitals" className="text-brand-700">{t('nav.hospitals')}</Link>
           <Link href="/emergency" className="text-emergency-600">{t('nav.emergency')}</Link>
-          <Link href={ONLINE_CONSULT_URL} className="text-brand-700">{t('nav.online')} · {t('common.paid')}</Link>
+          <Link href={ONLINE_CONSULT_URL} className="text-brand-700">{t('nav.online')}</Link>
         </nav>
       </div>
     </header>

@@ -1,5 +1,15 @@
 export type Language = 'ja' | 'en' | 'zh' | 'ko' | 'es';
 
+export type CareGuide = {
+  uninsuredAccepted?: boolean;
+  bookingUrl?: string;
+  onlineInfoUrl?: string;
+  receptionHours?: Record<string, Array<{ start: string; end: string }> | null>;
+  scheduleNeedsConfirmation?: boolean;
+  notes: Record<Language, string[]>;
+  sources: Array<{ url: string; checkedAt: string }>;
+};
+
 export type AccessField = 'creditCardAccepted' | 'japaneseHealthInsurance' | 'overseasInsuranceAccepted' | 'walkInAvailable';
 export type AccessEvidence = {
   status: 'yes' | 'conditional' | 'no' | 'information';
@@ -73,6 +83,7 @@ export interface Hospital {
   verification: ClinicVerification;
   accessInfo: ClinicAccessInfo;
   accessEvidence?: Partial<Record<AccessField, AccessEvidence>>;
+  careGuide?: CareGuide;
 }
 
 export const departments = [

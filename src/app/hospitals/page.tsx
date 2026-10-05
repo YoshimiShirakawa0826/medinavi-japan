@@ -8,7 +8,7 @@ import { Hospital, Language, departments } from '@/types';
 import { MapPin, Phone, AlertTriangle, ArrowLeft, CheckCircle, CreditCard, Shield, Sparkles, Navigation, ExternalLink, Wallet, LocateFixed, Info, X } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Suspense } from 'react';
-import { clinicMapUrl, hasClinicCoordinates, loadClinics, matchesDepartment, pageWindow, scheduledOpenStatus } from '@/lib/clinic-utils';
+import { clinicMapUrl, hasClinicCoordinates, loadClinics, matchesDepartment, pageWindow, scheduledOpenStatus, uninsuredStatus } from '@/lib/clinic-utils';
 import { telephoneHref, nabiiClinicUrl } from '@/lib/clinic-contact';
 import { matchesKeyword, searchRadius, updateSearch, readSearchLocation, saveSearchLocation, RESULT_PAGE_SIZE, weekendStatus } from '@/lib/search-state';
 import {
@@ -66,6 +66,7 @@ function HospitalsContent() {
   const verifiedFilter = searchParams.get('verified') === 'true';
   const reviewedFilter = searchParams.get('reviewed') === 'true';
   const selfPayFilter = searchParams.get('selfpay') === 'true';
+  const includeUnknown = searchParams.get('uninsuredUnknown') === 'true';
   const keyword = searchParams.get('q') || '';
 
   // 距離検索には、現在地取得または明示的な駅選択が必要。
@@ -144,7 +145,7 @@ function HospitalsContent() {
   const showClinicOnMap = (hospital: Hospital) => {
     setMapTarget({ lat: hospital.latitude, lng: hospital.longitude, name: hospital.name[language] || hospital.name.en || hospital.name.ja, url: clinicMapUrl(hospital) });
     openMap();
-    mapRef.current?.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    requestAnimationFrame(() => mapRef.current?.scrollIntoView({ block: 'start', behavior: 'smooth' }));
   };
 
   // フィルタ→Haversine距離付与→（距離モード時）半径絞り込み＆近い順ソート。
@@ -162,7 +163,7 @@ function HospitalsContent() {
       if (walkInFilter && !matchesAccess(h, 'walkInAvailable', deptFilter, langFilter)) return false;
       if (reviewedFilter && !hasWebsiteReview(h)) return false;
       if (verifiedFilter && h.verification?.status !== 'verified') return false;
-      if (selfPayFilter && !h.accessInfo?.selfPayAvailable) return false;
+      if (selfPayFilter && uninsuredStatus(h) !== true && !(includeUnknown && uninsuredStatus(h) === undefined)) return false;
       return true;
     });
     let arr = filtered.map(h => ({ h, dist: refPoint ? distanceKm(refPoint, h.latitude, h.longitude) : Infinity }));
@@ -174,7 +175,7 @@ function HospitalsContent() {
   }, [
     hospitals, refPoint, activeRadius, keyword,
     deptFilter, langFilter, openNowFilter, engTodayFilter, cardFilter,
-    insuranceFilter, nightWeekendFilter, walkInFilter, verifiedFilter, reviewedFilter, selfPayFilter,
+    insuranceFilter, nightWeekendFilter, walkInFilter, verifiedFilter, reviewedFilter, selfPayFilter, includeUnknown,
   ]);
 
   const pagination = pageWindow(processed.length, searchParams.get('page'), RESULT_CAP);
@@ -252,7 +253,7 @@ function HospitalsContent() {
       <div className="flex flex-col lg:flex-row gap-8">
 
         {/* Hospital List */}
-        <div className="w-full lg:w-1/2 space-y-6">
+        <div className={`w-full ${mapVisible ? 'lg:w-1/2' : ''} space-y-4`}>
           <div className="border-b border-slate-200 pb-3">
             <h1 className="text-2xl font-bold text-slate-900">
               {processed.length.toLocaleString()} <span className="text-slate-500 font-medium text-lg">{t('list.found')}</span>
@@ -265,6 +266,13 @@ function HospitalsContent() {
           </div>
 
           <p className="text-xs leading-relaxed text-slate-500">{t('data.notice')} {t('status.notice')}</p>
+          {selfPayFilter && <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900 space-y-3">
+            <p>{t(includeUnknown ? 'selfpay.unknownIncluded' : 'selfpay.coverageNote')}</p>
+            <label className="flex min-h-11 items-center gap-3 font-semibold"><input type="checkbox" checked={includeUnknown} onChange={event => changeSearch({ uninsuredUnknown: event.target.checked ? 'true' : null })} className="h-4 w-4" />{t('selfpay.showUnknown')}</label>
+          </div>}
+          <details className="rounded-2xl border border-slate-200 bg-white p-4">
+          <summary className="cursor-pointer min-h-8 font-bold text-brand-700">{t('ux.filters')}{activeFilters.length > 0 ? ` (${activeFilters.length})` : ''}{manualPoint ? ` · ${t(`area.${manualPoint.name}`)}` : ''}</summary>
+          <div className="space-y-4 pt-3">
           <div className="rounded-xl border border-brand-100 bg-brand-50/50 p-4 space-y-3">
             <p className="text-sm font-semibold text-slate-700">{t('access.coverage')}: {hospitals.filter(hasWebsiteReview).length.toLocaleString()} / {hospitals.length.toLocaleString()}</p>
             <p className="text-xs leading-relaxed text-slate-600">{t('access.partial')}</p>
@@ -274,11 +282,17 @@ function HospitalsContent() {
                 { key: 'insurance', label: 'filter.insurance', active: insuranceFilter },
                 { key: 'walkin', label: 'filter.walkIn', active: walkInFilter },
                 { key: 'reviewed', label: 'filter.websiteReviewed', active: reviewedFilter },
+                { key: 'selfpay', label: 'filter.selfPay', active: selfPayFilter },
+                { key: 'open', label: 'filter.openNow', active: openNowFilter },
               ].map(filter => <button key={filter.key} type="button" aria-pressed={filter.active}
                 onClick={() => changeSearch({ [filter.key]: filter.active ? null : 'true' })}
                 className={`min-h-11 rounded-xl border px-3 py-2 text-xs font-bold ${filter.active ? 'border-brand-600 bg-brand-600 text-white' : 'border-slate-300 bg-white text-slate-700 hover:border-brand-400'}`}>
                 {t(filter.label)}
               </button>)}
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <label className="text-sm font-bold text-slate-700">{t('search.language')}<select value={langFilter || ''} onChange={event => changeSearch({ lang: event.target.value || null })} className="block mt-2 min-h-11 w-full rounded-xl border border-slate-300 bg-white px-3 font-normal"><option value="">{t('home.anyLanguage')}</option>{(['ja','en','zh','ko','es'] as Language[]).map(code => <option key={code} value={code}>{langName(code)}</option>)}</select></label>
+              <label className="text-sm font-bold text-slate-700">{t('search.department')}<select value={deptFilter || ''} onChange={event => changeSearch({ dept: event.target.value || null })} className="block mt-2 min-h-11 w-full rounded-xl border border-slate-300 bg-white px-3 font-normal"><option value="">{t('home.anyDepartment')}</option>{departments.map(dept => <option key={dept.id} value={dept.id}>{dept.name[language]}</option>)}</select></label>
             </div>
           </div>
           <form key={keyword} role="search" onSubmit={event => {
@@ -367,26 +381,14 @@ function HospitalsContent() {
             {/* エリア・駅を選んで検索の基準点にする */}
             {(
               <div className="pt-2 space-y-1.5 border-t border-slate-100">
-                <p className="text-[11px] font-bold text-slate-500">{t('distance.chooseArea')}</p>
-                <div className="flex flex-wrap gap-1.5">
-                  {AREA_PRESETS.map(a => (
-                    <button
-                      key={a.name}
-                      onClick={() => selectArea(a)}
-                      aria-pressed={manualPoint?.name === a.name}
-                      className={`px-2.5 py-1 rounded-lg text-[11px] font-bold border transition-all active:scale-95 ${
-                        manualPoint?.name === a.name ? 'bg-brand-600 border-brand-600 text-white shadow-sm' : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300'
-                      }`}
-                    >
-                      {t(`area.${a.name}`)}
-                    </button>
-                  ))}
-                </div>
+                <label className="text-sm font-bold text-slate-700">{t('distance.chooseArea')}<select value={manualPoint?.name || ''} onChange={event => { const area = AREA_PRESETS.find(item => item.name === event.target.value); if (area) selectArea(area); else changeSearch({ area: null, location: null, dist: null }); }} className="block mt-2 min-h-11 w-full rounded-xl border border-slate-300 bg-white px-3 font-normal"><option value="">{t('home.allAreas')}</option>{AREA_PRESETS.map(area => <option key={area.name} value={area.name}>{t(`area.${area.name}`)}</option>)}</select></label>
               </div>
             )}
           </div>
-
-          <div ref={resultsRef} className="scroll-mt-24 lg:overflow-y-auto lg:max-h-[750px] lg:pr-3 space-y-4 scrollbar-thin scrollbar-thumb-slate-200">
+          </div>
+          </details>
+          {!refPoint && <p className="text-xs text-slate-500">{t('list.sortDefault')}</p>}
+          <div ref={resultsRef} className={`scroll-mt-32 grid items-start gap-4 ${mapVisible ? '' : 'lg:grid-cols-2'}`}>
             {processed.length === 0 ? (
               <div className="bg-white/50 border border-slate-200 rounded-3xl p-8 text-center text-slate-500 font-medium">
                 {t('list.empty')}
@@ -466,7 +468,7 @@ function HospitalsContent() {
                           <CreditCard className="w-3 h-3" /> {t('filter.creditCard')}
                         </span>
                       )}
-                      {hospital.accessInfo?.selfPayAvailable && (
+                      {uninsuredStatus(hospital) === true && (
                         <span className="bg-amber-50 text-amber-700 text-[10px] px-2.5 py-1 rounded-lg font-bold border border-amber-200 flex items-center gap-1">
                           <Wallet className="w-3 h-3" /> {t('filter.selfPay')}
                         </span>
@@ -481,6 +483,8 @@ function HospitalsContent() {
                       )}
                     </div>
                   </Link>
+                  {(hospital.careGuide?.receptionHours || hospital.careGuide?.scheduleNeedsConfirmation) && <p className="mt-3 text-xs font-semibold text-amber-800">{t(hospital.careGuide.scheduleNeedsConfirmation ? 'care.hoursConflict' : 'care.reception')}</p>}
+                  <Link href={`/hospitals/${hospital.id}?returnTo=${encodeURIComponent(`/hospitals${searchParams.size ? `?${searchParams}` : ''}`)}`} prefetch={false} className="mt-4 inline-flex min-h-11 items-center font-bold text-sm text-brand-700 underline underline-offset-4">{t('care.view')} →</Link>
 
                   {/* アクション: 電話 / 地図（Maps URL スキーム＝課金なし, 要件3）。Link の外に置き anchor ネストを回避 */}
                   <div className="flex gap-2 pt-4 mt-4 border-t border-slate-100">
@@ -533,7 +537,7 @@ function HospitalsContent() {
         </div>
 
         {/* Map Area — OpenStreetMap（要件3: ユーザーが押したときだけ読込。Google Maps API 不使用・課金ゼロ） */}
-        <div ref={mapRef} className="scroll-mt-36 w-full lg:w-1/2 h-[450px] lg:h-[750px] relative overflow-hidden rounded-3xl border border-slate-200 shadow-lg lg:sticky lg:top-20">
+        {mapVisible && <div ref={mapRef} className="scroll-mt-36 w-full lg:w-1/2 h-[450px] lg:h-[750px] relative overflow-hidden rounded-3xl border border-slate-200 shadow-lg lg:sticky lg:top-20">
           {!mapVisible || !mapCenter ? (
             <div className="absolute inset-0 bg-slate-950 flex items-center justify-center">
               <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#6366f1_1px,transparent_1px)] [background-size:24px_24px]"></div>
@@ -598,8 +602,7 @@ function HospitalsContent() {
                 </a>
             </div>
           )}
-        </div>
-
+        </div>}
       </div>
     </div>
   );

@@ -3,8 +3,9 @@
 import { useLanguage } from '@/components/LanguageProvider';
 import { departments, Language } from '@/types';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { Suspense, useState } from 'react';
+import { AREA_PRESETS } from '@/lib/geo';
 import { AlertCircle, ArrowLeft, ChevronRight, Info, Clock, Search, CheckCircle } from 'lucide-react';
 
 // 症状 → 目安となる診療科（deptId）。
@@ -30,11 +31,14 @@ const SYMPTOMS: SymptomItem[] = [
   { emoji: '🧠', deptId: 'psychiatry',    label: { ja: '不安・不眠・気分の落ち込み', en: 'Anxiety / Insomnia / Low mood', zh: '焦虑・失眠・情绪低落', ko: '불안・불면・우울', es: 'Ansiedad / Insomnio / Ánimo bajo' } },
 ];
 
-export default function SymptomsGuide() {
+function SymptomsContent() {
   const { language, t } = useLanguage();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const [area, setArea] = useState(searchParams.get('area') || '');
+  const [careLanguage, setCareLanguage] = useState(searchParams.get('lang') || '');
   const [sel, setSel] = useState<number | null>(null);
-  const [openNow, setOpenNow] = useState(false);
+  const [openNow, setOpenNow] = useState(searchParams.get('open') === 'true');
 
   const deptName = (deptId: string) => {
     const d = departments.find(d => d.id === deptId);
@@ -45,13 +49,18 @@ export default function SymptomsGuide() {
   const search = () => {
     if (sel === null) return;
     const s = SYMPTOMS[sel];
-    const p = new URLSearchParams({ dept: s.deptId });
+    const p = new URLSearchParams(searchParams.toString());
+    p.delete('page'); p.delete('q'); p.set('dept', s.deptId);
+    if (area) { p.set('area', area); p.set('location', 'manual'); p.set('dist', 'near'); }
+    else { p.delete('area'); p.delete('location'); p.delete('dist'); }
+    if (careLanguage) p.set('lang', careLanguage); else p.delete('lang');
     if (openNow) p.set('open', 'true');
+    else p.delete('open');
     router.push(`/hospitals?${p}`);
   };
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-10 space-y-8">
+    <div className="max-w-3xl mx-auto px-4 py-10 pb-40 space-y-6">
       <Link href="/" className="inline-flex items-center text-sm font-semibold text-slate-500 hover:text-brand-600 transition-colors">
         <ArrowLeft className="w-4 h-4 mr-1.5" /> {t('nav.home')}
       </Link>
@@ -73,6 +82,10 @@ export default function SymptomsGuide() {
       </div>
 
       {/* 症状カード一覧（選択式。即遷移せず、選ぶと下に目安の診療科と検索導線を表示） */}
+      <div className="grid gap-3 sm:grid-cols-2">
+        <label className="text-sm font-bold text-slate-700">{t('home.areaLabel')}<select value={area} onChange={event => setArea(event.target.value)} className="block mt-2 min-h-11 w-full rounded-xl border border-slate-300 bg-white px-3 font-normal"><option value="">{t('home.allAreas')}</option>{AREA_PRESETS.map(item => <option key={item.name} value={item.name}>{t(`area.${item.name}`)}</option>)}</select></label>
+        <label className="text-sm font-bold text-slate-700">{t('search.language')}<select value={careLanguage} onChange={event => setCareLanguage(event.target.value)} className="block mt-2 min-h-11 w-full rounded-xl border border-slate-300 bg-white px-3 font-normal"><option value="">{t('home.anyLanguage')}</option><option value="en">English</option><option value="ja">日本語</option><option value="zh">中文</option><option value="ko">한국어</option><option value="es">Español</option></select></label>
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {SYMPTOMS.map((s, i) => {
           const selected = sel === i;
@@ -80,6 +93,7 @@ export default function SymptomsGuide() {
             <button
               key={i}
               onClick={() => setSel(v => (v === i ? null : i))}
+              aria-pressed={selected}
               className={`group text-left rounded-2xl p-4 flex items-center gap-3 border transition-all active:scale-[0.98] ${
                 selected ? 'bg-brand-50 border-brand-400 shadow-sm' : 'bg-white border-slate-200 hover:border-brand-300 hover:bg-brand-50/30'
               }`}
@@ -99,7 +113,7 @@ export default function SymptomsGuide() {
 
       {/* 選択後の確認パネル: 目安の診療科＋条件（現在開院中）＋検索導線 */}
       {sel !== null && (
-        <div className="bg-white border border-brand-200 rounded-2xl p-5 space-y-4 shadow-sm">
+        <div className="sticky bottom-3 z-30 bg-white/95 backdrop-blur border border-brand-200 rounded-2xl p-4 space-y-3 shadow-lg">
           <div>
             <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">{t('symptom.suggestedDept')}</p>
             <p className="text-lg font-extrabold text-brand-700 mt-0.5">{deptName(SYMPTOMS[sel].deptId)}</p>
@@ -128,4 +142,8 @@ export default function SymptomsGuide() {
       </div>
     </div>
   );
+}
+
+export default function SymptomsGuide() {
+  return <Suspense><SymptomsContent /></Suspense>;
 }

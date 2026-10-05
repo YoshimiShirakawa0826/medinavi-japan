@@ -35,7 +35,8 @@ function timeMinutes(time: unknown): number | null {
 }
 
 /** Published regular hours only; null means no reliable schedule for this date. */
-export function scheduledOpenStatus(hospital: Pick<Hospital, 'closedDays' | 'openingHours'>, now: Date): boolean | null {
+export function scheduledOpenStatus(hospital: Pick<Hospital, 'closedDays' | 'openingHours' | 'careGuide'>, now: Date): boolean | null {
+  if (hospital.careGuide?.scheduleNeedsConfirmation) return null;
   if (!Number.isFinite(now.getTime())) return null;
   const parts = Object.fromEntries(tokyoClock.formatToParts(now).map(p => [p.type, p.value]));
   const year = Number(parts.year);
@@ -44,13 +45,18 @@ export function scheduledOpenStatus(hospital: Pick<Hospital, 'closedDays' | 'ope
   const date = new Date(`${parts.year}-${parts.month}-${parts.day}T00:00:00Z`);
   const day = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'][date.getUTCDay()];
   if (hospital.closedDays?.[day] === true) return false;
-  const slots = hospital.openingHours?.[day];
+  // A published reception cutoff takes priority over the later closing time.
+  const slots = hospital.careGuide?.receptionHours?.[day] ?? hospital.openingHours?.[day];
   if (!Array.isArray(slots) || !slots.length) return null;
   const intervals = slots.map(slot => [timeMinutes(slot?.start), timeMinutes(slot?.end)]);
   // Ambiguous overnight or malformed entries need confirmation, not an open badge.
   if (intervals.some(([start, end]) => start === null || end === null || end <= start)) return null;
   const minutes = Number(parts.hour) * 60 + Number(parts.minute);
   return intervals.some(([start, end]) => minutes >= start! && minutes < end!);
+}
+
+export function uninsuredStatus(hospital: Pick<Hospital, 'careGuide'>): boolean | undefined {
+  return hospital.careGuide?.uninsuredAccepted;
 }
 
 export function matchesDepartment(hospital: Pick<Hospital, 'departments'>, department: string | null): boolean {
@@ -64,7 +70,12 @@ export function pageWindow(total: number, rawPage: string | null, size = 100) {
   return { page, pages, start: (page - 1) * size, end: Math.min(page * size, total) };
 }
 
+// Reuse validated, immutable source records during list/detail navigation.
+// A full page reload fetches the current published dataset again.
+let clinicsCache: Hospital[] | null = null;
 export async function loadClinics(signal?: AbortSignal): Promise<Hospital[]> {
+  signal?.throwIfAborted();
+  if (clinicsCache) return clinicsCache;
   const response = await fetch('/data/clinics.json', { signal });
   if (!response.ok) throw new Error('Clinic data request failed');
   const data: unknown = await response.json();
@@ -72,5 +83,7 @@ export async function loadClinics(signal?: AbortSignal): Promise<Hospital[]> {
     || !h.name || !h.address || !Array.isArray(h.departments) || !Array.isArray(h.supportedLanguages))) {
     throw new Error('Invalid clinic data');
   }
-  return data as Hospital[];
+  signal?.throwIfAborted();
+  clinicsCache = data as Hospital[];
+  return clinicsCache;
 }
