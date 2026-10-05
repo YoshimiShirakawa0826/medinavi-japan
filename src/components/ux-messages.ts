@@ -1,14 +1,14 @@
 import type { Language } from '@/types';
 const message = (ja: string, en: string, zh: string, ko: string, es: string): Record<Language, string> => ({ ja, en, zh, ko, es });
 export const uxMessages: Record<string, Record<Language, string>> = {
-  'nav.online': message('WhatsApp相談', 'WhatsApp enquiries', 'WhatsApp咨询', 'WhatsApp 문의', 'Consultas por WhatsApp'),
+  'nav.online': message('オンライン診療希望の方', 'Online consultation support', '在线诊疗支持', '온라인 진료 지원', 'Ayuda con consultas en línea'),
   'home.subtitle': message('東京で、自分に合う受診先を探す', 'Find care that fits your needs in Tokyo', '在东京寻找适合您的医疗机构', '도쿄에서 나에게 맞는 의료기관 찾기', 'Encuentre atención adecuada en Tokio'),
   'home.inPerson': message('近くの医療機関を探す', 'Find a clinic nearby', '寻找附近医疗机构', '가까운 의료기관 찾기', 'Buscar una clínica cercana'),
   'home.inPersonNote': message('エリア・言語から絞り込む', 'Search by area and language', '按地区和语言筛选', '지역·언어로 검색', 'Buscar por zona e idioma'),
   'home.symptomEntry': message('症状から探す', 'Start with your symptoms', '按症状寻找', '증상으로 찾기', 'Buscar por síntomas'),
   'home.symptomNote': message('受診する診療科に迷ったら', 'Not sure which specialty to choose?', '不确定该看哪个科室？', '어느 진료과인지 모르겠다면', '¿No sabe qué especialidad elegir?'),
-  'home.onlineEntry': message('オンライン診療を相談', 'Ask about online care', '咨询在线诊疗', '온라인 진료 문의', 'Consultar atención en línea'),
-  'home.onlineNote': message('WhatsAppで利用方法を問い合わせ', 'Enquire about options on WhatsApp', '通过WhatsApp询问使用方法', 'WhatsApp으로 이용 방법 문의', 'Consultar opciones por WhatsApp'),
+  'home.onlineEntry': message('オンライン診療希望の方', 'Online consultation support', '在线诊疗支持', '온라인 진료 지원', 'Ayuda con consultas en línea'),
+  'home.onlineNote': message('WhatsAppで利用方法・予約をサポート', 'Help with access and booking on WhatsApp', '通过WhatsApp获取使用及预约帮助', 'WhatsApp으로 이용·예약 지원', 'Ayuda para acceder y reservar por WhatsApp'),
   'home.emergencyShort': message('緊急時・命の危険を感じるときは119へ', 'Emergency or life-threatening situation? Call 119', '紧急情况或有生命危险？请拨119', '응급 상황이나 생명이 위험할 때는 119', '¿Emergencia o peligro vital? Llame al 119'),
   'home.anyLanguage': message('言語を指定しない', 'Any language', '不限语言', '언어 지정 안 함', 'Cualquier idioma'),
   'home.anyDepartment': message('診療科を指定しない', 'Any specialty', '不限科室', '진료과 지정 안 함', 'Cualquier especialidad'),

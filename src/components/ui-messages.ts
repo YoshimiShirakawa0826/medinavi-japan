@@ -45,19 +45,12 @@ export const uiMessages: Record<string, Record<Language, string>> = {
     "ko": "영어 지원 등록",
     "es": "Inglés registrado"
   },
-  "nav.online": {
-    "ja": "看護師に相談",
-    "en": "Nurse support",
-    "zh": "护士咨询",
-    "ko": "간호사 상담",
-    "es": "Consulta de enfermería"
-  },
   "online.desc": {
-    "ja": "看護師による受診先案内・相談（有料、外部サービス）",
-    "en": "Paid nurse support and help finding care (external service).",
-    "zh": "护士咨询与就医指引（付费外部服务）。",
-    "ko": "진료기관 안내 및 간호사 상담 (유료 외부 서비스).",
-    "es": "Orientación y apoyo de enfermería (servicio externo de pago)."
+    "ja": "オンライン診療の利用方法や予約をWhatsAppでサポートします。",
+    "en": "Get support with access and booking for online medical care on WhatsApp.",
+    "zh": "通过WhatsApp获取在线诊疗使用及预约支持。",
+    "ko": "WhatsApp으로 온라인 진료 이용 방법과 예약을 지원합니다.",
+    "es": "Reciba apoyo por WhatsApp para acceder a consultas médicas en línea y reservar."
   },
   "home.badgeVerified": {
     "ja": "受診前に施設へご確認ください",
