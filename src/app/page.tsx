@@ -8,11 +8,16 @@ import { useLanguage } from '@/components/LanguageProvider';
 import { departments } from '@/types';
 import { AREA_PRESETS, getGeoFailureStatus, isGeoFailureStatus, type GeoStatus } from '@/lib/geo';
 import { saveSearchLocation } from '@/lib/search-state';
+import { PrefectureSelect } from '@/components/PrefectureSelect';
+import { NationalCoverage } from '@/components/NationalCoverage';
+import { useCoverage } from '@/lib/use-coverage';
 
 export default function Home() {
   const { language, t } = useLanguage();
   const router = useRouter();
   const [area, setArea] = useState('');
+  const [prefecture, setPrefecture] = useState('');
+  const counts = useCoverage();
   const [careLanguage, setCareLanguage] = useState('');
   const [keyword, setKeyword] = useState('');
   const [department, setDepartment] = useState('');
@@ -20,6 +25,7 @@ export default function Home() {
   const [locationStatus, setLocationStatus] = useState<GeoStatus>('idle');
   const params = () => {
     const p = new URLSearchParams();
+    if (prefecture) p.set('prefecture', prefecture);
     if (area) { p.set('area', area); p.set('location', 'manual'); p.set('dist', 'near'); }
     if (careLanguage) p.set('lang', careLanguage);
     if (keyword.trim()) p.set('q', keyword.trim());
@@ -34,7 +40,7 @@ export default function Home() {
       const coords = { lat: pos.coords.latitude, lng: pos.coords.longitude };
       if (!saveSearchLocation(coords)) { setLocationStatus('error'); return; }
       const p = params();
-      p.delete('area'); p.set('location', 'device'); p.set('dist', 'near');
+      p.delete('area'); p.delete('prefecture'); p.set('location', 'device'); p.set('dist', 'near');
       router.push(`/hospitals?${p}`);
     }, error => setLocationStatus(getGeoFailureStatus(error)), { enableHighAccuracy: false, timeout: 10000, maximumAge: 60000 });
   };
@@ -43,7 +49,7 @@ export default function Home() {
   return <div className="max-w-5xl mx-auto px-4 py-6 sm:py-10 space-y-6">
     <Link href="/emergency" className="block rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm font-semibold text-rose-800">{t('home.emergencyShort')} <ArrowRight className="inline w-4 h-4" /></Link>
     <div className="space-y-3 text-center sm:py-3">
-      <p className="text-xs font-bold uppercase tracking-widest text-brand-700">MediNavi JAPAN · Tokyo</p>
+      <p className="text-xs font-bold uppercase tracking-widest text-brand-700">MediNavi JAPAN</p>
       <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">{t('home.subtitle')}</h1>
       <p className="text-sm text-slate-600">{t('home.badgeVerified')}</p>
     </div>
@@ -62,17 +68,17 @@ export default function Home() {
       <h2 className="mb-5 text-xl font-bold text-slate-900">{t('search.title')}</h2>
       <form role="search" onSubmit={event => { event.preventDefault(); router.push(`/hospitals?${params()}`); }} className="space-y-5">
         <div className="grid gap-4 sm:grid-cols-2">
-          <label className="space-y-2 text-sm font-bold text-slate-700"><span>{t('home.areaLabel')}</span>
-            <select value={area} onChange={event => setArea(event.target.value)} className={inputClass}><option value="">{t('home.allAreas')}</option>{AREA_PRESETS.map(item => <option key={item.name} value={item.name}>{t(`area.${item.name}`)}</option>)}</select>
-          </label>
+          <PrefectureSelect value={prefecture} counts={counts} onChange={code => { setPrefecture(code); setArea(''); }} />
           <label className="space-y-2 text-sm font-bold text-slate-700"><span>{t('search.language')}</span>
             <select value={careLanguage} onChange={event => setCareLanguage(event.target.value)} className={inputClass}><option value="">{t('home.anyLanguage')}</option><option value="en">English</option><option value="ja">日本語</option><option value="zh">中文</option><option value="ko">한국어</option><option value="es">Español</option></select>
           </label>
         </div>
+        <NationalCoverage counts={counts} selected={prefecture} />
         <label className="block space-y-2 text-sm font-bold text-slate-700"><span>{t('search.keyword')}</span><input type="search" maxLength={120} value={keyword} onChange={event => setKeyword(event.target.value)} placeholder={t('search.placeholder')} className={inputClass} /></label>
         <details className="rounded-xl border border-slate-200 px-4 py-3">
           <summary className="cursor-pointer min-h-8 text-sm font-bold text-slate-700">{t('ux.filterDetails')}</summary>
           <div className="pt-3 space-y-4">
+            {prefecture === '13' && <label className="block space-y-2 text-sm font-bold text-slate-700"><span>{t('nation.station')}</span><select value={area} onChange={event => setArea(event.target.value)} className={inputClass}><option value="">{t('home.allAreas')}</option>{AREA_PRESETS.map(item => <option key={item.name} value={item.name}>{t(`area.${item.name}`)}</option>)}</select></label>}
             <label className="block space-y-2 text-sm font-bold text-slate-700"><span>{t('search.department')}</span><select value={department} onChange={event => setDepartment(event.target.value)} className={inputClass}><option value="">{t('home.anyDepartment')}</option>{departments.map(item => <option key={item.id} value={item.id}>{item.name[language]}</option>)}</select></label>
             <div className="grid gap-2 sm:grid-cols-2">{[
               ['open', 'filter.openNow'], ['walkin', 'filter.walkIn'], ['selfpay', 'filter.selfPay'], ['card', 'filter.creditCard'], ['insurance', 'filter.insurance'], ['nightweekend', 'filter.nightWeekend'],

@@ -51,6 +51,8 @@ export type ClinicAccessInfo = {
 
 export interface Hospital {
   id: string;
+  prefectureCode?: string;
+  source?: { url: string; retrievedAt: string; asOf?: string };
   name: Record<Language, string>;
   address: Record<Language, string>;
   phone: string;

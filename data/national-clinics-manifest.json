@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "recordCount": 87870,
+  "sourceAsOf": "2026-06-01",
+  "retrievedAt": "2026-10-20",
+  "sourcePage": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/kenkou_iryou/iryou/newpage_43373.html",
+  "license": "PDL1.0",
+  "licenseUrl": "https://www.digital.go.jp/resources/open_data/public_data_license_v1.0",
+  "sources": [
+    {
+      "url": "https://www.mhlw.go.jp/content/11121000/01-1_hospital_facility_info_20260601.csv.zip",
+      "sha256": "b416472ec52a151455e1c91438e0dec5b471e19eafe70e3e2ee1bb22544efe87",
+      "bytes": 761905
+    },
+    {
+      "url": "https://www.mhlw.go.jp/content/11121000/02-1_clinic_facility_info_20260601.csv.zip",
+      "sha256": "602be1310990fc557cfca8cda0e84494304e4df8581c1aca218b68327ebea2cf",
+      "bytes": 6856873
+    },
+    {
+      "url": "https://www.mhlw.go.jp/content/11121000/01-2_hospital_speciality_hours_20260601.csv.zip",
+      "sha256": "016fac4a1ba0a6df67c4cc0a2854d57a2c9dd8c22cb80fb1733b65d48988290e",
+      "bytes": 1832586
+    },
+    {
+      "url": "https://www.mhlw.go.jp/content/11121000/02-2_clinic_speciality_hours_20260601.csv.zip",
+      "sha256": "9b873f66f9450cf29846c217ced56b902ce03b0d750a008e7d4911d353712d5c",
+      "bytes": 5406828
+    }
+  ],
+  "jsonSha256": "488986fc46491ce3f68f4cabbe7c5a312869335e756305d6f6eb20a6402f134a",
+  "parts": [
+    "national-clinics.json.gz.part00",
+    "national-clinics.json.gz.part01",
+    "national-clinics.json.gz.part02",
+    "national-clinics.json.gz.part03",
+    "national-clinics.json.gz.part04",
+    "national-clinics.json.gz.part05",
+    "national-clinics.json.gz.part06",
+    "national-clinics.json.gz.part07",
+    "national-clinics.json.gz.part08"
+  ],
+  "prefectures": {
+    "01": 2665,
+    "02": 640,
+    "03": 832,
+    "04": 1549,
+    "05": 629,
+    "06": 732,
+    "07": 1073,
+    "08": 1394,
+    "09": 1210,
+    "10": 1365,
+    "11": 3830,
+    "12": 3062,
+    "13": 13215,
+    "14": 5890,
+    "15": 1227,
+    "16": 659,
+    "17": 614,
+    "18": 496,
+    "19": 629,
+    "20": 1335,
+    "21": 1370,
+    "22": 2386,
+    "23": 4914,
+    "24": 1278,
+    "25": 937,
+    "26": 1280,
+    "27": 7872,
+    "28": 3506,
+    "29": 989,
+    "30": 906,
+    "31": 396,
+    "32": 658,
+    "33": 1383,
+    "34": 2191,
+    "35": 1042,
+    "36": 634,
+    "37": 748,
+    "38": 1036,
+    "39": 516,
+    "40": 4751,
+    "41": 645,
+    "42": 1145,
+    "43": 1388,
+    "44": 866,
+    "45": 766,
+    "46": 892,
+    "47": 329
+  },
+  "limitations": [
+    "Phone numbers and foreign-language capabilities are not in the facility CSV.",
+    "Department-specific hours and irregular closures are not generalized to facility hours.",
+    "Existing reviewed Tokyo records take precedence by exact source ID."
+  ]
+}

@@ -5,7 +5,10 @@ import { departments, Language } from '@/types';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useState } from 'react';
-import { AREA_PRESETS } from '@/lib/geo';
+import { PrefectureSelect } from '@/components/PrefectureSelect';
+import { NationalCoverage } from '@/components/NationalCoverage';
+import { useCoverage } from '@/lib/use-coverage';
+import { prefectureByCode } from '../../../data/prefectures.mjs';
 import { AlertCircle, ArrowLeft, ChevronRight, Info, Clock, Search, CheckCircle } from 'lucide-react';
 
 // 症状 → 目安となる診療科（deptId）。
@@ -36,6 +39,8 @@ function SymptomsContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [area, setArea] = useState(searchParams.get('area') || '');
+  const [prefecture, setPrefecture] = useState(prefectureByCode(searchParams.get('prefecture'))?.code || (searchParams.get('area') ? '13' : ''));
+  const counts = useCoverage();
   const [careLanguage, setCareLanguage] = useState(searchParams.get('lang') || '');
   const [sel, setSel] = useState<number | null>(null);
   const [openNow, setOpenNow] = useState(searchParams.get('open') === 'true');
@@ -51,6 +56,7 @@ function SymptomsContent() {
     const s = SYMPTOMS[sel];
     const p = new URLSearchParams(searchParams.toString());
     p.delete('page'); p.delete('q'); p.set('dept', s.deptId);
+    if (prefecture) p.set('prefecture', prefecture); else p.delete('prefecture');
     if (area) { p.set('area', area); p.set('location', 'manual'); p.set('dist', 'near'); }
     else { p.delete('area'); p.delete('location'); p.delete('dist'); }
     if (careLanguage) p.set('lang', careLanguage); else p.delete('lang');
@@ -83,9 +89,10 @@ function SymptomsContent() {
 
       {/* 症状カード一覧（選択式。即遷移せず、選ぶと下に目安の診療科と検索導線を表示） */}
       <div className="grid gap-3 sm:grid-cols-2">
-        <label className="text-sm font-bold text-slate-700">{t('home.areaLabel')}<select value={area} onChange={event => setArea(event.target.value)} className="block mt-2 min-h-11 w-full rounded-xl border border-slate-300 bg-white px-3 font-normal"><option value="">{t('home.allAreas')}</option>{AREA_PRESETS.map(item => <option key={item.name} value={item.name}>{t(`area.${item.name}`)}</option>)}</select></label>
+        <PrefectureSelect value={prefecture} counts={counts} onChange={code => { setPrefecture(code); setArea(''); }} />
         <label className="text-sm font-bold text-slate-700">{t('search.language')}<select value={careLanguage} onChange={event => setCareLanguage(event.target.value)} className="block mt-2 min-h-11 w-full rounded-xl border border-slate-300 bg-white px-3 font-normal"><option value="">{t('home.anyLanguage')}</option><option value="en">English</option><option value="ja">日本語</option><option value="zh">中文</option><option value="ko">한국어</option><option value="es">Español</option></select></label>
       </div>
+      <NationalCoverage counts={counts} selected={prefecture} />
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {SYMPTOMS.map((s, i) => {
           const selected = sel === i;

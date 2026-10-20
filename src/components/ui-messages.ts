@@ -1,6 +1,7 @@
 import type { Language } from '@/types';
 import { auditMessages } from './audit-messages';
 import { uxMessages } from './ux-messages';
+import { nationMessages } from './nation-messages';
 
 export const uiMessages: Record<string, Record<Language, string>> = {
   'phone.missing': {
@@ -320,4 +321,5 @@ export const uiMessages: Record<string, Record<Language, string>> = {
   },
   ...auditMessages,
   ...uxMessages,
+  ...nationMessages,
 };

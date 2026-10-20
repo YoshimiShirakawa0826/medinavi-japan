@@ -1,6 +1,12 @@
 import type { Hospital } from '../types';
+import { prefectureByCode } from '../../data/prefectures.mjs';
 
 export const RESULT_PAGE_SIZE = 20;
+// Switching prefectures clears the old origin and radius, but preserves medical
+// filters. Selecting a prefecture must not silently mean "near Tokyo".
+export function prefectureSearchChanges(code: string): Record<string, string | null> {
+  return { prefecture: prefectureByCode(code)?.code || null, area: null, location: null, dist: null };
+}
 export type SearchRadius = number | null | 'off';
 
 export function searchRadius(value: string | null, hasOrigin: boolean): SearchRadius {
@@ -26,14 +32,14 @@ export function safeSearchReturn(value: string | null): string {
   return value;
 }
 
-function normalize(value: string): string {
+export function normalizeSearchText(value: string): string {
   return value.normalize('NFKC').toLocaleLowerCase().replace(/\s+/g, ' ').trim();
 }
 
 export function matchesKeyword(hospital: Pick<Hospital, 'name' | 'address'>, keyword: string): boolean {
-  const words = normalize(keyword).split(' ').filter(Boolean);
+  const words = normalizeSearchText(keyword).split(' ').filter(Boolean);
   if (!words.length) return true;
-  const text = normalize([...Object.values(hospital.name), ...Object.values(hospital.address)].join(' '));
+  const text = normalizeSearchText([...Object.values(hospital.name), ...Object.values(hospital.address)].join(' '));
   return words.every(word => text.includes(word));
 }
 
@@ -60,8 +66,13 @@ export function saveSearchLocation(coords: SearchCoordinates | null): boolean {
   try {
     if (coords) sessionStorage.setItem(LOCATION_KEY, JSON.stringify({ ...coords, savedAt: Date.now() }));
     else sessionStorage.removeItem(LOCATION_KEY);
+    window.dispatchEvent(new Event('medinavi-location'));
     return true;
   } catch { return false; }
+}
+
+export function searchLocationSnapshot(): string | null {
+  try { return sessionStorage.getItem(LOCATION_KEY); } catch { return null; }
 }
 
 // Legacy imports used false for unknown capabilities. Do not turn such defaults

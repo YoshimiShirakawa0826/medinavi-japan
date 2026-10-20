@@ -9,7 +9,7 @@ export function telephoneHref(phone: unknown): string | null {
 
 /** The source ID consists of prefecture, institution type and Nabii facility ID. */
 export function nabiiClinicUrl(id: string): string | null {
-  const match = /^clinic-(\d{2})(2)(\d{10})$/.exec(id);
+  const match = /^clinic-(0[1-9]|[1-3]\d|4[0-7])([12])([A-Za-z0-9]{2,17})$/.exec(id);
   if (!match) return null;
   return `https://www.iryou.teikyouseido.mhlw.go.jp/znk-web/juminkanja/S2430/initialize?kikanCd=${match[3]}&kikanKbn=${match[2]}&prefCd=${match[1]}`;
 }

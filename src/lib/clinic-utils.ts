@@ -19,7 +19,7 @@ export function clinicMapUrl(hospital: Pick<Hospital, 'latitude' | 'longitude' |
   const place = [hospital.name.ja || hospital.name.en, hospital.address.ja || hospital.address.en]
     .filter(Boolean).join(' ').normalize('NFKC').trim();
   const query = place || (hasClinicCoordinates(hospital.latitude, hospital.longitude)
-    ? `${hospital.latitude},${hospital.longitude}` : '東京都 医療機関');
+    ? `${hospital.latitude},${hospital.longitude}` : '日本 医療機関');
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
 }
 
@@ -37,6 +37,7 @@ function timeMinutes(time: unknown): number | null {
 /** Published regular hours only; null means no reliable schedule for this date. */
 export function scheduledOpenStatus(hospital: Pick<Hospital, 'closedDays' | 'openingHours' | 'careGuide'>, now: Date): boolean | null {
   if (hospital.careGuide?.scheduleNeedsConfirmation) return null;
+  if (!hospital.openingHours && !hospital.closedDays && !hospital.careGuide?.receptionHours) return null;
   if (!Number.isFinite(now.getTime())) return null;
   const parts = Object.fromEntries(tokyoClock.formatToParts(now).map(p => [p.type, p.value]));
   const year = Number(parts.year);
@@ -68,22 +69,4 @@ export function pageWindow(total: number, rawPage: string | null, size = 100) {
   const requested = Number(rawPage);
   const page = Number.isSafeInteger(requested) && requested > 0 ? Math.min(requested, pages) : 1;
   return { page, pages, start: (page - 1) * size, end: Math.min(page * size, total) };
-}
-
-// Reuse validated, immutable source records during list/detail navigation.
-// A full page reload fetches the current published dataset again.
-let clinicsCache: Hospital[] | null = null;
-export async function loadClinics(signal?: AbortSignal): Promise<Hospital[]> {
-  signal?.throwIfAborted();
-  if (clinicsCache) return clinicsCache;
-  const response = await fetch('/data/clinics.json', { signal });
-  if (!response.ok) throw new Error('Clinic data request failed');
-  const data: unknown = await response.json();
-  if (!Array.isArray(data) || data.some(h => !h || typeof h.id !== 'string'
-    || !h.name || !h.address || !Array.isArray(h.departments) || !Array.isArray(h.supportedLanguages))) {
-    throw new Error('Invalid clinic data');
-  }
-  signal?.throwIfAborted();
-  clinicsCache = data as Hospital[];
-  return clinicsCache;
 }

@@ -24,6 +24,9 @@ __pycache__/
 
 # generated from data/clinics.json.gz before dev/build
 /public/data/clinics.json
+/public/data/coverage.json
+/public/data/prefectures/
+/data/generated/
 
 # misc
 .DS_Store

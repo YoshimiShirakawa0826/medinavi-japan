@@ -6,11 +6,17 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Hospital, Language, departments } from '@/types';
 import { MapPin, Phone, AlertTriangle, ArrowLeft, CheckCircle, CreditCard, Shield, Sparkles, Navigation, ExternalLink, Wallet, LocateFixed, Info, X } from 'lucide-react';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Suspense } from 'react';
-import { clinicMapUrl, hasClinicCoordinates, loadClinics, matchesDepartment, pageWindow, scheduledOpenStatus, uninsuredStatus } from '@/lib/clinic-utils';
+import { clinicMapUrl, hasClinicCoordinates, uninsuredStatus } from '@/lib/clinic-utils';
 import { telephoneHref, nabiiClinicUrl } from '@/lib/clinic-contact';
-import { matchesKeyword, searchRadius, updateSearch, readSearchLocation, saveSearchLocation, RESULT_PAGE_SIZE, weekendStatus } from '@/lib/search-state';
+import { searchRadius, updateSearch, saveSearchLocation, RESULT_PAGE_SIZE, weekendStatus, prefectureSearchChanges } from '@/lib/search-state';
+import { prefectureByCode } from '../../../data/prefectures.mjs';
+import { PrefectureSelect } from '@/components/PrefectureSelect';
+import { NationalCoverage } from '@/components/NationalCoverage';
+import { useCoverage } from '@/lib/use-coverage';
+import { useClinicSearch } from '@/lib/use-clinic-search';
+import { useSearchLocation } from '@/lib/use-search-location';
 import {
   useGeolocation, distanceKm, formatDistance, DISTANCE_OPTIONS, AREA_PRESETS,
 } from '@/lib/geo';
@@ -21,38 +27,14 @@ const RESULT_CAP = RESULT_PAGE_SIZE;
 function HospitalsContent() {
   const { language, t } = useLanguage();
   const searchParams = useSearchParams();
-  const [hospitals, setHospitals] = useState<Hospital[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [loadError, setLoadError] = useState(false);
+  const requestedPrefecture = searchParams.get('prefecture') || '';
+  const prefectureCode = /^(0[1-9]|[1-3]\d|4[0-7])$/.test(requestedPrefecture) ? requestedPrefecture : '';
+  const prefecture = prefectureByCode(prefectureCode);
+  const counts = useCoverage();
   const resultsRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<HTMLDivElement>(null);
-  // 取得後30分以内の座標だけ端末内で引き継ぐ。URLには含めない。
-  const [seededCoords, setSeededCoords] = useState<{ lat: number; lng: number } | null>(null);
-  const distParam = searchParams.get('dist'); // '1'|'3'|'5'|'10'|'near'
-
-  useEffect(() => {
-    const controller = new AbortController();
-    loadClinics(controller.signal)
-      .then((data: Hospital[]) => {
-        if (controller.signal.aborted) return;
-        const now = new Date();
-        const updated = data.map(h => ({ ...h, isOpenNow: scheduledOpenStatus(h, now) }));
-        setHospitals(updated);
-        setLoading(false);
-        // Keep the location on this device for 30 minutes, including a detail/list round trip.
-        setSeededCoords(readSearchLocation());
-      })
-      .catch(() => {
-        if (controller.signal.aborted) return;
-        setLoadError(true);
-        setLoading(false);
-      });
-    const timer = setInterval(() => {
-      const now = new Date();
-      setHospitals(current => current.map(h => ({ ...h, isOpenNow: scheduledOpenStatus(h, now) })));
-    }, 60_000);
-    return () => { controller.abort(); clearInterval(timer); };
-  }, []);
+  const seededCoords = useSearchLocation();
+  const distParam = searchParams.get('dist');
 
   // Filter params
   const deptFilter = searchParams.get('dept');
@@ -73,7 +55,7 @@ function HospitalsContent() {
   const geo = useGeolocation();
 
   // 現在地の利用有無にかかわらず、エリア・駅を選べる。
-  const manualPoint = AREA_PRESETS.find(a => a.name === searchParams.get('area')) ?? null;
+  const manualPoint = !prefectureCode || prefectureCode === '13' ? AREA_PRESETS.find(a => a.name === searchParams.get('area')) ?? null : null;
 
   // 実際の現在地（一覧のボタン取得 or ホームからの受け渡し）。
   const wantsDevice = searchParams.get('location') === 'device' || (distParam === 'near' && !manualPoint && searchParams.get('location') !== 'manual');
@@ -86,8 +68,7 @@ function HospitalsContent() {
   const needsAreaSelection = !refPoint;
   const showDistance = !!refPoint;
   const changeSearch = (changes: Record<string, string | null>) => {
-    // Filtering uses data already loaded on this page. Next.js synchronizes
-    // native history updates with useSearchParams without a server navigation.
+    // Keep conditions in the URL; the search API returns one result page.
     window.history.replaceState(null, '', updateSearch(searchParams.toString(), changes));
     resultsRef.current?.scrollTo({ top: 0 });
   };
@@ -95,24 +76,21 @@ function HospitalsContent() {
   // 駅を選んだときも近い順にする。距離計算は端末内で行う。
   const selectArea = (a: { name: string; lat: number; lng: number }) => {
     geo.clear();
-    setSeededCoords(null);
     saveSearchLocation(null);
     setMapTarget(null);
-    changeSearch({ area: a.name, location: 'manual', dist: 'near' });
+    changeSearch({ prefecture: '13', area: a.name, location: 'manual', dist: 'near' });
   };
 
   const requestLocation = () => {
-    setSeededCoords(null);
     saveSearchLocation(null);
     setMapVisible(false);
     setMapTarget(null);
-    changeSearch({ area: null, location: 'device', dist: 'near' });
-    geo.request(coords => { setSeededCoords(coords); saveSearchLocation(coords); });
+    changeSearch({ prefecture: null, area: null, location: 'device', dist: 'near' });
+    geo.request(coords => { saveSearchLocation(coords); });
   };
 
   const clearFilters = () => {
     geo.clear();
-    setSeededCoords(null);
     saveSearchLocation(null);
     setMapTarget(null);
     setMapVisible(false);
@@ -148,38 +126,13 @@ function HospitalsContent() {
     requestAnimationFrame(() => mapRef.current?.scrollIntoView({ block: 'start', behavior: 'smooth' }));
   };
 
-  // フィルタ→Haversine距離付与→（距離モード時）半径絞り込み＆近い順ソート。
-  // 無関係な状態変化（地図の開閉・コピー等）での再計算を避けるため useMemo でメモ化する。
-  const processed = useMemo(() => {
-    const filtered = hospitals.filter(h => {
-      if (!matchesDepartment(h, deptFilter)) return false;
-      if (!matchesKeyword(h, keyword)) return false;
-      if (langFilter && !h.supportedLanguages.includes(langFilter as Language)) return false;
-      if (openNowFilter && !h.isOpenNow) return false;
-      if (engTodayFilter && !h.supportedLanguages.includes('en')) return false;
-      if (cardFilter && !matchesAccess(h, 'creditCardAccepted')) return false;
-      if (insuranceFilter && !matchesAccess(h, 'overseasInsuranceAccepted')) return false;
-      if (nightWeekendFilter && !h.accessInfo?.nightOpen && weekendStatus(h) !== true) return false;
-      if (walkInFilter && !matchesAccess(h, 'walkInAvailable', deptFilter, langFilter)) return false;
-      if (reviewedFilter && !hasWebsiteReview(h)) return false;
-      if (verifiedFilter && h.verification?.status !== 'verified') return false;
-      if (selfPayFilter && uninsuredStatus(h) !== true && !(includeUnknown && uninsuredStatus(h) === undefined)) return false;
-      return true;
-    });
-    let arr = filtered.map(h => ({ h, dist: refPoint ? distanceKm(refPoint, h.latitude, h.longitude) : Infinity }));
-    if (activeRadius !== 'off') {
-      if (typeof activeRadius === 'number') arr = arr.filter(x => x.dist <= activeRadius);
-      arr = arr.sort((a, b) => a.dist - b.dist);
-    }
-    return arr;
-  }, [
-    hospitals, refPoint, activeRadius, keyword,
-    deptFilter, langFilter, openNowFilter, engTodayFilter, cardFilter,
-    insuranceFilter, nightWeekendFilter, walkInFilter, verifiedFilter, reviewedFilter, selfPayFilter, includeUnknown,
-  ]);
-
-  const pagination = pageWindow(processed.length, searchParams.get('page'), RESULT_CAP);
-  const visible = processed.slice(pagination.start, pagination.end);
+  const { data: search, loading, error: loadError } = useClinicSearch(searchParams.toString(), refPoint, activeRadius);
+  const hospitals = search?.items || [];
+  const total = search?.total || 0;
+  const scopeCount = search?.scopeCount || 0;
+  const reviewedCount = search?.reviewedCount || 0;
+  const pagination = search || { page: 1, pages: 1, start: 0, end: 0 };
+  const visible = hospitals.map(h => ({ h, dist: refPoint ? distanceKm(refPoint, h.latitude, h.longitude) : Infinity }));
   const goToPage = (page: number) => {
     const p = new URLSearchParams(searchParams.toString());
     p.set('page', String(page));
@@ -202,6 +155,7 @@ function HospitalsContent() {
     changeSearch({ [key]: null });
   };
   const activeFilters: Array<{ key: string; label: string }> = [];
+  if (prefecture) activeFilters.push({ key: 'prefecture', label: prefecture.name[language] });
   if (keyword) activeFilters.push({ key: 'q', label: keyword });
   if (deptFilter)        activeFilters.push({ key: 'dept',         label: getDeptNames([deptFilter]) });
   if (langFilter)        activeFilters.push({ key: 'lang',         label: langName(langFilter) });
@@ -245,7 +199,7 @@ function HospitalsContent() {
             <span className="text-xs font-bold text-slate-700">{t('home.advArea')}:</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-xs font-extrabold text-brand-600">{hospitals.length.toLocaleString()} · {t('data.mhlwOpenData')}</span>
+            <span className="text-xs font-extrabold text-brand-600">{scopeCount.toLocaleString()} · {t('data.mhlwOpenData')}</span>
           </div>
         </div>
       </div>
@@ -256,16 +210,25 @@ function HospitalsContent() {
         <div className={`w-full ${mapVisible ? 'lg:w-1/2' : ''} space-y-4`}>
           <div className="border-b border-slate-200 pb-3">
             <h1 className="text-2xl font-bold text-slate-900">
-              {processed.length.toLocaleString()} <span className="text-slate-500 font-medium text-lg">{t('list.found')}</span>
+              {total.toLocaleString()} <span className="text-slate-500 font-medium text-lg">{t('list.found')}</span>
             </h1>
-            {processed.length > RESULT_CAP && (
+            {total > RESULT_CAP && (
               <p className="text-[11px] text-slate-400 font-semibold mt-1">
-                {t('list.showing')} {pagination.start + 1}–{pagination.end} / {processed.length.toLocaleString()}
+                {t('list.showing')} {pagination.start + 1}–{pagination.end} / {total.toLocaleString()}
               </p>
             )}
           </div>
 
           <p className="text-xs leading-relaxed text-slate-500">{t('data.notice')} {t('status.notice')}</p>
+          <PrefectureSelect value={prefectureCode} counts={counts} onChange={code => {
+            geo.clear(); saveSearchLocation(null); setMapTarget(null); setMapVisible(false);
+            changeSearch(prefectureSearchChanges(code));
+          }} />
+          <NationalCoverage counts={counts} selected={prefectureCode} />
+          {(langFilter || engTodayFilter) && <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm leading-relaxed text-amber-900">
+            <p>{t('nation.languageCoverage')}</p>
+            <button type="button" onClick={() => changeSearch({ lang: null, engtoday: null })} className="mt-2 min-h-11 font-bold underline underline-offset-4">{t('nation.clearLanguage')}</button>
+          </div>}
           {selfPayFilter && <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900 space-y-3">
             <p>{t(includeUnknown ? 'selfpay.unknownIncluded' : 'selfpay.coverageNote')}</p>
             <label className="flex min-h-11 items-center gap-3 font-semibold"><input type="checkbox" checked={includeUnknown} onChange={event => changeSearch({ uninsuredUnknown: event.target.checked ? 'true' : null })} className="h-4 w-4" />{t('selfpay.showUnknown')}</label>
@@ -274,7 +237,7 @@ function HospitalsContent() {
           <summary className="cursor-pointer min-h-8 font-bold text-brand-700">{t('ux.filters')}{activeFilters.length > 0 ? ` (${activeFilters.length})` : ''}{manualPoint ? ` · ${t(`area.${manualPoint.name}`)}` : ''}</summary>
           <div className="space-y-4 pt-3">
           <div className="rounded-xl border border-brand-100 bg-brand-50/50 p-4 space-y-3">
-            <p className="text-sm font-semibold text-slate-700">{t('access.coverage')}: {hospitals.filter(hasWebsiteReview).length.toLocaleString()} / {hospitals.length.toLocaleString()}</p>
+            <p className="text-sm font-semibold text-slate-700">{t('access.coverage')}: {reviewedCount.toLocaleString()} / {scopeCount.toLocaleString()}</p>
             <p className="text-xs leading-relaxed text-slate-600">{t('access.partial')}</p>
             <div className="flex flex-wrap gap-2">
               {[
@@ -381,7 +344,7 @@ function HospitalsContent() {
             {/* エリア・駅を選んで検索の基準点にする */}
             {(
               <div className="pt-2 space-y-1.5 border-t border-slate-100">
-                <label className="text-sm font-bold text-slate-700">{t('distance.chooseArea')}<select value={manualPoint?.name || ''} onChange={event => { const area = AREA_PRESETS.find(item => item.name === event.target.value); if (area) selectArea(area); else changeSearch({ area: null, location: null, dist: null }); }} className="block mt-2 min-h-11 w-full rounded-xl border border-slate-300 bg-white px-3 font-normal"><option value="">{t('home.allAreas')}</option>{AREA_PRESETS.map(area => <option key={area.name} value={area.name}>{t(`area.${area.name}`)}</option>)}</select></label>
+                {(!prefectureCode || prefectureCode === '13') && <label className="text-sm font-bold text-slate-700">{t('nation.station')}<select value={manualPoint?.name || ''} onChange={event => { const area = AREA_PRESETS.find(item => item.name === event.target.value); if (area) selectArea(area); else changeSearch({ area: null, location: null, dist: null }); }} className="block mt-2 min-h-11 w-full rounded-xl border border-slate-300 bg-white px-3 font-normal"><option value="">{t('home.allAreas')}</option>{AREA_PRESETS.map(area => <option key={area.name} value={area.name}>{t(`area.${area.name}`)}</option>)}</select></label>}
               </div>
             )}
           </div>
@@ -389,9 +352,9 @@ function HospitalsContent() {
           </details>
           {!refPoint && <p className="text-xs text-slate-500">{t('list.sortDefault')}</p>}
           <div ref={resultsRef} className={`scroll-mt-32 grid items-start gap-4 ${mapVisible ? '' : 'lg:grid-cols-2'}`}>
-            {processed.length === 0 ? (
+            {total === 0 ? (
               <div className="bg-white/50 border border-slate-200 rounded-3xl p-8 text-center text-slate-500 font-medium">
-                {t('list.empty')}
+                {t(prefectureCode && counts?.[prefectureCode] === 0 ? 'nation.noData' : 'list.empty')}
               </div>
             ) : (
               visible.map(({ h: hospital, dist }) => (

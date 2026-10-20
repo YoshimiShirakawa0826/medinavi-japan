@@ -22,7 +22,13 @@ test('Nabii links retain the exact prefecture, category and facility identifier'
   assert.equal(url.searchParams.get('kikanKbn'), '2');
   assert.equal(url.searchParams.get('prefCd'), '13');
   assert.equal(nabiiClinicUrl('clinic-1322130154950').includes('kikanCd=2130154950'), true);
-  for (const id of ['mock-1', 'clinic-1321310137216?x=1', 'clinic-132131013721']) {
+  const shortHospital = new URL(nabiiClinicUrl('clinic-03103100001'));
+  assert.equal(shortHospital.searchParams.get('kikanCd'), '03100001');
+  assert.equal(shortHospital.searchParams.get('kikanKbn'), '1');
+  assert.equal(shortHospital.searchParams.get('prefCd'), '03');
+  const alphanumeric = new URL(nabiiClinicUrl('clinic-151BYJTX00002'));
+  assert.equal(alphanumeric.searchParams.get('kikanCd'), 'BYJTX00002');
+  for (const id of ['mock-1', 'clinic-1321310137216?x=1', 'clinic-1321310137216000000000', 'clinic-99212345', 'clinic-13312345']) {
     assert.equal(nabiiClinicUrl(id), null);
   }
 });

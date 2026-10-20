@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { useParams, useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
 import { clinicMapUrl } from '@/lib/clinic-utils';
-import { useClinics } from '@/lib/use-clinics';
+import { useClinic } from '@/lib/use-clinic';
 import { ClinicAccessPanel } from '@/components/ClinicAccessPanel';
 import { ClinicCareGuide, JapaneseAddress } from '@/components/ClinicCareGuide';
 import { telephoneHref, nabiiClinicUrl } from '@/lib/clinic-contact';
@@ -18,7 +18,7 @@ function HospitalDetailContent() {
   const params = useParams();
   const searchParams = useSearchParams();
   const returnTo = safeSearchReturn(searchParams.get('returnTo'));
-  const { hospitals, loading, error } = useClinics();
+  const { hospitals, loading, error } = useClinic(typeof params.id === 'string' ? params.id : '');
   const hospital = hospitals.find(h => h.id === params.id);
 
   if (loading) {
@@ -258,6 +258,7 @@ function HospitalDetailContent() {
                     {lang === 'en' ? 'English' : lang === 'zh' ? '中文' : lang === 'ko' ? '한국어' : lang === 'es' ? 'Español' : '日本語'}
                   </span>
                 ))}
+                {hospital.supportedLanguages.length === 0 && <p className="text-sm text-slate-600">{t('nation.languageUnknown')}</p>}
               </div>
             </section>
           </div>
@@ -280,6 +281,7 @@ function HospitalDetailContent() {
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-brand-300">{t('detail.source')}</span>
                   <span className="text-xs font-bold text-slate-200">{hospital.verification.confirmedBy === 'open_data' ? t('phone.nabiiSource') : hospital.dataSource}</span>
+                  {hospital.source && <a className="text-xs underline text-white" href={hospital.source.url} target="_blank" rel="noopener noreferrer">{t('nation.source')} · {hospital.source.asOf}</a>}
                 </div>
               </div>
             </details>

@@ -1,6 +1,7 @@
 import { test } from 'node:test';
+import { fetchSearchPage } from '../src/lib/clinic-search-client.ts';
 import assert from 'node:assert/strict';
-import { hasClinicCoordinates, clinicMapUrl, scheduledOpenStatus, matchesDepartment, pageWindow, loadClinics } from '../src/lib/clinic-utils.ts';
+import { hasClinicCoordinates, clinicMapUrl, scheduledOpenStatus, matchesDepartment, pageWindow } from '../src/lib/clinic-utils.ts';
 
 const schedule = { openingHours: { tue: [{ start: '09:00', end: '12:00' }, { start: '13:00', end: '17:00' }] } };
 
@@ -65,16 +66,13 @@ test('pagination reaches every record without overlap and handles invalid URLs',
   assert.deepEqual(pageWindow(0, '2'), { page: 1, pages: 1, start: 0, end: 0 });
 });
 
-test('network errors are distinguishable from an empty clinic list', async t => {
-  const fetch = t.mock.method(global, 'fetch', async () => new Response('Not found', { status: 404 }));
-  await assert.rejects(loadClinics(), /request failed/);
-  fetch.mock.mockImplementation(async () => new Response('{}', { status: 200 }));
-  await assert.rejects(loadClinics(), /Invalid clinic data/);
-  fetch.mock.mockImplementation(async () => new Response('[]', { status: 200 }));
-  assert.deepEqual(await loadClinics(), []);
-  fetch.mock.mockImplementation(async () => { throw new Error('Should reuse validated data'); });
-  assert.deepEqual(await loadClinics(), []);
-  const aborted = new AbortController();
-  aborted.abort();
-  await assert.rejects(loadClinics(aborted.signal), { name: 'AbortError' });
+test('search request failures remain distinct from a valid empty result and respect cancellation', async t => {
+  const mocked = t.mock.method(global, 'fetch', async () => new Response('Not found', { status: 404 }));
+  await assert.rejects(fetchSearchPage(''), /request failed/);
+  mocked.mock.mockImplementation(async () => Response.json({}));
+  await assert.rejects(fetchSearchPage(''), /Invalid clinic search/);
+  mocked.mock.mockImplementation(async () => Response.json({version:'test',total:0,page:1,pages:1,start:0,end:0,items:[]}));
+  assert.deepEqual((await fetchSearchPage('')).items, []);
+  const aborted = new AbortController(); aborted.abort();
+  await assert.rejects(fetchSearchPage('', aborted.signal), { name: 'AbortError' });
 });
