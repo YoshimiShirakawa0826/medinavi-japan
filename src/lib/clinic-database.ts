@@ -67,7 +67,8 @@ export function openClinicDatabase(file: string) {
       if (!LANGUAGES.includes(lang)) throw new InvalidSearch('Invalid language');
       langBit = 1 << LANGUAGES.indexOf(lang); add('(languages & ?) != 0', langBit);
     }
-    if (flag('engtoday')) add('(languages & ?) != 0', 1 << LANGUAGES.indexOf('en'));
+    if (flag('engtoday')) add('(languages & ?) != 0 AND english_day=?', 1 << LANGUAGES.indexOf('en'),
+      new Date(now).toLocaleDateString('sv-SE', { timeZone: 'Asia/Tokyo' }));
     for (const [key, column] of [['card', 'card'], ['insurance', 'insurance'], ['nightweekend', 'night_weekend'], ['verified', 'verified'], ['reviewed', 'reviewed']]) {
       if (flag(key)) add(`${column}=1`);
     }

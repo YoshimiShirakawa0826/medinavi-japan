@@ -1,0 +1,1010 @@
+[
+  {
+    "clinicId": "clinic-0111010002170",
+    "clinicName": "旭川赤十字病院",
+    "clinicAddress": "北海道旭川市曙１条１丁目１番１号",
+    "clinicWebsite": "http://www.asahikawa.jrc.or.jp/",
+    "identitySource": {
+      "requestedUrl": "https://www.asahikawa.jrc.or.jp/",
+      "url": "https://www.asahikawa.jrc.or.jp/",
+      "contentSha256": "b395674aafb9e8d09d10a2ffff7cb5d0e6f525553f9d8ef742681ee5dc399d90"
+    },
+    "entries": [
+      {
+        "languages": [],
+        "mode": "onsite_interpreter_unavailable",
+        "reservation": "unknown",
+        "notes": {
+          "ja": "院内の医療通訳はいないと英語版公式ページに記載されています。医師の対応言語や遠隔通訳の有無は、この記載だけでは確認できません。",
+          "en": "The official English page states that there are no on-site medical interpreters. This does not establish the languages spoken by doctors or whether remote interpreting is available.",
+          "zh": "官方英文页注明院内无医疗口译。此说明无法确认医生的服务语言或是否提供远程口译。",
+          "ko": "공식 영문 페이지에 병원 내 의료 통역이 없다고 명시되어 있습니다. 의사의 대응 언어나 원격 통역 여부는 이 내용만으로 확인되지 않습니다.",
+          "es": "La página inglesa oficial indica que no hay intérpretes médicos presenciales. Esto no confirma los idiomas de los médicos ni la existencia de interpretación remota."
+        },
+        "sources": [
+          {
+            "url": "https://www.asahikawa.jrc.or.jp/english/",
+            "checkedAt": "2026-10-20",
+            "quote": "We don’t have on-site medical interpreters.",
+            "contentSha256": "f139154f799afe2dc13c351322638429515c1d683c035d2dbf44403a95607b8e"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "clinicId": "clinic-0122010043020",
+    "clinicName": "医療法人ＮＩＣ　ニセコインターナショナルクリニック",
+    "clinicAddress": "北海道虻田郡倶知安町ニセコひらふ五条３丁目７－１",
+    "clinicWebsite": "https://www.niseko-nic.com/",
+    "identitySource": {
+      "requestedUrl": "https://www.niseko-nic.com/",
+      "url": "https://www.niseko-nic.com/",
+      "contentSha256": "cdb9b5abb7e199e3feeaae759406fe5ecd8a1fd1d9a8ca5eeda04fefb2e8896e"
+    },
+    "entries": [
+      {
+        "languages": [
+          "en"
+        ],
+        "mode": "staff",
+        "reservation": "unknown",
+        "notes": {
+          "ja": "スタッフ全員が英語対応可能との記載があります。対応日時と予約条件は受診前に確認してください。",
+          "en": "The site states that all staff can assist in English. Confirm availability and booking requirements before visiting.",
+          "zh": "官网注明全体工作人员可用英语服务。就诊前请确认接诊时间和预约条件。",
+          "ko": "전 직원이 영어로 대응 가능하다고 안내합니다. 방문 전 대응 시간과 예약 조건을 확인하세요.",
+          "es": "La web indica que todo el personal puede atender en inglés. Confirme disponibilidad y condiciones de reserva."
+        },
+        "sources": [
+          {
+            "url": "https://www.niseko-nic.com/",
+            "checkedAt": "2026-10-20",
+            "quote": "スタッフ全員が 英語対応可 充実した設備・医療機器 English ニセコインターナショナルクリ",
+            "contentSha256": "cdb9b5abb7e199e3feeaae759406fe5ecd8a1fd1d9a8ca5eeda04fefb2e8896e"
+          }
+        ]
+      },
+      {
+        "languages": [
+          "zh"
+        ],
+        "mode": "clinical_support",
+        "reservation": "unknown",
+        "notes": {
+          "ja": "英語版の公式サイトに中国語の言語サポートの記載があります。医師・通訳の別、対応日時、予約の要否は要確認です。",
+          "en": "The official English page lists Chinese language support. Confirm the method, availability and whether booking is needed.",
+          "zh": "官方英文页面注明中文语言支持。请确认由医生还是口译协助、接诊时间及是否需预约。",
+          "ko": "공식 영문 페이지에 중국어 지원 안내가 있습니다. 의사·통역 구분과 대응 시간, 예약 여부를 확인하세요.",
+          "es": "La página oficial en inglés anuncia apoyo en chino. Confirme modalidad, disponibilidad y necesidad de cita."
+        },
+        "sources": [
+          {
+            "url": "https://www.niseko-nic.com/en/",
+            "checkedAt": "2026-10-20",
+            "quote": "English, Chinese, and other language support available.",
+            "contentSha256": "add44f44942f183694059ffd26672819f457db9937e137ef9d81d156f4cd9547"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "clinicId": "clinic-081108610019",
+    "clinicName": "筑波大学附属病院",
+    "clinicAddress": "茨城県つくば市天久保２－１－１",
+    "clinicWebsite": "https://www.hosp.tsukuba.ac.jp/",
+    "identitySource": {
+      "requestedUrl": "https://www.hosp.tsukuba.ac.jp/",
+      "url": "https://www.hosp.tsukuba.ac.jp/",
+      "contentSha256": "dd9044f194a116c653be7f9adbcc4acc42f3c6bab8fd10e8d293f8fad0ad84ae"
+    },
+    "entries": [
+      {
+        "languages": [
+          "ja",
+          "en"
+        ],
+        "mode": "contact_only",
+        "reservation": "required",
+        "notes": {
+          "ja": "電話窓口は原則として日本語・英語対応です。診療時の英語対応を意味しません。病院は全科予約制と案内しています。",
+          "en": "Telephone enquiries are generally supported in Japanese and English. This does not establish English-language clinical care. All departments require appointments.",
+          "zh": "电话咨询原则上支持日语和英语，不代表英语诊疗。医院注明所有科室均需预约。",
+          "ko": "전화 문의는 원칙적으로 일본어·영어 대응입니다. 영어 진료를 의미하지 않으며 병원은 전 진료과 예약제입니다.",
+          "es": "Las consultas telefónicas se atienden normalmente en japonés e inglés; esto no acredita atención clínica en inglés. Todos los departamentos requieren cita."
+        },
+        "sources": [
+          {
+            "url": "https://www.hosp.tsukuba.ac.jp/",
+            "checkedAt": "2026-10-20",
+            "quote": "お電話につきましては、原則、日本語と英語にのみ対応しております。",
+            "contentSha256": "dd9044f194a116c653be7f9adbcc4acc42f3c6bab8fd10e8d293f8fad0ad84ae"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "clinicId": "clinic-1011100000003",
+    "clinicName": "前橋赤十字病院",
+    "clinicAddress": "群馬県前橋市朝倉町３８９番地１",
+    "clinicWebsite": "http://www.maebashi.jrc.or.jp/",
+    "identitySource": {
+      "requestedUrl": "https://www.maebashi.jrc.or.jp/",
+      "url": "https://www.maebashi.jrc.or.jp/",
+      "contentSha256": "80b06bddc8d00a993c3d6acc923376d44cc8a0d6b43434bdc9570d8bfdea531d"
+    },
+    "entries": [
+      {
+        "languages": [],
+        "mode": "telephone_interpreter",
+        "reservation": "unknown",
+        "notes": {
+          "ja": "原則として通訳の同行を依頼しています。安全な医療のため必要と判断された場合には、病院指定の電話通訳を利用する場合があります。対応言語と利用条件は事前確認してください。",
+          "en": "Patients are asked to bring an interpreter. A hospital-designated telephone interpreting service may be used when staff judge it necessary for safe care. Confirm languages and conditions.",
+          "zh": "医院要求口译同行。为确保医疗安全，医务人员认为必要时可使用医院指定的电话口译。请确认语种及使用条件。",
+          "ko": "통역 동행을 요청하며 안전한 진료에 필요하다고 판단되면 병원 지정 전화 통역을 이용할 수 있습니다. 언어와 이용 조건을 확인하세요.",
+          "es": "Se pide acudir con intérprete. Puede utilizarse interpretación telefónica designada por el hospital si el personal la considera necesaria para una atención segura. Confirme idiomas y condiciones."
+        },
+        "sources": [
+          {
+            "url": "https://www.maebashi.jrc.or.jp/shoukai/interpretation.html",
+            "checkedAt": "2026-10-20",
+            "quote": "日本語でコミュニケーションがとれない場合は通訳の同行をお願いいたします。 また、通訳が同行していない場合、もしくはご自身で手配された通訳者がいる場合でも、医療従事者が安全な医療を提供するには専門の通訳者の介入が必要であると判断した場合には、当院の指定する通訳サービス（電話）をご利用いただく事がございます。",
+            "contentSha256": "9e42fbb2e51dfeb1d543eb471b1c6bdd6796fa311df24332da4238b3dd48e3ae"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "clinicId": "clinic-1111103558700",
+    "clinicName": "埼玉医科大学国際医療センター",
+    "clinicAddress": "埼玉県日高市大字山根１３９７－１",
+    "clinicWebsite": "http://www.international.saitama-med.ac.jp",
+    "identitySource": {
+      "requestedUrl": "https://www.international.saitama-med.ac.jp/",
+      "url": "https://www.international.saitama-med.ac.jp/",
+      "contentSha256": "7974245265629dbb133620431c714a8bf5492742738682388dd4dde1252c137f"
+    },
+    "entries": [
+      {
+        "languages": [],
+        "mode": "interpretation_support",
+        "reservation": "advance_contact",
+        "notes": {
+          "ja": "受付や診察時に端末を使った遠隔医療通訳を無料で利用でき、20言語超に対応すると案内しています。具体的な対応言語は要確認です。受診には事前予約と紹介状を求めています。",
+          "en": "The hospital offers free remote medical interpreting via devices in over 20 languages. Confirm the specific language. Visits require advance booking and a referral.",
+          "zh": "医院说明可通过设备免费使用20多种语言的远程医疗口译。具体语种请确认；就诊需提前预约及介绍信。",
+          "ko": "단말기를 통한 20개 이상 언어의 무료 원격 의료 통역을 안내합니다. 구체적인 언어는 확인해야 하며 진료는 사전 예약과 소개장이 필요합니다.",
+          "es": "Ofrece interpretación médica remota gratuita en más de 20 idiomas. Confirme el idioma específico. Se requiere reserva previa y derivación."
+        },
+        "sources": [
+          {
+            "url": "https://www.international.saitama-med.ac.jp/en/introduction/for_inter_patients/",
+            "checkedAt": "2026-10-20",
+            "quote": "Our remote medical interpreting services are available in over 20 languages.",
+            "contentSha256": "96ebd5a54af5d874e2c3c3ce6691041ca8986952f6a135eadaf259ac49c8edc3"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "clinicId": "clinic-1211202431700",
+    "clinicName": "日本医科大学千葉北総病院",
+    "clinicAddress": "千葉県印西市鎌苅１７１５",
+    "clinicWebsite": "https://www.nms.ac.jp/hokuso-h/",
+    "identitySource": {
+      "requestedUrl": "https://www.nms.ac.jp/hokuso-h/",
+      "url": "https://www.nms.ac.jp/hokuso-h/",
+      "contentSha256": "5134119b4011a2a39a50e9afc314bcdaea512663cf5a43d175a63e47f7483028"
+    },
+    "entries": [
+      {
+        "languages": [
+          "en",
+          "zh"
+        ],
+        "mode": "in_person_interpreter",
+        "reservation": "advance_contact",
+        "notes": {
+          "ja": "国際医療推進室に英語・中国語の専従医療通訳者を配置しています。受診・通訳の支援は同室へ事前にご相談ください。",
+          "en": "The International Medical Promotion Office has dedicated English and Chinese medical interpreters. Contact the office in advance for care and interpreting support.",
+          "zh": "国际医疗推进室配有英语和中文专职医疗口译。就诊及口译协助请提前联系该部门。",
+          "ko": "국제의료추진실에 영어·중국어 전담 의료 통역이 있습니다. 진료·통역 지원은 사전에 해당 부서와 상담하세요.",
+          "es": "La oficina internacional cuenta con intérpretes médicos dedicados de inglés y chino. Contacte antes para atención e interpretación."
+        },
+        "sources": [
+          {
+            "url": "https://www.nms.ac.jp/hokuso-h/info/specialty/foreigner.html",
+            "checkedAt": "2026-10-20",
+            "quote": "現在国際医療推進室は、専従の医療通訳者（英語、中国語各1名）が2人、医療コーディネーターが 3人、兼務の医療通訳者が2人、院内ボランティアが4人、院外ボランティアが1人の体制で運営されております。",
+            "contentSha256": "e5369864bc960641c82e77febcc3f4b857882a1e69f8a55e45f1a5f2bb79ef6a"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "clinicId": "clinic-1211205424000",
+    "clinicName": "千葉大学医学部附属病院",
+    "clinicAddress": "千葉県千葉市中央区亥鼻１丁目８－１",
+    "clinicWebsite": "http://www.ho.chiba-u.ac.jp",
+    "identitySource": {
+      "requestedUrl": "https://www.ho.chiba-u.ac.jp/",
+      "url": "https://www.ho.chiba-u.ac.jp/",
+      "contentSha256": "58f03797e3ac02b5a7e7d7819ae91df4014af3650205dcca9c213cf6b62df652"
+    },
+    "entries": [
+      {
+        "languages": [],
+        "mode": "patient_arranged_interpreter",
+        "reservation": "unknown",
+        "notes": {
+          "ja": "在住・滞在中の外国人患者向けに、事前予約や通訳等を必要に応じて患者自身で手配するよう案内しています。治療目的の渡航受診は別の手続きになるため、事前に病院へ確認してください。",
+          "en": "Foreign residents and visitors are asked to arrange bookings and interpretation themselves as needed. Travel specifically for treatment follows a separate process; consult the hospital in advance.",
+          "zh": "医院要求在日居住或停留的外国患者按需自行安排预约和口译。以治疗为目的赴日另有流程，请提前向医院确认。",
+          "ko": "일본 거주·체류 외국인 환자는 필요에 따라 예약·통역을 직접 준비하도록 안내합니다. 치료 목적의 방일은 절차가 다르므로 병원에 사전 확인하세요.",
+          "es": "Los residentes y visitantes extranjeros deben organizar reservas e interpretación según sea necesario. Viajar para tratamiento tiene un proceso distinto; consulte antes con el hospital."
+        },
+        "sources": [
+          {
+            "url": "https://www.ho.chiba-u.ac.jp/hosp/information/overseas.html",
+            "checkedAt": "2026-10-20",
+            "quote": "事前予約や各種手続き、通訳等は必要に応じて患者さんご自身でお手配ください。",
+            "contentSha256": "d318bbd1fca548edb542bd573efdf9efc25bdce76b695a0fcc78aca33c2d889f"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "clinicId": "clinic-1411405511200",
+    "clinicName": "公立大学法人横浜市立大学附属病院",
+    "clinicAddress": "神奈川県横浜市金沢区福浦３－９",
+    "clinicWebsite": "https://www.yokohama-cu.ac.jp/fukuhp/summary/traffic.html",
+    "identitySource": {
+      "requestedUrl": "https://www.yokohama-cu.ac.jp/fukuhp/summary/traffic.html",
+      "url": "https://www.yokohama-cu.ac.jp/fukuhp/summary/traffic.html",
+      "contentSha256": "0db68ca462574cb74d5c1fbc09b1adcd2c53061b17a01c8c4970de2b0d80eb1b"
+    },
+    "entries": [
+      {
+        "languages": [],
+        "mode": "interpretation_support",
+        "reservation": "not_required",
+        "notes": {
+          "ja": "タブレットによる遠隔医療通訳は事前予約不要・無料で、必要時にスタッフへ申し出るよう案内しています。対応言語は要確認です。これは通訳利用の条件で、診察予約の免除ではありません。",
+          "en": "Tablet-based remote interpreting is free and does not require interpreter booking; ask staff when needed. Confirm the language. This does not waive consultation booking requirements.",
+          "zh": "平板远程医疗口译免费且无需提前预约口译，可向工作人员提出。语种需确认；这不表示诊察无需预约。",
+          "ko": "태블릿 원격 의료 통역은 무료이며 통역 사전 예약이 필요 없습니다. 필요 시 직원에게 요청하세요. 언어는 확인이 필요하며 진료 예약 면제는 아닙니다.",
+          "es": "La interpretación remota por tableta es gratuita y no necesita reserva del intérprete; solicítela al personal. Confirme el idioma. Esto no exime de reservar consulta."
+        },
+        "sources": [
+          {
+            "url": "https://www.yokohama-cu.ac.jp/fukuhp/outpatient/medicalinterpreter.html",
+            "checkedAt": "2026-10-20",
+            "quote": "医療通訳サービスについて（1）タブレットを用いた遠隔医療通訳について （利用申込） 事前予約は不要です。 必要時に病院スタッフへお申し出ください。 （費用負担） 無料でご利用いただけます。",
+            "contentSha256": "949e342ce2baf2a29cce2aefb20cf8696f9bfb0ec211d35882f03c402fc418b9"
+          }
+        ]
+      },
+      {
+        "languages": [],
+        "mode": "in_person_interpreter",
+        "reservation": "required",
+        "notes": {
+          "ja": "有料の対面医療通訳は事前予約制です。初診では紹介元医療機関から診察・通訳を予約し、患者本人からの通訳予約は受け付けていません。前営業日13時までの申込みが必要です。対応言語は要確認です。",
+          "en": "Paid in-person interpreting must be booked in advance. For a first visit, the referring institution must book both care and interpreting; direct patient interpreter bookings are not accepted. Apply by 13:00 on the preceding business day. Confirm the language.",
+          "zh": "收费现场医疗口译需提前预约。初诊须由介绍医院预约诊察和口译，不受理患者本人预约口译。需在前一工作日13时前申请，语种需确认。",
+          "ko": "유료 대면 의료 통역은 사전 예약제입니다. 초진 시 소개 의료기관이 진료·통역을 예약해야 하며 환자 본인의 통역 예약은 받지 않습니다. 전 영업일 13시까지 신청해야 하며 언어를 확인하세요.",
+          "es": "La interpretación presencial es de pago y requiere reserva. En la primera visita debe reservarla el centro remitente; no se acepta reserva directa del paciente. Solicite antes de las 13:00 del día hábil anterior y confirme el idioma."
+        },
+        "sources": [
+          {
+            "url": "https://www.yokohama-cu.ac.jp/fukuhp/outpatient/medicalinterpreter.html",
+            "checkedAt": "2026-10-20",
+            "quote": "初診時に対面医療通訳を希望する場合は、紹介元の医療機関からの初診予約と通訳予約が必要です。 紹介元医療機関にご相談ください。※患者さんからの通訳予約は受け付けていません。 利用申込は、利用を希望する診療日の前営業日の13時までにご連絡ください。",
+            "contentSha256": "949e342ce2baf2a29cce2aefb20cf8696f9bfb0ec211d35882f03c402fc418b9"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "clinicId": "clinic-1421402360100",
+    "clinicName": "医療法人社団小林国際クリニック",
+    "clinicAddress": "神奈川県大和市西鶴間３－５－６－１１０",
+    "clinicWebsite": "http://5884-international-clinic.com",
+    "identitySource": {
+      "requestedUrl": "https://5884-international-clinic.com/",
+      "url": "https://5884-international-clinic.com/",
+      "contentSha256": "871596191fad09b6cd0a1fa42db08290098643b10f5ddac07e4d9c840f55f010"
+    },
+    "entries": [
+      {
+        "languages": [
+          "en",
+          "ko",
+          "tl"
+        ],
+        "mode": "clinical_support",
+        "reservation": "unknown",
+        "notes": {
+          "ja": "英語・タガログ語は診療時間内、韓国語は金曜午後を除く診療時間内に対応との記載があります。医師・通訳の別と予約の要否は事前に確認してください。",
+          "en": "English and Tagalog are listed during clinic hours; Korean excludes Friday afternoons. Confirm the support method and booking requirements.",
+          "zh": "英语、他加禄语在诊疗时间内提供支持；韩语不含周五下午。请确认服务方式及预约要求。",
+          "ko": "영어·타갈로그어는 진료시간 내, 한국어는 금요일 오후를 제외한 진료시간 내 지원을 안내합니다. 대응 방법과 예약 여부를 확인하세요.",
+          "es": "Inglés y tagalo se anuncian durante el horario de consulta; coreano excepto el viernes por la tarde. Confirme modalidad y reserva."
+        },
+        "sources": [
+          {
+            "url": "https://5884-international-clinic.com/tokki/",
+            "checkedAt": "2026-10-20",
+            "quote": "対応言語と時間帯 英語 診療時間内 韓国語 金曜午後を除く診療時間内 タガログ語 診療時間内",
+            "contentSha256": "d3c1193b21d587343b112c255ef7da94fa1a15c6a0f16094ae059b13b0b0668d"
+          }
+        ]
+      },
+      {
+        "languages": [
+          "th",
+          "es"
+        ],
+        "mode": "clinical_support",
+        "reservation": "unknown",
+        "notes": {
+          "ja": "タイ語・スペイン語は症状の聞き取り、検査・薬の説明ができる程度との記載です。タイ語通訳は土曜に待機します。専門的な説明の可否と予約は要確認です。",
+          "en": "Thai and Spanish support is limited to asking symptoms and explaining tests and medicines. A Thai interpreter is listed on Saturdays. Confirm complex discussions and booking.",
+          "zh": "泰语、西班牙语支持限于询问症状及解释检查、用药。周六有泰语口译待命。复杂说明及预约请确认。",
+          "ko": "태국어·스페인어는 증상 청취와 검사·약 설명 수준으로 안내합니다. 토요일에는 태국어 통역이 대기합니다. 전문 설명 가능 여부와 예약을 확인하세요.",
+          "es": "Tailandés y español se limitan a síntomas, pruebas y medicamentos. Se anuncia intérprete de tailandés los sábados. Confirme explicaciones complejas y reserva."
+        },
+        "sources": [
+          {
+            "url": "https://5884-international-clinic.com/tokki/",
+            "checkedAt": "2026-10-20",
+            "quote": "タイ語 診療時間内 ただし症状を聞いて、検査の説明、薬の説明ができる程度です。 土曜はタイ語通訳が待機しております。 スペイン語 診療時間内 ただし症状を聞いて、検査の説明、薬の説明ができる程度です。",
+            "contentSha256": "d3c1193b21d587343b112c255ef7da94fa1a15c6a0f16094ae059b13b0b0668d"
+          }
+        ]
+      },
+      {
+        "languages": [
+          "vi"
+        ],
+        "mode": "interpretation_support",
+        "reservation": "advance_contact",
+        "notes": {
+          "ja": "ベトナム語の対面通訳は月1回土曜で、電話通訳が利用できる場合もあると案内しています。次回の対応日と利用可否を事前にお問い合わせください。",
+          "en": "Vietnamese interpretation is listed on one Saturday per month; telephone interpretation may sometimes be available. Contact ahead for the next date and availability.",
+          "zh": "越南语现场口译每月一个周六提供，有时可用电话口译。请提前确认下次服务日期及可用情况。",
+          "ko": "베트남어 통역은 월 1회 토요일이며 전화 통역을 이용할 수 있는 경우도 있습니다. 다음 대응일과 이용 가능 여부를 사전에 확인하세요.",
+          "es": "La interpretación vietnamita se anuncia un sábado al mes; a veces hay interpretación telefónica. Contacte antes para confirmar fecha y disponibilidad."
+        },
+        "sources": [
+          {
+            "url": "https://5884-international-clinic.com/tokki/",
+            "checkedAt": "2026-10-20",
+            "quote": "ベトナム語 毎月1回土曜日。次の通訳来院日は2026年10月24日です。その次は11月21日です。なお、ベトナム語については電話通訳が利用できる時もあります。",
+            "contentSha256": "d3c1193b21d587343b112c255ef7da94fa1a15c6a0f16094ae059b13b0b0668d"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "clinicId": "clinic-151BYNGX00002",
+    "clinicName": "長岡赤十字病院",
+    "clinicAddress": "新潟県長岡市千秋２丁目２９７番地１",
+    "clinicWebsite": "http://www.nagaoka.jrc.or.jp/",
+    "identitySource": {
+      "requestedUrl": "https://www.nagaoka.jrc.or.jp/",
+      "url": "https://www.nagaoka.jrc.or.jp/",
+      "contentSha256": "d22b669e14341912401f5f90fe38c7c949459cfd391fc2392cf62e142cfb0bb4"
+    },
+    "entries": [
+      {
+        "languages": [],
+        "mode": "interpretation_support",
+        "reservation": "unknown",
+        "notes": {
+          "ja": "通訳サービスと多言語の案内を提供すると公式ページに記載されています。個別の対応言語・通訳方法・予約条件は、このページだけでは特定できないため要確認です。",
+          "en": "The official page states that interpretation services and multilingual information are provided. Specific languages, methods and booking requirements are not established by this page; please confirm.",
+          "zh": "官网说明提供口译服务及多语言信息。本页未明确具体语种、口译方式及预约条件，请另行确认。",
+          "ko": "공식 페이지는 통역 서비스와 다국어 안내를 제공한다고 명시합니다. 구체적인 언어·통역 방법·예약 조건은 이 페이지로 확인되지 않으므로 문의하세요.",
+          "es": "La página oficial indica que ofrece interpretación e información multilingüe. No concreta idiomas, modalidades ni requisitos de reserva; confírmelos."
+        },
+        "sources": [
+          {
+            "url": "https://www.nagaoka.jrc.or.jp/englishchinese/",
+            "checkedAt": "2026-10-20",
+            "quote": "We provide interpretation services and multilingual information to help foreign patients receive medical care without facing language barriers.",
+            "contentSha256": "42228aacd0aa9cf8bedfd9e6f7a56e97a7fee84674f3a9ba3a5947c3a91970c2"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "clinicId": "clinic-2022206111500",
+    "clinicName": "白馬インターナショナルクリニック",
+    "clinicAddress": "長野県北安曇郡白馬村北城３０２０番１３９３",
+    "clinicWebsite": "https://hic-med.com/",
+    "identitySource": {
+      "requestedUrl": "https://hic-med.com/",
+      "url": "https://hic-med.com/",
+      "contentSha256": "718afe450e8e129f31fa0ea61c8c3fe3f0f1bb8469ac29fd6a7e3d7fdd3f2657"
+    },
+    "entries": [
+      {
+        "languages": [
+          "en"
+        ],
+        "mode": "staff",
+        "reservation": "unknown",
+        "notes": {
+          "ja": "スタッフ全員が英語対応可能との記載があります。診療日は公式カレンダーで確認し、予約の要否は事前にお問い合わせください。",
+          "en": "The site states that all staff can assist in English. Check the clinic calendar and ask about booking before visiting.",
+          "zh": "官网注明全体工作人员可用英语服务。请查看诊疗日历，并提前确认预约要求。",
+          "ko": "전 직원이 영어 대응 가능하다고 안내합니다. 공식 진료 달력과 예약 필요 여부를 확인하세요.",
+          "es": "La web indica que todo el personal puede atender en inglés. Consulte el calendario y confirme si necesita cita."
+        },
+        "sources": [
+          {
+            "url": "https://hic-med.com/",
+            "checkedAt": "2026-10-20",
+            "quote": "白馬インターナショナルクリニック ｜ スタッフ全員が英語対応可 ｜ 小児から大人まで幅広い診療",
+            "contentSha256": "718afe450e8e129f31fa0ea61c8c3fe3f0f1bb8469ac29fd6a7e3d7fdd3f2657"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "clinicId": "clinic-2111651009513",
+    "clinicName": "中部国際医療センター",
+    "clinicAddress": "岐阜県美濃加茂市健康のまち一丁目１番地",
+    "clinicWebsite": "http://cjimc-hp.jp",
+    "identitySource": {
+      "requestedUrl": "https://cjimc-hp.jp/",
+      "url": "https://cjimc-hp.jp/",
+      "contentSha256": "3dbb6b0dd98841a464caa01c81e36a075c491e3bfd132a5b69899a7c4ef9db7b"
+    },
+    "entries": [
+      {
+        "languages": [
+          "zh",
+          "en",
+          "pt",
+          "tl"
+        ],
+        "mode": "in_person_interpreter",
+        "reservation": "unknown",
+        "notes": {
+          "ja": "中国語・英語・ポルトガル語・タガログ語の医療通訳者を配置と案内しています。対応日時や予約条件は病院に確認してください。医療目的の渡航受診は支援企業の介入が必要です。",
+          "en": "The hospital lists medical interpreters for Chinese, English, Portuguese and Tagalog. Confirm availability and booking; travel specifically for treatment requires a medical travel support company.",
+          "zh": "官网注明配有中文、英语、葡萄牙语和他加禄语医疗口译。请确认时间及预约条件；以治疗为目的赴日需医疗渡航支援公司参与。",
+          "ko": "중국어·영어·포르투갈어·타갈로그어 의료 통역 배치를 안내합니다. 시간·예약 조건을 확인하세요. 치료 목적의 방일은 의료여행 지원회사가 필요합니다.",
+          "es": "Anuncia intérpretes médicos de chino, inglés, portugués y tagalo. Confirme disponibilidad y reserva; viajar para tratamiento requiere una empresa de apoyo médico."
+        },
+        "sources": [
+          {
+            "url": "https://cjimc-hp.jp/about/tokou",
+            "checkedAt": "2026-10-20",
+            "quote": "当院は医療通訳者（中国語、英語、ポルトガル語、タガログ語）を配置しております。",
+            "contentSha256": "121ceb461aea2e760ae48128193cb359063b7a00e69253957b8acf0829e30550"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "clinicId": "clinic-2311230400030",
+    "clinicName": "藤田医科大学病院",
+    "clinicAddress": "愛知県豊明市沓掛町田楽ケ窪１番地９８",
+    "clinicWebsite": "https://hospital.fujita-hu.ac.jp/",
+    "identitySource": {
+      "requestedUrl": "https://hospital.fujita-hu.ac.jp/",
+      "url": "https://hospital.fujita-hu.ac.jp/",
+      "contentSha256": "c75312c14768031abddb635c158a3797abeb944899b7ddd6432ebe6e51a636fb"
+    },
+    "entries": [
+      {
+        "languages": [
+          "pt",
+          "es"
+        ],
+        "mode": "in_person_interpreter",
+        "reservation": "unknown",
+        "notes": {
+          "ja": "ポルトガル語・スペイン語の専属通訳者を配置との記載があります。通訳者の対応日時と予約条件は病院に確認してください。",
+          "en": "Dedicated Portuguese and Spanish interpreters are listed. Confirm interpreter availability and booking requirements with the hospital.",
+          "zh": "官网注明配有葡萄牙语和西班牙语专职口译。请向医院确认服务时间和预约条件。",
+          "ko": "포르투갈어·스페인어 전담 통역 배치 안내가 있습니다. 대응 시간과 예약 조건은 병원에 확인하세요.",
+          "es": "Se anuncian intérpretes dedicados de portugués y español. Confirme disponibilidad y condiciones de reserva con el hospital."
+        },
+        "sources": [
+          {
+            "url": "https://hospital.fujita-hu.ac.jp/about/feature/international.html",
+            "checkedAt": "2026-10-20",
+            "quote": "当院ではポルトガル語・スペイン語の専属通訳者を配置。",
+            "contentSha256": "4169991cb4434b3e9b4ee82154d3d4fa44d8d40aa3a42774e3e26218171dbb00"
+          }
+        ]
+      },
+      {
+        "languages": [
+          "en",
+          "zh",
+          "pt",
+          "th",
+          "vi"
+        ],
+        "mode": "interpretation_support",
+        "reservation": "unknown",
+        "notes": {
+          "ja": "タブレットによるWEB対面・音声通訳と機械翻訳を導入し、英語・中国語・ポルトガル語・タイ語・ベトナム語を含む20カ国語対応と案内しています。利用方法と予約の要否は要確認です。",
+          "en": "Tablet-based remote/audio interpretation and machine translation cover 20 languages, explicitly including English, Chinese, Portuguese, Thai and Vietnamese. Confirm the method and booking requirements.",
+          "zh": "医院提供平板远程／语音口译及机器翻译，注明支持20种语言，包括英语、中文、葡萄牙语、泰语和越南语。请确认使用方式及预约要求。",
+          "ko": "태블릿 원격·음성 통역과 기계 번역을 도입했으며 영어·중국어·포르투갈어·태국어·베트남어 포함 20개 언어를 안내합니다. 이용 방법과 예약 여부를 확인하세요.",
+          "es": "Ofrece interpretación remota/de audio y traducción automática en 20 idiomas, incluidos inglés, chino, portugués, tailandés y vietnamita. Confirme modalidad y reserva."
+        },
+        "sources": [
+          {
+            "url": "https://hospital.fujita-hu.ac.jp/about/feature/international.html",
+            "checkedAt": "2026-10-20",
+            "quote": "タブレットを利用したWEB対面通訳、音声通訳を利用して、医療従事者と患者さんとのコミュニケーションを円滑にします。英語、中国語、ポルトガル語はもちろん、タイ語やベトナム語なども含む20カ国語に対応しています。",
+            "contentSha256": "4169991cb4434b3e9b4ee82154d3d4fa44d8d40aa3a42774e3e26218171dbb00"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "clinicId": "clinic-2612610000046",
+    "clinicName": "京都府立医科大学附属病院",
+    "clinicAddress": "京都府京都市上京区河原町通広小路上る梶井町４６５",
+    "clinicWebsite": "http://www.h.kpu-m.ac.jp/",
+    "identitySource": {
+      "requestedUrl": "https://www.h.kpu-m.ac.jp/",
+      "url": "https://www.h.kpu-m.ac.jp/",
+      "contentSha256": "3826f8c26d36829a54757c22997b1932de0afbde0bafc52df5eb17118df86d44"
+    },
+    "entries": [
+      {
+        "languages": [
+          "en"
+        ],
+        "mode": "staff",
+        "reservation": "unknown",
+        "notes": {
+          "ja": "平日の業務時間中に英語対応スタッフを呼び出せ、受付や依頼時の診察支援が可能と案内されています。人数が限られるため待ち時間が生じる場合があります。",
+          "en": "English-speaking staff are on call on weekdays during business hours for reception and, on request, consultations. Staffing is limited and waiting may be necessary.",
+          "zh": "工作日办公时间可联系英语工作人员，在接待及提出请求时协助诊疗。人员有限，可能需等候。",
+          "ko": "평일 업무시간에 영어 직원의 접수·요청 시 진료 지원이 가능합니다. 인원이 제한되어 대기할 수 있습니다.",
+          "es": "Hay personal de habla inglesa de guardia entre semana en horario laboral para recepción y consultas a petición. El personal es limitado y puede haber espera."
+        },
+        "sources": [
+          {
+            "url": "https://www.h.kpu-m.ac.jp/en/",
+            "checkedAt": "2026-10-20",
+            "quote": "English speaking staff is on call at weekdays during business hours. They can assist at the reception and on request during consults. Please note that the number of our English speaking staff members is limited.",
+            "contentSha256": "02f3340d1d878e540f8e261d93e29ce1419549aa3d01449e95c940cbe4ab693a"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "clinicId": "clinic-2612610000077",
+    "clinicName": "京都第一赤十字病院",
+    "clinicAddress": "京都府京都市東山区本町　１５丁目　７４９番地",
+    "clinicWebsite": "https://www.kyoto1.jrc.or.jp/",
+    "identitySource": {
+      "requestedUrl": "https://www.kyoto1.jrc.or.jp/",
+      "url": "https://www.kyoto1.jrc.or.jp/",
+      "contentSha256": "ad5967a8f36047ae778636a3ad1a588970cbf796a8f7260d681f8f5c61846470"
+    },
+    "entries": [
+      {
+        "languages": [],
+        "mode": "patient_arranged_interpreter",
+        "reservation": "unknown",
+        "notes": {
+          "ja": "病院には医療通訳がなく、必要な方は必ず通訳を同伴するよう案内しています。英語の電話サポートは診療時の医療通訳とは別です。",
+          "en": "The hospital states it has no medical interpreters; patients who need interpretation must bring an interpreter. English telephone support is separate from medical interpretation.",
+          "zh": "医院注明无医疗口译，需要者必须带口译同行。英语电话服务与诊疗口译不同。",
+          "ko": "병원 내 의료 통역이 없어 필요한 환자는 통역을 동반해야 합니다. 영어 전화 지원은 진료 중 의료 통역과 별개입니다.",
+          "es": "El hospital indica que no dispone de intérpretes médicos; quien lo necesite debe acudir acompañado de uno. El apoyo telefónico en inglés es un servicio distinto."
+        },
+        "sources": [
+          {
+            "url": "https://www.kyoto1.jrc.or.jp/languages",
+            "checkedAt": "2026-10-20",
+            "quote": "当院には医療通訳がございません。通訳が必要な方は、必ずご同伴ください。",
+            "contentSha256": "08a9b3b4ace720606763f1f43cc0ce7f26f4c4e34a87d7da81db88d81a371f97"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "clinicId": "clinic-2622621000546",
+    "clinicName": "京都国際内科クリニック",
+    "clinicAddress": "京都府京都市中京区米屋町３９１河原町ニュートーキョービル６Ｆ",
+    "clinicWebsite": "https://kyotoclinic.jp/",
+    "identitySource": {
+      "requestedUrl": "https://kyotoclinic.jp/",
+      "url": "https://kyotoclinic.jp/",
+      "contentSha256": "fd4f0d83e065373586c2e68d4d317644394529c24c00036eb4ae830c02e89666"
+    },
+    "entries": [
+      {
+        "languages": [
+          "en",
+          "zh",
+          "ja"
+        ],
+        "mode": "doctor",
+        "reservation": "not_required",
+        "notes": {
+          "ja": "院長が英語・中国語・日本語で診療説明を行うとの記載があります。英語版では予約なしの受診も案内されています。当日の受付は事前確認してください。",
+          "en": "The director provides medical explanations in English, Chinese and Japanese. The English page welcomes walk-ins; confirm same-day reception before visiting.",
+          "zh": "官网注明院长可用英语、中文、日语解释诊疗内容。英文页说明可无预约就诊；请确认当天接诊情况。",
+          "ko": "원장이 영어·중국어·일본어로 진료 설명을 한다고 안내합니다. 영문 페이지는 예약 없는 방문도 안내하며 당일 접수를 확인하세요.",
+          "es": "El director explica la atención en inglés, chino y japonés. La página inglesa admite visitas sin cita; confirme la recepción del día."
+        },
+        "sources": [
+          {
+            "url": "https://kyotoclinic.jp/",
+            "checkedAt": "2026-10-20",
+            "quote": "当院の院長は、英語・中国語・日本語の3ヶ国語に対応しております。専門的な医学用語を伴う説明も、院長が直接多言語で対応いたしますので、通訳を介するもどかしさや不安がありません。",
+            "contentSha256": "fd4f0d83e065373586c2e68d4d317644394529c24c00036eb4ae830c02e89666"
+          },
+          {
+            "url": "https://kyotoclinic.jp/lp/en/",
+            "checkedAt": "2026-10-20",
+            "quote": "pointments are appreciated, we understand that illness doesn't wait — simply come in during our opening hours and our English-speaking staff will take care of you right away.",
+            "contentSha256": "cd7b430561146c256c35252eb116799a050ec9ac349cc40f4e9c3718db502052"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "clinicId": "clinic-2711270002440",
+    "clinicName": "大阪大学医学部附属病院",
+    "clinicAddress": "大阪府吹田市山田丘２－１５",
+    "clinicWebsite": "https://www.hosp.med.osaka-u.ac.jp",
+    "identitySource": {
+      "requestedUrl": "https://www.hosp.med.osaka-u.ac.jp/",
+      "url": "https://www.hosp.med.osaka-u.ac.jp/",
+      "contentSha256": "95330472de7b206b2ea7424292b5f3eccc3f3743e0d574ecdf380356f13a1016"
+    },
+    "entries": [
+      {
+        "languages": [
+          "zh",
+          "en"
+        ],
+        "mode": "in_person_interpreter",
+        "reservation": "required",
+        "notes": {
+          "ja": "医療通訳は事前予約制・有料です。言語によっては手配できない場合があります。診察には別途紹介状等の条件があるため、事前に病院へご相談ください。",
+          "en": "Medical interpreting requires advance booking and a fee; availability depends on the language. Consult the hospital about a referral and other consultation requirements.",
+          "zh": "医疗口译需提前预约并收费，部分语种可能无法安排。诊察另有介绍信等要求，请提前咨询医院。",
+          "ko": "의료 통역은 유료 사전 예약제이며 언어에 따라 섭외가 어려울 수 있습니다. 소개장 등 진료 조건을 병원에 미리 확인하세요.",
+          "es": "La interpretación médica requiere reserva previa y pago; depende del idioma. Consulte al hospital sobre derivación y otros requisitos de atención."
+        },
+        "sources": [
+          {
+            "url": "https://www.hosp.med.osaka-u.ac.jp/interpreting/index.html",
+            "checkedAt": "2026-10-20",
+            "quote": "対応言語 対 面 通 訳：中国語、英語",
+            "contentSha256": "406e9bf736f3c351707802d5f2a1848c997ba37924b4e349fbd981e7bd05e2a4"
+          }
+        ]
+      },
+      {
+        "languages": [
+          "zh",
+          "en",
+          "ko",
+          "es",
+          "pt",
+          "vi",
+          "ne"
+        ],
+        "mode": "video_interpreter",
+        "reservation": "required",
+        "notes": {
+          "ja": "医療通訳は事前予約制・有料です。言語によっては手配できない場合があります。診察には別途紹介状等の条件があるため、事前に病院へご相談ください。",
+          "en": "Medical interpreting requires advance booking and a fee; availability depends on the language. Consult the hospital about a referral and other consultation requirements.",
+          "zh": "医疗口译需提前预约并收费，部分语种可能无法安排。诊察另有介绍信等要求，请提前咨询医院。",
+          "ko": "의료 통역은 유료 사전 예약제이며 언어에 따라 섭외가 어려울 수 있습니다. 소개장 등 진료 조건을 병원에 미리 확인하세요.",
+          "es": "La interpretación médica requiere reserva previa y pago; depende del idioma. Consulte al hospital sobre derivación y otros requisitos de atención."
+        },
+        "sources": [
+          {
+            "url": "https://www.hosp.med.osaka-u.ac.jp/interpreting/index.html",
+            "checkedAt": "2026-10-20",
+            "quote": "遠隔医療通訳：（ビデオ）中、英、韓国、スペイン、ポルトガル、ベトナム、ネパール",
+            "contentSha256": "406e9bf736f3c351707802d5f2a1848c997ba37924b4e349fbd981e7bd05e2a4"
+          }
+        ]
+      },
+      {
+        "languages": [
+          "zh",
+          "en",
+          "ko",
+          "es",
+          "pt",
+          "vi",
+          "th",
+          "tl",
+          "ne",
+          "id",
+          "ms",
+          "my",
+          "ru",
+          "fr",
+          "de",
+          "it",
+          "km",
+          "mn",
+          "si",
+          "hi",
+          "bn",
+          "ur"
+        ],
+        "mode": "telephone_interpreter",
+        "reservation": "required",
+        "notes": {
+          "ja": "医療通訳は事前予約制・有料です。言語によっては手配できない場合があります。診察には別途紹介状等の条件があるため、事前に病院へご相談ください。",
+          "en": "Medical interpreting requires advance booking and a fee; availability depends on the language. Consult the hospital about a referral and other consultation requirements.",
+          "zh": "医疗口译需提前预约并收费，部分语种可能无法安排。诊察另有介绍信等要求，请提前咨询医院。",
+          "ko": "의료 통역은 유료 사전 예약제이며 언어에 따라 섭외가 어려울 수 있습니다. 소개장 등 진료 조건을 병원에 미리 확인하세요.",
+          "es": "La interpretación médica requiere reserva previa y pago; depende del idioma. Consulte al hospital sobre derivación y otros requisitos de atención."
+        },
+        "sources": [
+          {
+            "url": "https://www.hosp.med.osaka-u.ac.jp/interpreting/index.html",
+            "checkedAt": "2026-10-20",
+            "quote": "(電 話)中、英、韓国、スペイン、ポルトガル、ベトナム、タイ、タガログ、ネパール、インドネシア、マレー、ミャンマー、ロシア、フランス、ドイツ、イタリア、クメール、モンゴル、シンハラ、ヒンディー、ベンガル、ウルドゥー語",
+            "contentSha256": "406e9bf736f3c351707802d5f2a1848c997ba37924b4e349fbd981e7bd05e2a4"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "clinicId": "clinic-2722270167240",
+    "clinicName": "医療法人社団広恵会うめだ国際クリニック",
+    "clinicAddress": "大阪府大阪市北区茶屋町３－１　三晃ビル２階",
+    "clinicWebsite": "https://nice-medical.jp/umeda/",
+    "identitySource": {
+      "requestedUrl": "https://nice-medical.jp/umeda/",
+      "url": "https://umeda.nice-medical.jp/",
+      "contentSha256": "07204914afc23663658eb1d36c4b45002a8ed1370bb4903303520f9006e315a6"
+    },
+    "entries": [
+      {
+        "languages": [
+          "en"
+        ],
+        "mode": "staff",
+        "reservation": "advance_contact",
+        "notes": {
+          "ja": "英語対応スタッフの記載があります。英語版は予約を案内し、予約なしでは長時間待つ場合があるため事前連絡を求めています。健診・ワクチンは予約制です。",
+          "en": "English-speaking staff are listed. The English page asks patients to book or contact ahead; walk-ins may face long waits. Checkups and vaccinations require appointments.",
+          "zh": "官网注明有英语工作人员。英文页要求预约或提前联系；无预约可能需长时间等候。体检及疫苗需预约。",
+          "ko": "영어 대응 직원이 있습니다. 영문 페이지는 예약·사전 연락을 요청하며 예약 없이 방문하면 오래 기다릴 수 있습니다. 검진·예방접종은 예약제입니다.",
+          "es": "Se anuncia personal de habla inglesa. La página inglesa pide reservar o contactar antes; sin cita puede haber largas esperas. Revisiones y vacunas requieren cita."
+        },
+        "sources": [
+          {
+            "url": "https://umeda.nice-medical.jp/",
+            "checkedAt": "2026-10-20",
+            "quote": "はい、英語対応可能なスタッフがおりますので、安心してご来院ください。",
+            "contentSha256": "07204914afc23663658eb1d36c4b45002a8ed1370bb4903303520f9006e315a6"
+          },
+          {
+            "url": "https://umeda.nice-medical.jp/en",
+            "checkedAt": "2026-10-20",
+            "quote": "In order to offer timely service, our clinic is on an appointment basis. Please make an appointment before coming to our clinic. We offer walk-ins as well, but this may result in long wait times so please contact us ahead of time.",
+            "contentSha256": "5df4623e35c009ef256908cc23ba0fdd260f70607351f652124bf73e8eeedf8a"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "clinicId": "clinic-2722270170620",
+    "clinicName": "心斎橋国際クリニック",
+    "clinicAddress": "大阪府大阪市中央区島之内１－１５－１０アイテックスエコービル　７Ｆ",
+    "clinicWebsite": "https://shinsaibashiclinics.com/",
+    "identitySource": {
+      "requestedUrl": "https://shinsaibashiclinics.com/",
+      "url": "https://shinsaibashiclinics.com/",
+      "contentSha256": "ad024c48ae6a7dc822552410fa4f1394a3dbe20056a75c0f6093acfe1bad3a68"
+    },
+    "entries": [
+      {
+        "languages": [
+          "en",
+          "zh"
+        ],
+        "mode": "clinical_support",
+        "reservation": "unknown",
+        "notes": {
+          "ja": "公式サイトに英語・中国語への対応の記載があります。医師による直接対応か通訳等による対応か、対応日時と予約条件は事前確認してください。",
+          "en": "The official site lists English and Chinese support. Confirm whether support is directly from a doctor or through interpretation, along with availability and booking.",
+          "zh": "官网注明英语和中文支持。请确认由医生直接服务还是口译协助，以及接诊时间和预约条件。",
+          "ko": "공식 사이트에 영어·중국어 지원 안내가 있습니다. 의사 직접 대응 또는 통역 여부, 대응 시간·예약 조건을 확인하세요.",
+          "es": "La web oficial anuncia apoyo en inglés y chino. Confirme si atiende el médico directamente o un intérprete, horarios y reserva."
+        },
+        "sources": [
+          {
+            "url": "https://shinsaibashiclinics.com/",
+            "checkedAt": "2026-10-20",
+            "quote": "英語・中国語に対応し、海外の方にも相談しやすい環境を整えています。",
+            "contentSha256": "ad024c48ae6a7dc822552410fa4f1394a3dbe20056a75c0f6093acfe1bad3a68"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "clinicId": "clinic-3311330000790",
+    "clinicName": "岡山大学病院",
+    "clinicAddress": "岡山県岡山市北区鹿田町二丁目５番１号",
+    "clinicWebsite": "https://www.okayama-u.ac.jp/user/hospital/",
+    "identitySource": {
+      "requestedUrl": "https://www.okayama-u.ac.jp/user/hospital/",
+      "url": "https://www.okayama-u.ac.jp/user/hospital/",
+      "contentSha256": "2eec916497334758fbeaf6b1bafa779390c0efae4c3da3001fc2238794d869cf"
+    },
+    "entries": [
+      {
+        "languages": [
+          "en",
+          "zh",
+          "ko",
+          "pt",
+          "es",
+          "vi",
+          "ru",
+          "th",
+          "tl",
+          "ne"
+        ],
+        "mode": "interpretation_support",
+        "reservation": "advance_contact",
+        "notes": {
+          "ja": "原則として通訳同行を依頼し、同伴できない場合は病院提携の医療通訳サービスを利用する方針です。英語・中国語・韓国語など10言語を明記しています。受診と通訳利用の条件は事前に相談してください。",
+          "en": "The hospital normally asks patients to bring an interpreter and uses its partner medical interpreting service when accompaniment is not possible. Ten languages are listed. Contact ahead about care and interpreting conditions.",
+          "zh": "原则上要求带口译同行，无法同伴时使用医院合作医疗口译服务。注明英语、中文、韩语等10种语言。请提前确认就诊和口译条件。",
+          "ko": "원칙적으로 통역 동행을 요청하며 동행할 수 없으면 병원 제휴 의료 통역 서비스를 이용합니다. 영어·중국어·한국어 등 10개 언어를 안내합니다. 진료·통역 조건을 사전에 상담하세요.",
+          "es": "El hospital pide normalmente acudir con intérprete y usa su servicio asociado cuando no es posible. Enumera diez idiomas. Contacte antes sobre atención y condiciones de interpretación."
+        },
+        "sources": [
+          {
+            "url": "https://www.okayama-u.ac.jp/user/hospital/index274.html",
+            "checkedAt": "2026-10-20",
+            "quote": "日本語でコミュニケーションがとれない場合，原則として通訳同行をお願いいたします。同行いただけない場合は，当院の提携する医療通訳サービスを使用させていただきますのでご了承ください。",
+            "contentSha256": "58ec73872e0ddf683f24adad622bcb75736722a1db6e2436e7e533b2e2259a19"
+          },
+          {
+            "url": "https://www.okayama-u.ac.jp/user/hospital/index274.html",
+            "checkedAt": "2026-10-20",
+            "quote": "対応言語： 英語，中国語，韓国語，ポルトガル語，スペイン語，ベトナム語， ロシア語，タイ語，タガログ語，ネパール語",
+            "contentSha256": "58ec73872e0ddf683f24adad622bcb75736722a1db6e2436e7e533b2e2259a19"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "clinicId": "clinic-3611365100680",
+    "clinicName": "徳島大学病院",
+    "clinicAddress": "徳島県徳島市蔵本町２丁目５０－１",
+    "clinicWebsite": "http://www.tokushima-hosp.jp/",
+    "identitySource": {
+      "requestedUrl": "https://www.tokushima-hosp.jp/",
+      "url": "https://www.tokushima-hosp.jp/",
+      "contentSha256": "339446394f42f2b38aa528d10190b0f851a344c26797e219a9f78e45c51577f2"
+    },
+    "entries": [
+      {
+        "languages": [],
+        "mode": "patient_arranged_interpreter",
+        "reservation": "unknown",
+        "notes": {
+          "ja": "院内で通訳対応ができない場合は、患者に通訳または医療通訳の手配を依頼する場合があります。医療通訳の費用は患者負担です。言語・手配方法は国際医療センターに確認してください。",
+          "en": "If the hospital cannot provide interpretation, it may ask the patient to arrange an interpreter or medical interpreter. Medical interpreting costs are borne by the patient. Confirm languages and arrangements with the international center.",
+          "zh": "院内无法提供口译时，可能要求患者自行安排口译或医疗口译。医疗口译费用由患者承担。请向国际医疗中心确认语种及安排方式。",
+          "ko": "병원에서 통역을 제공할 수 없으면 환자에게 통역·의료 통역 준비를 요청할 수 있습니다. 의료 통역 비용은 환자 부담입니다. 언어·준비 방법을 국제의료센터에 확인하세요.",
+          "es": "Si el hospital no puede ofrecer interpretación, puede pedir al paciente que organice un intérprete. Los costes médicos de interpretación corren a cargo del paciente. Confirme idiomas y organización con el centro internacional."
+        },
+        "sources": [
+          {
+            "url": "https://www.tokushima-hosp.jp/outpatient/foreign-patients.html",
+            "checkedAt": "2026-10-20",
+            "quote": "院内で通訳の対応が出来ない場合は、通訳（若しくは医療通訳）の手配を依頼することがあります。 医療通訳の費用が発生する際は、患者さん負担となります。",
+            "contentSha256": "62e2f08635272b89a61860125c10d3310c2702ae47deac08fd0fe5e80928b010"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "clinicId": "clinic-3711370100060",
+    "clinicName": "香川大学医学部附属病院",
+    "clinicAddress": "香川県木田郡三木町大字池戸１７５０番地１",
+    "clinicWebsite": "https://www.med.kagawa-u.ac.jp/hosp/",
+    "identitySource": {
+      "requestedUrl": "https://www.med.kagawa-u.ac.jp/hosp/",
+      "url": "https://www.med.kagawa-u.ac.jp/hosp/",
+      "contentSha256": "334675f5d4c36312f3418ed4f1370ade96f84727327a5f1b917e230f8ae806e7"
+    },
+    "entries": [
+      {
+        "languages": [],
+        "mode": "patient_arranged_interpreter",
+        "reservation": "unknown",
+        "notes": {
+          "ja": "日本語で意思疎通ができない場合は通訳の同行を依頼しています。院内での対応言語はこの案内では確認できません。",
+          "en": "The hospital asks patients who cannot communicate in Japanese to bring an interpreter. This page does not confirm languages provided by hospital staff.",
+          "zh": "医院要求无法用日语交流者带口译同行。本页未确认院内工作人员可提供的语言。",
+          "ko": "일본어 의사소통이 어려우면 통역 동행을 요청합니다. 이 안내에서는 병원 직원의 대응 언어를 확인할 수 없습니다.",
+          "es": "El hospital pide acudir con intérprete si no puede comunicarse en japonés. Esta página no confirma idiomas ofrecidos por su personal."
+        },
+        "sources": [
+          {
+            "url": "https://www.med.kagawa-u.ac.jp/hosp/gairai/gaikoku/",
+            "checkedAt": "2026-10-20",
+            "quote": "日本語でコミュニケーションがとれない場合、通訳の同行をお願いいたします。",
+            "contentSha256": "3801052d86cd02868ac9497de43ca37ac5d94fec4b586964bee584b297eb88c4"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "clinicId": "clinic-3711370500080",
+    "clinicName": "高松赤十字病院",
+    "clinicAddress": "香川県高松市番町４丁目１－３",
+    "clinicWebsite": "https://www.takamatsu.jrc.or.jp",
+    "identitySource": {
+      "requestedUrl": "https://www.takamatsu.jrc.or.jp/",
+      "url": "https://www.takamatsu.jrc.or.jp/",
+      "contentSha256": "5c4dd64618e9d05e4b119c8bffda15a26da00f57cc5f78b285ac3ce85920cabd"
+    },
+    "entries": [
+      {
+        "languages": [],
+        "mode": "patient_arranged_interpreter",
+        "reservation": "unknown",
+        "notes": {
+          "ja": "院内に医療通訳がいないため、必要な方は通訳を同伴するよう案内しています。英語ページの存在を英語での診療対応とは扱っていません。",
+          "en": "The hospital states that medical interpreters are unavailable and asks patients to bring one if needed. Its English page does not establish clinical English support.",
+          "zh": "医院注明院内无医疗口译，需要者应带口译同行。英文网页不代表英语诊疗。",
+          "ko": "병원 내 의료 통역이 없어 필요한 경우 통역 동행을 요청합니다. 영문 페이지가 영어 진료를 의미하지는 않습니다.",
+          "es": "El hospital no dispone de intérpretes médicos y pide acudir con uno cuando sea necesario. Su página inglesa no acredita atención clínica en inglés."
+        },
+        "sources": [
+          {
+            "url": "https://www.takamatsu.jrc.or.jp/en/",
+            "checkedAt": "2026-10-20",
+            "quote": "Medical interpreters are not available in the hospital. Please visit the hospital accompanied by an interpreter if needed.",
+            "contentSha256": "eed9b475f1dfb2796f8851d4fb452edb8a2a050106a6b3227bb4e12b80faff20"
+          }
+        ]
+      }
+    ]
+  }
+]

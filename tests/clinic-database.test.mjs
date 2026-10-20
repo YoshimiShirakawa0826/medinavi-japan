@@ -51,6 +51,7 @@ test('indexed pages preserve evidence-based filters and the full detail record w
   assert.equal(search('selfpay=true').total,1);
   assert.equal(search('selfpay=true&uninsuredUnknown=true').total,25);
   assert.equal(search('lang=en').total,1);
+  assert.equal(search('engtoday=true').total,0);
   assert.equal(search('open=true').total,1);
   assert.equal(search('view=locations').locations.length,25);
   assert.equal(search(`view=cards&version=${summary.version}&ids=2,1`).items[1].id,record.id);
@@ -60,6 +61,26 @@ test('indexed pages preserve evidence-based filters and the full detail record w
     assert.throws(()=>search(query), InvalidSearch);
   }
   assert.throws(()=>search('view=cards&version=stale&ids=1'), DatasetChanged);
+});
+
+test('website language support cannot become same-day English availability and direct confirmations expire in Japan time', async t => {
+  const directory = await mkdtemp(path.join(tmpdir(), 'medinavi-language-day-'));
+  t.after(() => rm(directory, { recursive: true, force: true }));
+  const file = path.join(directory, 'clinics.sqlite');
+  const confirmed = day => make(`clinic-132${day.replaceAll('-', '')}`, { supportedLanguages: ['en'],
+    accessInfo: { englishSupportToday: true },
+    verification: { status: 'verified', confirmedBy: 'phone', lastConfirmedAt: day } });
+  const website = make('clinic-132WEBSITE', { supportedLanguages: ['en'],
+    verification: { status: 'unverified', confirmedBy: 'official_website' } });
+  const timestamp = make('clinic-132TIMESTAMP', { supportedLanguages: ['en'], accessInfo: { englishSupportToday: true },
+    verification: { status: 'verified', confirmedBy: 'phone', lastConfirmedAt: '2026-10-19T16:00:00Z' } });
+  await prepareClinicDatabase([website, confirmed('2026-10-20'), confirmed('2026-10-19'), timestamp], file);
+  const db = openClinicDatabase(file); t.after(() => db.close());
+  assert.equal(db.search(new URLSearchParams('lang=en')).total, 4);
+  const today = db.search(new URLSearchParams('engtoday=true'), Date.parse('2026-10-20T01:00:00Z'));
+  assert.equal(today.total, 2);
+  assert.equal(today.items[0].verification.lastConfirmedAt, '2026-10-20');
+  assert.equal(db.search(new URLSearchParams('engtoday=true'), Date.parse('2026-10-20T16:00:00Z')).total, 0);
 });
 
 test('nearest sorting and radius filtering stay on the device and request at most one page of cards', async t => {

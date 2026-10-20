@@ -33,6 +33,7 @@ export function reportedDepartmentMatches(rawName: string, department: string): 
   return reportedSpecialties[department]?.includes(name) ?? false;
 }
 
-export function hasWebsiteReview(hospital: Pick<Hospital, 'accessEvidence'>): boolean {
-  return !!hospital.accessEvidence && Object.keys(hospital.accessEvidence).length > 0;
+export function hasWebsiteReview(hospital: Pick<Hospital, 'accessEvidence' | 'languageSupport' | 'languageSupportReviewed'>): boolean {
+  return (!!hospital.accessEvidence && Object.keys(hospital.accessEvidence).length > 0)
+    || !!hospital.languageSupport?.length || hospital.languageSupportReviewed === true;
 }

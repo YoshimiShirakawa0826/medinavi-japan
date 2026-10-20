@@ -10,6 +10,7 @@ import { applyCareGuidance } from '../data/clinic-care-guidance.mjs';
 import { clinicPrefecture, coverageFor, PREFECTURES } from '../data/prefectures.mjs';
 import { prepareClinicDatabase } from './clinic-database.mjs';
 import { setupCache } from './setup-cache.mjs';
+import { applyLanguageReviews, applyWebsiteHolds } from './apply-language-reviews.mjs';
 
 const projectRoot = process.cwd();
 const sourceDirectory = path.join(projectRoot, "data");
@@ -77,7 +78,9 @@ if (nationalManifest.schemaVersion !== 1 || national.length !== nationalManifest
 // facility merely because a name or address resembles the older record.
 const existing = applyCareGuidance(reviewedClinics);
 const originalIds = new Set(existing.map(clinic => clinic.id));
-const combined = [...existing, ...national.filter(clinic => !originalIds.has(clinic.id))];
+const languageReviews = JSON.parse(await readFile(path.join(sourceDirectory, 'clinic-language-reviews.json'), 'utf8'));
+const websiteHolds = JSON.parse(await readFile(path.join(sourceDirectory, 'clinic-website-holds.json'), 'utf8'));
+const combined = applyWebsiteHolds(applyLanguageReviews([...existing, ...national.filter(clinic => !originalIds.has(clinic.id))], languageReviews), websiteHolds);
 const coverage = coverageFor(combined);
 if (Object.values(coverage.prefectures).some(count => count === 0)) throw new Error('Missing prefecture in national data');
 // All searches and details use indexed, read-only lookups. Only coverage is

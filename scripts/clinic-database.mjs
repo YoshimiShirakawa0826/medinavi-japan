@@ -12,6 +12,16 @@ export const DEPARTMENT_IDS = ['internal', 'surgery', 'pediatrics', 'orthopedics
 export const LANGUAGE_IDS = ['ja', 'en', 'zh', 'ko', 'es'];
 const mask = (values, predicate) => values.reduce((result, value, index) => result | (predicate(value) ? 1 << index : 0), 0);
 
+function checkedEnglishDay(record) {
+  if (record.accessInfo?.englishSupportToday !== true || record.verification?.status !== 'verified'
+    || !['phone', 'manual_visit'].includes(record.verification.confirmedBy)) return null;
+  const checked = record.verification.lastConfirmedAt;
+  if (typeof checked !== 'string' || !Number.isFinite(Date.parse(checked))) return null;
+  if (/^\d{4}-\d{2}-\d{2}$/.test(checked)) return new Date(checked).toISOString().startsWith(checked) ? checked : null;
+  if (!/(?:Z|[+-]\d{2}:\d{2})$/.test(checked)) return null;
+  return new Date(checked).toLocaleDateString('sv-SE', { timeZone: 'Asia/Tokyo' });
+}
+
 export async function prepareClinicDatabase(records, file) {
   await mkdir(path.dirname(file), { recursive: true });
   const temporary = `${file}.tmp`;
@@ -23,7 +33,7 @@ export async function prepareClinicDatabase(records, file) {
       CREATE TABLE clinics (
         ordinal INTEGER PRIMARY KEY, id TEXT NOT NULL UNIQUE, prefecture TEXT NOT NULL,
         latitude REAL NOT NULL, longitude REAL NOT NULL, keywords TEXT NOT NULL,
-        departments INTEGER NOT NULL, languages INTEGER NOT NULL,
+        departments INTEGER NOT NULL, languages INTEGER NOT NULL, english_day TEXT,
         card INTEGER NOT NULL, insurance INTEGER NOT NULL, walk_any INTEGER NOT NULL,
         walk_departments INTEGER NOT NULL, walk_languages INTEGER NOT NULL,
         night_weekend INTEGER NOT NULL, reviewed INTEGER NOT NULL, verified INTEGER NOT NULL,
@@ -32,7 +42,7 @@ export async function prepareClinicDatabase(records, file) {
       CREATE TABLE clinic_details (ordinal INTEGER PRIMARY KEY REFERENCES clinics(ordinal), record BLOB NOT NULL);
       CREATE TABLE metadata (key TEXT PRIMARY KEY, value TEXT NOT NULL);
       BEGIN;`);
-    const insert = db.prepare('INSERT INTO clinics VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
+    const insert = db.prepare('INSERT INTO clinics VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
     const insertDetail = db.prepare('INSERT INTO clinic_details VALUES (?,?)');
     for (const [index, record] of records.entries()) {
       const raw = JSON.stringify(record);
@@ -45,6 +55,7 @@ export async function prepareClinicDatabase(records, file) {
         [...new Set([...Object.values(record.name), ...Object.values(record.address)].map(normalizeSearchText))].join(' '),
         mask(DEPARTMENT_IDS, id => record.departments.includes(id)),
         mask(LANGUAGE_IDS, id => record.supportedLanguages.includes(id)),
+        checkedEnglishDay(record),
         Number(matchesAccess(record, 'creditCardAccepted')), Number(matchesAccess(record, 'overseasInsuranceAccepted')),
         Number(matchesAccess(record, 'walkInAvailable')),
         mask(DEPARTMENT_IDS, id => matchesAccess(record, 'walkInAvailable', id)),

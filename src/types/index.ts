@@ -1,5 +1,14 @@
 export type Language = 'ja' | 'en' | 'zh' | 'ko' | 'es';
 
+export type LanguageSupport = {
+  languages: string[];
+  mode: 'doctor' | 'staff' | 'in_person_interpreter' | 'telephone_interpreter' | 'video_interpreter'
+    | 'interpretation_support' | 'clinical_support' | 'patient_arranged_interpreter' | 'contact_only' | 'machine_translation' | 'onsite_interpreter_unavailable';
+  reservation: 'required' | 'advance_contact' | 'not_required' | 'unknown';
+  notes: Record<Language, string>;
+  sources: Array<{ url: string; checkedAt: string; quote: string; contentSha256: string }>;
+};
+
 export type CareGuide = {
   uninsuredAccepted?: boolean;
   bookingUrl?: string;
@@ -71,6 +80,8 @@ export interface Hospital {
   longitude: number;
   departments: string[];          // IDs of departments
   supportedLanguages: Language[]; // Supported languages
+  languageSupport?: LanguageSupport[];
+  languageSupportReviewed?: boolean;
   isOpenNow: boolean | null;      // Regular schedule in Tokyo time; null = unknown
   hasHolidayService: boolean;
   walkInAllowed: boolean;

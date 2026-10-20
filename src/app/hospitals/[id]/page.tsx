@@ -9,6 +9,7 @@ import { Suspense } from 'react';
 import { clinicMapUrl } from '@/lib/clinic-utils';
 import { useClinic } from '@/lib/use-clinic';
 import { ClinicAccessPanel } from '@/components/ClinicAccessPanel';
+import { ClinicLanguageEvidence } from '@/components/ClinicLanguageEvidence';
 import { ClinicCareGuide, JapaneseAddress } from '@/components/ClinicCareGuide';
 import { telephoneHref, nabiiClinicUrl } from '@/lib/clinic-contact';
 import { safeSearchReturn, weekendStatus } from '@/lib/search-state';
@@ -260,6 +261,7 @@ function HospitalDetailContent() {
                 ))}
                 {hospital.supportedLanguages.length === 0 && <p className="text-sm text-slate-600">{t('nation.languageUnknown')}</p>}
               </div>
+              <ClinicLanguageEvidence hospital={hospital} />
             </section>
           </div>
 

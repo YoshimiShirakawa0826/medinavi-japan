@@ -1,0 +1,33 @@
+{
+  "checkedAt": "2026-10-20",
+  "timeZone": "Asia/Tokyo",
+  "scope": "Non-Tokyo records in the 2026-06-01 MHLW snapshot; public directory website URLs only. URL retrieval screening is not a language-capability verification.",
+  "facilitiesInScope": 74655,
+  "facilitiesWithDirectoryWebsite": 43083,
+  "uniqueDirectoryWebsiteUrls": 42311,
+  "registeredFacilities": 23,
+  "registeredEntries": 30,
+  "registeredSourcePages": 26,
+  "counts": {
+    "website_not_listed": 31572,
+    "page_retrieved_without_registered_language_evidence": 521,
+    "language_policy_registered": 11,
+    "retrieval_unavailable": 42538,
+    "clinical_languages_registered": 12,
+    "unrelated_website_withheld": 1
+  },
+  "retrievalUnavailableReasons": {
+    "upstream_503": 40845,
+    "other_error_or_unsupported_url": 152,
+    "access_or_robots_restriction": 1471,
+    "timeout": 70
+  },
+  "limitations": [
+    "Missing website URLs were not inferred.",
+    "No retrieved page, no matching text, a website translation feature and a blocked request never become a negative language capability.",
+    "Site retrieval includes robots-policy preflight. Unavailable preflight means the content was not crawled.",
+    "Reported upstream failures do not establish that a facility website is down.",
+    "Clinically named languages are not a same-day availability confirmation.",
+    "This is not a completed language verification of all facilities."
+  ]
+}

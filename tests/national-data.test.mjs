@@ -9,10 +9,34 @@ import { scheduledOpenStatus } from '../src/lib/clinic-utils.ts';
 import { nabiiClinicUrl } from '../src/lib/clinic-contact.ts';
 import { searchRecord } from '../scripts/search-index.mjs';
 import { matchesAccess } from '../src/lib/clinic-access.ts';
+import { applyLanguageReviews } from '../scripts/apply-language-reviews.mjs';
 
 const manifest = JSON.parse(readFileSync(new URL('../data/national-clinics-manifest.json', import.meta.url)));
 const raw = gunzipSync(Buffer.concat(manifest.parts.map(part => readFileSync(new URL(`../data/${part}`, import.meta.url)))));
 const records = JSON.parse(raw);
+
+test('published website reviews match national facility identities and enrich only sourced clinical languages', () => {
+  const reviews = JSON.parse(readFileSync(new URL('../data/clinic-language-reviews.json', import.meta.url)));
+  assert.ok(reviews.length > 0);
+  const enriched = applyLanguageReviews(records, reviews);
+  assert.equal(enriched.length, records.length);
+  assert.equal(new Set(enriched.map(record => record.id)).size, records.length);
+  const byId = new Map(enriched.map(record => [record.id, record]));
+  assert.deepEqual(byId.get('clinic-0122010043020').supportedLanguages, ['en', 'zh']);
+  assert.deepEqual(byId.get('clinic-081108610019').supportedLanguages, []); // telephone enquiries only
+  assert.deepEqual(byId.get('clinic-2612610000077').supportedLanguages, []); // bring an interpreter
+  const osaka = byId.get('clinic-2711270002440');
+  assert.equal(osaka.languageSupport.length, 3);
+  assert.ok(osaka.languageSupport.every(entry => entry.reservation === 'required'));
+  assert.ok(osaka.supportedLanguages.includes('en') && osaka.supportedLanguages.includes('es'));
+  for (const review of reviews) {
+    assert.ok(!review.clinicId.startsWith('clinic-13'));
+    const record = byId.get(review.clinicId);
+    assert.equal(record.verification.status, 'unverified');
+    assert.equal(record.accessInfo.englishSupportToday, undefined);
+    assert.deepEqual(record.languageSupport, review.entries);
+  }
+});
 
 test('national snapshot contains real, unique, sourced hospital and clinic IDs in all 47 prefectures', () => {
   assert.equal(createHash('sha256').update(raw).digest('hex'), manifest.jsonSha256);
