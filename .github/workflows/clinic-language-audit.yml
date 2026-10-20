@@ -14,7 +14,7 @@ permissions:
 
 concurrency:
   group: clinic-language-audit-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   audit:
@@ -32,7 +32,7 @@ jobs:
       - name: Test the research code
         run: python3 -m unittest discover -s tests -p test_website_audit.py
       - name: Read official sites for this shard
-        run: python3 scripts/website-audit/audit.py --shard ${{ matrix.shard }} --shards 8 --workers 8 --max-pages 6 --max-seconds 4200
+        run: python3 scripts/website-audit/audit.py --shard ${{ matrix.shard }} --shards 8 --workers 16 --max-pages 6 --max-seconds 4200
       - name: Package resumable per-site checkpoints
         if: always()
         run: |

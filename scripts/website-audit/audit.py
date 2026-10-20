@@ -24,11 +24,11 @@ import urllib.parse
 import urllib.request
 import urllib.robotparser
 
-VERSION = 2
+VERSION = 3
 AGENT = 'MediNaviResearch/2.0 (+https://github.com/YoshimiShirakawa0826/medinavi-japan)'
 JST = datetime.timezone(datetime.timedelta(hours=9))
 MAX_BYTES = 2_000_000
-CLINICAL = re.compile(r'通訳|言語対応|対応言語|外国語診療|外国人患者|英語.{0,30}(?:診療|診察|対応|話[すせ])|中国語.{0,30}(?:診療|診察|対応)|韓国語.{0,30}(?:診療|診察|対応)|ポルトガル語|スペイン語|ベトナム語|English[ -]speaking|medical interpre|language (?:support|assistance|barrier)|languages spoken|consultations? in English|(?:English|Chinese|Korean|Spanish).{0,30}(?:support|available|consultation)', re.I)
+CLINICAL = re.compile(r'通訳|言語対応|対応言語|対応可能な外国語|外国語|外国人患者|英語.{0,30}(?:診療|診察|対応|話[すせ])|中国語.{0,30}(?:診療|診察|対応)|韓国語.{0,30}(?:診療|診察|対応)|ポルトガル語|スペイン語|ベトナム語|English[ -]speaking|speak.{0,20}(?:English|Chinese|Korean|Spanish)|medical interpre|language (?:support|assistance|barrier)|(?:languages spoken|supported languages)|consultations? in English|(?:English|Chinese|Korean|Spanish).{0,30}(?:support|available|consultation)', re.I)
 TRANSLATION = re.compile(r'Google Translate|自動翻訳|機械翻訳|website.{0,40}translat', re.I)
 EXCLUDE_LINK = re.compile(r'採用|求人|研究|研究者|プライバシー|著作権|サイトマップ|recruit|career|research|privacy|sitemap|press.release|cookie|facebook|instagram', re.I)
 
@@ -90,6 +90,8 @@ class Document(HTMLParser):
             self.anchor = [attrs.get('href') or '', []]
         if tag == 'img' and attrs.get('alt') and not self.skip:
             self.parts.extend((' ', attrs['alt'], ' '))
+            if self.anchor:
+                self.anchor[1].append(attrs['alt'])
         if tag in ('p', 'div', 'br', 'li', 'h1', 'h2', 'h3', 'td', 'tr', 'section'):
             self.parts.append('\n')
 
@@ -128,10 +130,10 @@ def rank_links(base, links):
         if p.hostname != host or url == safe_url(base):
             continue
         words = label + ' ' + p.path
-        if re.search(r'通訳|外国語|外国人|言語対応|国際(?:医療|診療)|foreign|international.patient|interpret|language.support', words, re.I):
+        if re.search(r'通訳|外国語|外国人|言語対応|国際(?:医療|診療)|foreign|international.(?:patient|medical)|interpret|language.support', words, re.I):
             score = 100
-        elif re.search(r'受診.*(?:案内|方)|初診|外来.*案内|for.new.patients|outpatient|patient.guide|appointments?|consultation', words, re.I):
-            score = 60
+        elif re.search(r'受診.*(?:案内|方)|初診|外来.*案内|new.patients|first.visit|outpatient|patient.guide|patients.?visitors|appointments?|consultation', words, re.I):
+            score = 90 if re.search(r'/(?:en|eng|english)(?:/|_)|_en/', p.path, re.I) else 60
         elif re.fullmatch(r'\s*(?:English|英語|EN|中文|한국어|Español)\s*', label, re.I) or re.fullmatch(r'/(?:en|english|eng|zh|cn|ko|es)/?(?:index\.(?:html?|php))?', p.path, re.I):
             score = 80
         else:

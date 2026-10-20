@@ -28,9 +28,18 @@ class WebsiteAuditTest(unittest.TestCase):
                  ('https://translate.google.com/', 'English'), ('/jobs/', '英語ができる方を採用')]
         ranked = audit.rank_links('https://example.com/', links)
         self.assertEqual(ranked[0]['url'], 'https://example.com/departments/international/')
-        self.assertEqual(ranked[1]['url'], 'https://example.com/en/')
+        self.assertEqual(ranked[1]['url'], 'https://example.com/en/outpatient/001.php')
         self.assertTrue(any('outpatient' in row['url'] for row in ranked))
         self.assertFalse(any('sitemap' in row['url'] or 'privacy' in row['url'] or 'google' in row['url'] or 'jobs' in row['url'] for row in ranked))
+
+    def test_image_navigation_and_new_patient_labels_are_followed(self):
+        document = audit.Document()
+        document.feed('<a href="/english/"><img alt="English" src="en.png"></a><a href="/english/detail/1.html">New Patients</a>')
+        ranked = audit.rank_links('https://example.com/', document.links)
+        self.assertEqual(ranked[0]['url'], 'https://example.com/english/detail/1.html')
+        self.assertEqual(ranked[1]['url'], 'https://example.com/english/')
+        self.assertTrue(audit.snippets('We speak English. Please make an appointment.'))
+        self.assertTrue(audit.snippets('外国語対応について：英語、ポルトガル語。'))
 
     def test_scripts_are_not_text_and_a_negative_statement_is_preserved_as_a_candidate(self):
         document = audit.Document()
