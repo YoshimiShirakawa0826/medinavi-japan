@@ -1,0 +1,535 @@
+{
+  "verifiedAt": "2026-10-20T17:44:32+09:00",
+  "method": "Raw HTML SHA-256 matches stored snapshot; quote matches re-extracted HTML text after whitespace normalization (UTF-8/CP932/EUC-JP/ISO-2022-JP decoding as applicable).",
+  "reviewedEvidenceJsonSha256": "341b3bf6af8756a65e6926bead755f49d10e01faa8248856180afe535e76f3ae",
+  "facilities": 55,
+  "entries": 70,
+  "referencesChecked": 97,
+  "sourceSnapshots": 58,
+  "mismatches": 0,
+  "sources": [
+    {
+      "url": "https://www.huhp.hokudai.ac.jp/english/detail/00001502.html",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "4292a1d459d5560ce0a5e44137a47f8e3449d92429d38d958dfc594d8aab9cb4",
+      "clinicIds": [
+        "clinic-0111010000420"
+      ],
+      "referenceCount": 2
+    },
+    {
+      "url": "https://yosida-mh.jp/info/",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "0b9a3bb2c8fbce03ec428d26c6429c565794f86481b1db3e2cd5018e40724e0a",
+      "clinicIds": [
+        "clinic-0111010001020"
+      ],
+      "referenceCount": 1
+    },
+    {
+      "url": "https://www.asahikawa.jrc.or.jp/english/",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "f139154f799afe2dc13c351322638429515c1d683c035d2dbf44403a95607b8e",
+      "clinicIds": [
+        "clinic-0111010002170"
+      ],
+      "referenceCount": 1
+    },
+    {
+      "url": "https://www.niseko-nic.com/",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "cdb9b5abb7e199e3feeaae759406fe5ecd8a1fd1d9a8ca5eeda04fefb2e8896e",
+      "clinicIds": [
+        "clinic-0122010043020"
+      ],
+      "referenceCount": 1
+    },
+    {
+      "url": "https://www.niseko-nic.com/en/",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "add44f44942f183694059ffd26672819f457db9937e137ef9d81d156f4cd9547",
+      "clinicIds": [
+        "clinic-0122010043020"
+      ],
+      "referenceCount": 1
+    },
+    {
+      "url": "https://harada-bc.com/2026/02/13/%e5%a4%96%e5%9b%bd%e4%ba%ba%e3%81%ae%e6%96%b9%e3%81%ae%e8%a8%ba%e5%af%9f%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6/",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "52b14c26aa5660ee5d2ffaf60058bf7b98c95362976d5e5099ffe19f1eacb5dd",
+      "clinicIds": [
+        "clinic-042801958"
+      ],
+      "referenceCount": 2
+    },
+    {
+      "url": "https://www.sagae-city-hospital.net/english",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "1b38c9659d16453dc0d883bbcda9e3975eaa55f0978e4aa63b97bc3e2f7b9968",
+      "clinicIds": [
+        "clinic-061106520017"
+      ],
+      "referenceCount": 2
+    },
+    {
+      "url": "https://www.hosp.tsukuba.ac.jp/",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "dd9044f194a116c653be7f9adbcc4acc42f3c6bab8fd10e8d293f8fad0ad84ae",
+      "clinicIds": [
+        "clinic-081108610019"
+      ],
+      "referenceCount": 1
+    },
+    {
+      "url": "https://hcc-nakamura.com/",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "3b66622ed101c3c513c29dc4f4ada7f2f548d14ece6e2deba6c317e42ee1a074",
+      "clinicIds": [
+        "clinic-0922092000572"
+      ],
+      "referenceCount": 1
+    },
+    {
+      "url": "https://www.maebashi.jrc.or.jp/shoukai/interpretation.html",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "9e42fbb2e51dfeb1d543eb471b1c6bdd6796fa311df24332da4238b3dd48e3ae",
+      "clinicIds": [
+        "clinic-1011100000003"
+      ],
+      "referenceCount": 1
+    },
+    {
+      "url": "https://www.international.saitama-med.ac.jp/en/introduction/for_inter_patients/",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "96ebd5a54af5d874e2c3c3ce6691041ca8986952f6a135eadaf259ac49c8edc3",
+      "clinicIds": [
+        "clinic-1111103558700"
+      ],
+      "referenceCount": 1
+    },
+    {
+      "url": "https://www.nms.ac.jp/hokuso-h/info/specialty/foreigner.html",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "e5369864bc960641c82e77febcc3f4b857882a1e69f8a55e45f1a5f2bb79ef6a",
+      "clinicIds": [
+        "clinic-1211202431700"
+      ],
+      "referenceCount": 1
+    },
+    {
+      "url": "https://www.jikei.ac.jp/hospital/kashiwa/visit/foreign-patient/",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "f084ceefc08119d4ae59cd1f94f132afc8ce92f224d9c2fbe5f513e458da5553",
+      "clinicIds": [
+        "clinic-1211204931000"
+      ],
+      "referenceCount": 1
+    },
+    {
+      "url": "https://www.ho.chiba-u.ac.jp/hosp/information/overseas.html",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "d318bbd1fca548edb542bd573efdf9efc25bdce76b695a0fcc78aca33c2d889f",
+      "clinicIds": [
+        "clinic-1211205424000"
+      ],
+      "referenceCount": 1
+    },
+    {
+      "url": "https://www.yokohama-cu.ac.jp/urahp/outpatient/medicalinterpreter.html",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "34e06b96511f3751039b3683ee56a3f6d69217e8ff250b822f8c47db64235187",
+      "clinicIds": [
+        "clinic-1411404222300"
+      ],
+      "referenceCount": 2
+    },
+    {
+      "url": "https://www.yokohama-cu.ac.jp/fukuhp/outpatient/medicalinterpreter.html",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "949e342ce2baf2a29cce2aefb20cf8696f9bfb0ec211d35882f03c402fc418b9",
+      "clinicIds": [
+        "clinic-1411405511200"
+      ],
+      "referenceCount": 2
+    },
+    {
+      "url": "https://jinwakai.com/consultation.html",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "16acddc725db8f67f0e3f1726a4b6027356ed622e5270d91f1f967dac60677bc",
+      "clinicIds": [
+        "clinic-1411410713900"
+      ],
+      "referenceCount": 1
+    },
+    {
+      "url": "https://zama.jinai.jp/outpatient/us-military-medical-interpret.html",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "66197cfd590af9f3bbbebb3170014a45cedaaeb67f840376c5f96c231992009e",
+      "clinicIds": [
+        "clinic-1411424225700"
+      ],
+      "referenceCount": 1
+    },
+    {
+      "url": "https://5884-international-clinic.com/tokki/",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "d3c1193b21d587343b112c255ef7da94fa1a15c6a0f16094ae059b13b0b0668d",
+      "clinicIds": [
+        "clinic-1421402360100"
+      ],
+      "referenceCount": 3
+    },
+    {
+      "url": "https://www.nagaoka.jrc.or.jp/englishchinese/",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "42228aacd0aa9cf8bedfd9e6f7a56e97a7fee84674f3a9ba3a5947c3a91970c2",
+      "clinicIds": [
+        "clinic-151BYNGX00002"
+      ],
+      "referenceCount": 1
+    },
+    {
+      "url": "https://www.keiju.co.jp/about/english/",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "c04eed38c33d6912d3498fa43dabc71702cc6bd03100282fd3d84e8186ad194b",
+      "clinicIds": [
+        "clinic-1713110003"
+      ],
+      "referenceCount": 1
+    },
+    {
+      "url": "https://www.fukui-saiseikai.com/english/",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "2ffb0ce947b175d3f44e86bf92953d3fd48c12b5c699e5439cd2d6896c93f3d7",
+      "clinicIds": [
+        "clinic-1811180000250"
+      ],
+      "referenceCount": 1
+    },
+    {
+      "url": "https://hic-med.com/",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "718afe450e8e129f31fa0ea61c8c3fe3f0f1bb8469ac29fd6a7e3d7fdd3f2657",
+      "clinicIds": [
+        "clinic-2022206111500"
+      ],
+      "referenceCount": 1
+    },
+    {
+      "url": "https://cjimc-hp.jp/about/tokou",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "121ceb461aea2e760ae48128193cb359063b7a00e69253957b8acf0829e30550",
+      "clinicIds": [
+        "clinic-2111651009513"
+      ],
+      "referenceCount": 1
+    },
+    {
+      "url": "https://www.hospital.haibara.shizuoka.jp/cooperation/translator.php",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "f7a1013d428b7d65e83c6e1e88acdcc0cb56c59fd95767c95aa05832e1ce23aa",
+      "clinicIds": [
+        "clinic-2211226300190"
+      ],
+      "referenceCount": 1
+    },
+    {
+      "url": "https://www.hospital.iwata.shizuoka.jp/english/about-medical-interpretation/",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "81e868dc6961ab5d2b734469423fff0bba542c0be3875541b2179db536dcc293",
+      "clinicIds": [
+        "clinic-2211227300100"
+      ],
+      "referenceCount": 2
+    },
+    {
+      "url": "https://hospital.fujita-hu.ac.jp/about/feature/international.html",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "4169991cb4434b3e9b4ee82154d3d4fa44d8d40aa3a42774e3e26218171dbb00",
+      "clinicIds": [
+        "clinic-2311230400030"
+      ],
+      "referenceCount": 2
+    },
+    {
+      "url": "https://w3hosp.med.nagoya-cu.ac.jp/for-medical/foreign-nationality-patients/",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "69006e0536676498e705694fb9d44531ff2ca85966411b3caac99b6c3aec32fa",
+      "clinicIds": [
+        "clinic-2311232200290"
+      ],
+      "referenceCount": 3
+    },
+    {
+      "url": "https://suzuki-hp.jp/obs-first.php",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "3cd9488fe4d1f039510822e813df4bebf21ce27b3931dee645be7026fca477f5",
+      "clinicIds": [
+        "clinic-2311232800100"
+      ],
+      "referenceCount": 1
+    },
+    {
+      "url": "https://www.kohka-hp.or.jp/about/interpreter/index.html",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "faebbcf070d0b7914bcfa70a075b707d514a44353002eed4149a52532bea369c",
+      "clinicIds": [
+        "clinic-2511250000110"
+      ],
+      "referenceCount": 1
+    },
+    {
+      "url": "https://www.h.kpu-m.ac.jp/en/",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "02f3340d1d878e540f8e261d93e29ce1419549aa3d01449e95c940cbe4ab693a",
+      "clinicIds": [
+        "clinic-2612610000046"
+      ],
+      "referenceCount": 1
+    },
+    {
+      "url": "https://www.kyoto1.jrc.or.jp/languages",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "08a9b3b4ace720606763f1f43cc0ce7f26f4c4e34a87d7da81db88d81a371f97",
+      "clinicIds": [
+        "clinic-2612610000077"
+      ],
+      "referenceCount": 1
+    },
+    {
+      "url": "https://www.kch-org.jp/patient/01-2",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "a472254d85ac312568e4cbafb3622da2fba227e208f3d5d3bb2fd399d70cd832",
+      "clinicIds": [
+        "clinic-2612610000096"
+      ],
+      "referenceCount": 6
+    },
+    {
+      "url": "https://kyotoclinic.jp/",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "fd4f0d83e065373586c2e68d4d317644394529c24c00036eb4ae830c02e89666",
+      "clinicIds": [
+        "clinic-2622621000546"
+      ],
+      "referenceCount": 1
+    },
+    {
+      "url": "https://kyotoclinic.jp/lp/en/",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "cd7b430561146c256c35252eb116799a050ec9ac349cc40f4e9c3718db502052",
+      "clinicIds": [
+        "clinic-2622621000546"
+      ],
+      "referenceCount": 1
+    },
+    {
+      "url": "https://www.gh.opho.jp/patient/699.html",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "3f6fafed78b9802f97f60b131f1b7bc59a5e1f49e7be4501f618e799e5960207",
+      "clinicIds": [
+        "clinic-2711270001860"
+      ],
+      "referenceCount": 1
+    },
+    {
+      "url": "https://minoh-hp.jp/eng/",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "d0e6718d63ce0dfc2be8c30473bbf1324fff17ab12a50edd979af5034ea50d07",
+      "clinicIds": [
+        "clinic-2711270002240"
+      ],
+      "referenceCount": 1
+    },
+    {
+      "url": "https://www.hosp.med.osaka-u.ac.jp/interpreting/index.html",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "406e9bf736f3c351707802d5f2a1848c997ba37924b4e349fbd981e7bd05e2a4",
+      "clinicIds": [
+        "clinic-2711270002440"
+      ],
+      "referenceCount": 3
+    },
+    {
+      "url": "https://kishiwada.tokushukai.or.jp/en/for-patients/language-support/",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "cd4844a521e04ad690f8bcb3a7858769afa2e5f87d20a231ed08029003f7f02c",
+      "clinicIds": [
+        "clinic-2711270005030"
+      ],
+      "referenceCount": 6
+    },
+    {
+      "url": "https://hirakatacity-hp.osaka.jp/english/",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "3043d23996538fb7e86e1c455b7483de415112753a60a5fafa5efeb7bfdbab61",
+      "clinicIds": [
+        "clinic-2711270006220"
+      ],
+      "referenceCount": 2
+    },
+    {
+      "url": "https://www.sakai-city-hospital.jp/outpatient/interpreter/",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "76acd62a913e046b0181ccfbffa8efa58fd8aa7aa4ab87d83263870f60592bb5",
+      "clinicIds": [
+        "clinic-2711270006380"
+      ],
+      "referenceCount": 3
+    },
+    {
+      "url": "https://umeda.nice-medical.jp/",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "07204914afc23663658eb1d36c4b45002a8ed1370bb4903303520f9006e315a6",
+      "clinicIds": [
+        "clinic-2722270167240"
+      ],
+      "referenceCount": 1
+    },
+    {
+      "url": "https://umeda.nice-medical.jp/en",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "5df4623e35c009ef256908cc23ba0fdd260f70607351f652124bf73e8eeedf8a",
+      "clinicIds": [
+        "clinic-2722270167240"
+      ],
+      "referenceCount": 1
+    },
+    {
+      "url": "https://shinsaibashiclinics.com/",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "ad024c48ae6a7dc822552410fa4f1394a3dbe20056a75c0f6093acfe1bad3a68",
+      "clinicIds": [
+        "clinic-2722270170620"
+      ],
+      "referenceCount": 1
+    },
+    {
+      "url": "https://www.kuma-h.or.jp/for_patient/new-patients/international-patients/",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "c2aba91223925fc39f2eccec91736ae9deda89d886155a92c59b12bccc4889bf",
+      "clinicIds": [
+        "clinic-2811280000270"
+      ],
+      "referenceCount": 1
+    },
+    {
+      "url": "https://chuo.kcho.jp/outpatient",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "3909bd5cb655f11dfe2ae971fc34f965603828c375359f610903ece2dc82f275",
+      "clinicIds": [
+        "clinic-2811280000300"
+      ],
+      "referenceCount": 2
+    },
+    {
+      "url": "https://www.toukou.or.jp/hospital/outpatient/vietnamese/",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "48ca4d6eb55fd933f96e72998a35d99a7f37e4e083f443e4367deed912e19031",
+      "clinicIds": [
+        "clinic-3311330000530"
+      ],
+      "referenceCount": 2
+    },
+    {
+      "url": "https://www.okayama-u.ac.jp/user/hospital/index274.html",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "58ec73872e0ddf683f24adad622bcb75736722a1db6e2436e7e533b2e2259a19",
+      "clinicIds": [
+        "clinic-3311330000790"
+      ],
+      "referenceCount": 2
+    },
+    {
+      "url": "https://fukuyama.hosp.go.jp/section/20210707.html",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "07b52298c602249ddfd64ebdf6f702ba6fb02c1e7ca9c03f0f98ab49a8ee932e",
+      "clinicIds": [
+        "clinic-3411340022910"
+      ],
+      "referenceCount": 4
+    },
+    {
+      "url": "https://www.tokushima-hosp.jp/outpatient/foreign-patients.html",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "62e2f08635272b89a61860125c10d3310c2702ae47deac08fd0fe5e80928b010",
+      "clinicIds": [
+        "clinic-3611365100680"
+      ],
+      "referenceCount": 1
+    },
+    {
+      "url": "https://www.med.kagawa-u.ac.jp/hosp/gairai/gaikoku/",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "3801052d86cd02868ac9497de43ca37ac5d94fec4b586964bee584b297eb88c4",
+      "clinicIds": [
+        "clinic-3711370100060"
+      ],
+      "referenceCount": 1
+    },
+    {
+      "url": "https://www.takamatsu.jrc.or.jp/en/",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "eed9b475f1dfb2796f8851d4fb452edb8a2a050106a6b3227bb4e12b80faff20",
+      "clinicIds": [
+        "clinic-3711370500080"
+      ],
+      "referenceCount": 1
+    },
+    {
+      "url": "https://www.iioclinic.com/english",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "e95fdc72f660edec81a66e2630a82d25d46e54de72c5781ae64e7667313af284",
+      "clinicIds": [
+        "clinic-3822385604200"
+      ],
+      "referenceCount": 2
+    },
+    {
+      "url": "https://ikeda-clinic.jpn.com/",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "00057b34eea477a59c81aa6618432e40ca1937e1619b325c7175e67a659e17e7",
+      "clinicIds": [
+        "clinic-3822385903730"
+      ],
+      "referenceCount": 1
+    },
+    {
+      "url": "https://fujiki-cl.com/",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "47b78edb037b04d1aa1d6d79aafc85de909111d0d5f3bab8552da151fe02395a",
+      "clinicIds": [
+        "clinic-4022400000456"
+      ],
+      "referenceCount": 2
+    },
+    {
+      "url": "https://yanagiclinic.or.jp/en/",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "e8a096942fef81d3af9f55048ff33bc2d0fb889a7dae26c74c54d1dcd3b5c98a",
+      "clinicIds": [
+        "clinic-4022400018820"
+      ],
+      "referenceCount": 4
+    },
+    {
+      "url": "https://www.mh.nagasaki-u.ac.jp/en/kouhou/shinryo/",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "6817a99b3fe32136baf4bee2c2aaa358575efcff4ba903f66b0850eb4f91d9de",
+      "clinicIds": [
+        "clinic-421hna0039"
+      ],
+      "referenceCount": 3
+    },
+    {
+      "url": "https://koiwaya-heart-clinic.com/",
+      "checkedAt": "2026-10-20",
+      "contentSha256": "c37cbe37d2b031f515ba1190a24d2142abc43a3d7acba7438f7d3d3ae7066629",
+      "clinicIds": [
+        "clinic-4522453179320"
+      ],
+      "referenceCount": 1
+    }
+  ],
+  "reviewedEvidenceCommit": "4a254e87448153115de6b6339038fb8050126e8a"
+}

@@ -28,6 +28,8 @@
 脆弱性対応、検索の軽量化と検証結果は [検索環境とセキュリティ改善](docs/SEARCH_SECURITY_2026-10-20.md) を参照してください。
 公式サイトによる言語情報と確認範囲は [言語対応の追加確認記録](docs/WEBSITE_LANGUAGE_REVIEW_2026-10-20.md) を参照してください。
 全URLの取得・施設別結果一覧の作成方法は [調査処理の説明](docs/WEBSITE_LANGUAGE_AUDIT.md) に記載しています。
+42,311 URLの一次処理結果を [施設別CSV（gzip）](public/reports/clinic-language-status-2026-10-20.csv.gz) と
+[集計JSON](docs/clinic-language-audit-2026-10-20.json) に保存しました。取得の一巡は、全施設の診療言語確認完了とは区別しています。
 
 ## 起動・検証
 

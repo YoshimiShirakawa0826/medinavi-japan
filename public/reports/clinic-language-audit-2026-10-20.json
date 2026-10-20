@@ -1,0 +1,317 @@
+{
+  "generatedAt": "2026-10-20T17:41:40+09:00",
+  "timeZone": "Asia/Tokyo",
+  "scope": "Non-Tokyo facilities with a website in the pinned MHLW snapshot; selected-page research is not complete language verification.",
+  "facilitiesWithDirectoryWebsite": 43083,
+  "uniqueDirectoryWebsiteUrls": 42311,
+  "urlsWithResult": 42311,
+  "urlsAttempted": 42218,
+  "urlsWithBody": 34807,
+  "urlsCompletedWithinSelectedPageBudget": 42311,
+  "allTargetUrlsProcessed": true,
+  "allTargetUrlsAttempted": false,
+  "languageConfirmationComplete": false,
+  "counts": {
+    "body_retrieved_without_registered_language_evidence": 34476,
+    "candidate_requires_identity_and_context_review": 952,
+    "clinical_languages_registered": 34,
+    "japanese_only_registered": 1,
+    "language_policy_registered": 20,
+    "retrieval_unavailable_or_manual_review_required": 7599,
+    "website_withheld_unrelated_destination": 1
+  },
+  "prefectureCounts": {
+    "01": {
+      "body_retrieved_without_registered_language_evidence": 1366,
+      "candidate_requires_identity_and_context_review": 40,
+      "clinical_languages_registered": 2,
+      "language_policy_registered": 2,
+      "retrieval_unavailable_or_manual_review_required": 283
+    },
+    "02": {
+      "body_retrieved_without_registered_language_evidence": 251,
+      "candidate_requires_identity_and_context_review": 6,
+      "retrieval_unavailable_or_manual_review_required": 64
+    },
+    "03": {
+      "body_retrieved_without_registered_language_evidence": 341,
+      "candidate_requires_identity_and_context_review": 4,
+      "retrieval_unavailable_or_manual_review_required": 83
+    },
+    "04": {
+      "body_retrieved_without_registered_language_evidence": 789,
+      "candidate_requires_identity_and_context_review": 35,
+      "clinical_languages_registered": 1,
+      "retrieval_unavailable_or_manual_review_required": 214
+    },
+    "05": {
+      "body_retrieved_without_registered_language_evidence": 271,
+      "candidate_requires_identity_and_context_review": 7,
+      "retrieval_unavailable_or_manual_review_required": 58
+    },
+    "06": {
+      "body_retrieved_without_registered_language_evidence": 299,
+      "candidate_requires_identity_and_context_review": 4,
+      "clinical_languages_registered": 1,
+      "retrieval_unavailable_or_manual_review_required": 75
+    },
+    "07": {
+      "body_retrieved_without_registered_language_evidence": 398,
+      "candidate_requires_identity_and_context_review": 7,
+      "retrieval_unavailable_or_manual_review_required": 118
+    },
+    "08": {
+      "body_retrieved_without_registered_language_evidence": 697,
+      "candidate_requires_identity_and_context_review": 15,
+      "language_policy_registered": 1,
+      "retrieval_unavailable_or_manual_review_required": 129
+    },
+    "09": {
+      "body_retrieved_without_registered_language_evidence": 519,
+      "candidate_requires_identity_and_context_review": 10,
+      "clinical_languages_registered": 1,
+      "retrieval_unavailable_or_manual_review_required": 113
+    },
+    "10": {
+      "body_retrieved_without_registered_language_evidence": 691,
+      "candidate_requires_identity_and_context_review": 13,
+      "language_policy_registered": 1,
+      "retrieval_unavailable_or_manual_review_required": 154
+    },
+    "11": {
+      "body_retrieved_without_registered_language_evidence": 2122,
+      "candidate_requires_identity_and_context_review": 56,
+      "language_policy_registered": 1,
+      "retrieval_unavailable_or_manual_review_required": 373
+    },
+    "12": {
+      "body_retrieved_without_registered_language_evidence": 1717,
+      "candidate_requires_identity_and_context_review": 48,
+      "clinical_languages_registered": 1,
+      "language_policy_registered": 2,
+      "retrieval_unavailable_or_manual_review_required": 312
+    },
+    "14": {
+      "body_retrieved_without_registered_language_evidence": 3548,
+      "candidate_requires_identity_and_context_review": 103,
+      "clinical_languages_registered": 3,
+      "language_policy_registered": 2,
+      "retrieval_unavailable_or_manual_review_required": 761
+    },
+    "15": {
+      "body_retrieved_without_registered_language_evidence": 475,
+      "candidate_requires_identity_and_context_review": 4,
+      "language_policy_registered": 1,
+      "retrieval_unavailable_or_manual_review_required": 66
+    },
+    "16": {
+      "body_retrieved_without_registered_language_evidence": 299,
+      "candidate_requires_identity_and_context_review": 4,
+      "retrieval_unavailable_or_manual_review_required": 126
+    },
+    "17": {
+      "body_retrieved_without_registered_language_evidence": 271,
+      "candidate_requires_identity_and_context_review": 10,
+      "clinical_languages_registered": 1,
+      "retrieval_unavailable_or_manual_review_required": 89
+    },
+    "18": {
+      "body_retrieved_without_registered_language_evidence": 198,
+      "candidate_requires_identity_and_context_review": 4,
+      "language_policy_registered": 1,
+      "retrieval_unavailable_or_manual_review_required": 82
+    },
+    "19": {
+      "body_retrieved_without_registered_language_evidence": 297,
+      "candidate_requires_identity_and_context_review": 4,
+      "retrieval_unavailable_or_manual_review_required": 85
+    },
+    "20": {
+      "body_retrieved_without_registered_language_evidence": 644,
+      "candidate_requires_identity_and_context_review": 27,
+      "clinical_languages_registered": 1,
+      "retrieval_unavailable_or_manual_review_required": 114
+    },
+    "21": {
+      "body_retrieved_without_registered_language_evidence": 665,
+      "candidate_requires_identity_and_context_review": 34,
+      "clinical_languages_registered": 1,
+      "retrieval_unavailable_or_manual_review_required": 135
+    },
+    "22": {
+      "body_retrieved_without_registered_language_evidence": 1118,
+      "candidate_requires_identity_and_context_review": 14,
+      "clinical_languages_registered": 2,
+      "retrieval_unavailable_or_manual_review_required": 245
+    },
+    "23": {
+      "body_retrieved_without_registered_language_evidence": 2191,
+      "candidate_requires_identity_and_context_review": 77,
+      "clinical_languages_registered": 2,
+      "language_policy_registered": 1,
+      "retrieval_unavailable_or_manual_review_required": 463
+    },
+    "24": {
+      "body_retrieved_without_registered_language_evidence": 589,
+      "candidate_requires_identity_and_context_review": 21,
+      "retrieval_unavailable_or_manual_review_required": 128
+    },
+    "25": {
+      "body_retrieved_without_registered_language_evidence": 462,
+      "candidate_requires_identity_and_context_review": 7,
+      "clinical_languages_registered": 1,
+      "retrieval_unavailable_or_manual_review_required": 108
+    },
+    "26": {
+      "body_retrieved_without_registered_language_evidence": 455,
+      "candidate_requires_identity_and_context_review": 15,
+      "clinical_languages_registered": 3,
+      "language_policy_registered": 1,
+      "retrieval_unavailable_or_manual_review_required": 148
+    },
+    "27": {
+      "body_retrieved_without_registered_language_evidence": 4170,
+      "candidate_requires_identity_and_context_review": 158,
+      "clinical_languages_registered": 6,
+      "language_policy_registered": 2,
+      "retrieval_unavailable_or_manual_review_required": 972
+    },
+    "28": {
+      "body_retrieved_without_registered_language_evidence": 1641,
+      "candidate_requires_identity_and_context_review": 44,
+      "clinical_languages_registered": 1,
+      "japanese_only_registered": 1,
+      "retrieval_unavailable_or_manual_review_required": 375
+    },
+    "29": {
+      "body_retrieved_without_registered_language_evidence": 400,
+      "candidate_requires_identity_and_context_review": 7,
+      "retrieval_unavailable_or_manual_review_required": 98
+    },
+    "30": {
+      "body_retrieved_without_registered_language_evidence": 389,
+      "candidate_requires_identity_and_context_review": 3,
+      "retrieval_unavailable_or_manual_review_required": 88
+    },
+    "31": {
+      "body_retrieved_without_registered_language_evidence": 124,
+      "candidate_requires_identity_and_context_review": 4,
+      "retrieval_unavailable_or_manual_review_required": 32
+    },
+    "32": {
+      "body_retrieved_without_registered_language_evidence": 171,
+      "candidate_requires_identity_and_context_review": 2,
+      "retrieval_unavailable_or_manual_review_required": 31
+    },
+    "33": {
+      "body_retrieved_without_registered_language_evidence": 717,
+      "candidate_requires_identity_and_context_review": 32,
+      "clinical_languages_registered": 2,
+      "retrieval_unavailable_or_manual_review_required": 156
+    },
+    "34": {
+      "body_retrieved_without_registered_language_evidence": 1110,
+      "candidate_requires_identity_and_context_review": 29,
+      "language_policy_registered": 1,
+      "retrieval_unavailable_or_manual_review_required": 185
+    },
+    "35": {
+      "body_retrieved_without_registered_language_evidence": 444,
+      "candidate_requires_identity_and_context_review": 15,
+      "retrieval_unavailable_or_manual_review_required": 107
+    },
+    "36": {
+      "body_retrieved_without_registered_language_evidence": 245,
+      "candidate_requires_identity_and_context_review": 6,
+      "language_policy_registered": 1,
+      "retrieval_unavailable_or_manual_review_required": 72,
+      "website_withheld_unrelated_destination": 1
+    },
+    "37": {
+      "body_retrieved_without_registered_language_evidence": 333,
+      "candidate_requires_identity_and_context_review": 5,
+      "language_policy_registered": 2,
+      "retrieval_unavailable_or_manual_review_required": 74
+    },
+    "38": {
+      "body_retrieved_without_registered_language_evidence": 507,
+      "candidate_requires_identity_and_context_review": 10,
+      "clinical_languages_registered": 2,
+      "retrieval_unavailable_or_manual_review_required": 77
+    },
+    "39": {
+      "body_retrieved_without_registered_language_evidence": 248,
+      "candidate_requires_identity_and_context_review": 2,
+      "retrieval_unavailable_or_manual_review_required": 46
+    },
+    "40": {
+      "body_retrieved_without_registered_language_evidence": 644,
+      "candidate_requires_identity_and_context_review": 25,
+      "clinical_languages_registered": 2,
+      "retrieval_unavailable_or_manual_review_required": 96
+    },
+    "41": {
+      "body_retrieved_without_registered_language_evidence": 312,
+      "candidate_requires_identity_and_context_review": 8,
+      "retrieval_unavailable_or_manual_review_required": 73
+    },
+    "42": {
+      "body_retrieved_without_registered_language_evidence": 454,
+      "candidate_requires_identity_and_context_review": 7,
+      "language_policy_registered": 1,
+      "retrieval_unavailable_or_manual_review_required": 110
+    },
+    "43": {
+      "body_retrieved_without_registered_language_evidence": 596,
+      "candidate_requires_identity_and_context_review": 6,
+      "retrieval_unavailable_or_manual_review_required": 168
+    },
+    "44": {
+      "body_retrieved_without_registered_language_evidence": 410,
+      "candidate_requires_identity_and_context_review": 3,
+      "retrieval_unavailable_or_manual_review_required": 89
+    },
+    "45": {
+      "body_retrieved_without_registered_language_evidence": 363,
+      "candidate_requires_identity_and_context_review": 7,
+      "clinical_languages_registered": 1,
+      "retrieval_unavailable_or_manual_review_required": 75
+    },
+    "46": {
+      "body_retrieved_without_registered_language_evidence": 396,
+      "candidate_requires_identity_and_context_review": 3,
+      "retrieval_unavailable_or_manual_review_required": 102
+    },
+    "47": {
+      "body_retrieved_without_registered_language_evidence": 129,
+      "candidate_requires_identity_and_context_review": 7,
+      "retrieval_unavailable_or_manual_review_required": 47
+    }
+  },
+  "limitations": [
+    "Candidates are unreviewed and never automatically update supported languages.",
+    "No candidate in selected pages is not evidence of no language support.",
+    "Shared websites require a separate facility identity check.",
+    "Retrieval restrictions, inaccessible pages, PDF/image/JS content and unlisted sites remain unconfirmed.",
+    "Official website evidence does not confirm same-day availability."
+  ],
+  "actionRunUrl": "https://github.com/YoshimiShirakawa0826/medinavi-japan/actions/runs/39390120963",
+  "actionCommit": "b3f4f4263151dd430a5a5bfe313e682b5b4a5ee7",
+  "nationalSnapshotJsonSha256": "488986fc46491ce3f68f4cabbe7c5a312869335e756305d6f6eb20a6402f134a",
+  "reviewedEvidenceJsonSha256": "341b3bf6af8756a65e6926bead755f49d10e01faa8248856180afe535e76f3ae",
+  "reportCsvGzipSha256": "a18ce98272ae377a8b4d230b8c651491f4a769553ac96844ff2db130fb26d815",
+  "reportCsvSha256": "55d6a37a7b4fb81efc7acbe92a17a3d1c2adc0848d74e1969760c4b762c16d21",
+  "reportCsvGzipBytes": 2540331,
+  "reportCsvBytes": 15466456,
+  "facilityRowsWithBody": 35482,
+  "registeredFacilities": 55,
+  "registeredEntries": 70,
+  "registeredSourcePages": 58,
+  "registeredSourceReferences": 97,
+  "csv": "/reports/clinic-language-status-2026-10-20.csv.gz",
+  "reviewedEvidenceCommit": "4a254e87448153115de6b6339038fb8050126e8a",
+  "investigationVersion": 3,
+  "maxPagesPerUrl": 6,
+  "maxLinkDepth": 2,
+  "urlValidationOnlyCount": 93
+}
