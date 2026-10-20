@@ -44,6 +44,15 @@ class AuditReportTest(unittest.TestCase):
         row = report.describe(self.clinic(), None, review, True)
         self.assertEqual(row['language_review_status'], 'website_withheld_unrelated_destination')
 
+    def test_suspended_services_and_explicit_japanese_only_are_not_multilingual_positives(self):
+        review = {'clinicId': '1', 'entries': [self.entry('service_suspended', ['en'])]}
+        row = report.describe(self.clinic(), None, review, False)
+        self.assertEqual(row['language_review_status'], 'language_policy_registered')
+        self.assertEqual(row['registered_clinical_languages'], '')
+        review['entries'] = [self.entry('clinical_support', ['ja'])]
+        row = report.describe(self.clinic(), None, review, False)
+        self.assertEqual(row['language_review_status'], 'japanese_only_registered')
+
     def test_budget_exhaustion_and_retrieval_error_keep_their_reasons(self):
         row = report.describe(self.clinic(), {'pages': [], 'stopReason': 'time_budget', 'complete': False}, None, False)
         self.assertEqual(row['language_review_status'], 'not_started_time_budget')

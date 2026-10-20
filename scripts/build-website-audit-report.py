@@ -10,7 +10,18 @@ from pathlib import Path
 spec = importlib.util.spec_from_file_location('website_audit', Path(__file__).parent / 'website-audit/audit.py')
 audit = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(audit)
-NON_CLINICAL = {'contact_only', 'machine_translation', 'patient_arranged_interpreter', 'onsite_interpreter_unavailable'}
+NON_CLINICAL = {'contact_only', 'machine_translation', 'patient_arranged_interpreter', 'onsite_interpreter_unavailable', 'service_suspended'}
+STATUS_JA = {
+    'clinical_languages_registered': '診療での外国語対応の記載を登録',
+    'japanese_only_registered': '日本語のみの診療と公式に記載',
+    'language_policy_registered': '通訳条件・問い合わせ・休止等の記載を登録',
+    'website_withheld_unrelated_destination': '無関係な転送先のため公式リンクを保留',
+    'candidate_requires_identity_and_context_review': '候補あり・施設と内容の照合待ち',
+    'body_retrieved_without_registered_language_evidence': '本文取得・診療言語の根拠は未登録',
+    'not_started': '今回の調査は未着手',
+    'not_started_time_budget': '時間上限による未着手',
+    'retrieval_unavailable_or_manual_review_required': '取得不可または画像・PDF等の個別確認が必要',
+}
 
 
 def read_results(paths, known_websites):
@@ -36,8 +47,10 @@ def describe(clinic, result, review, held):
     clinical = [entry for entry in entries if entry['mode'] not in NON_CLINICAL and entry['languages']]
     if held:
         status = 'website_withheld_unrelated_destination'
-    elif clinical:
+    elif clinical and any(language != 'ja' for entry in clinical for language in entry['languages']):
         status = 'clinical_languages_registered'
+    elif clinical:
+        status = 'japanese_only_registered'
     elif entries:
         status = 'language_policy_registered'
     elif candidates:
@@ -63,6 +76,7 @@ def describe(clinic, result, review, held):
         'facility_id': clinic['id'], 'prefecture_code': clinic['prefecture'],
         'facility_name': clinic['name'], 'facility_address': clinic['address'],
         'directory_website': clinic['website'], 'language_review_status': status,
+        'language_review_status_ja': STATUS_JA[status],
         'registered_clinical_languages': ','.join(sorted({language for entry in clinical for language in entry['languages']})),
         'registered_modes': ','.join(sorted({entry['mode'] for entry in entries})),
         'registered_reservation_conditions': ','.join(sorted({entry['reservation'] for entry in entries})),

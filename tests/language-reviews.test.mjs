@@ -29,7 +29,7 @@ test('official website evidence adds clinical language support while preserving 
 });
 
 test('contact-only support, machine translation and a patient-supplied interpreter do not imply clinical language capability', () => {
-  for (const mode of ['contact_only','machine_translation','patient_arranged_interpreter','onsite_interpreter_unavailable']) {
+  for (const mode of ['contact_only','machine_translation','patient_arranged_interpreter','onsite_interpreter_unavailable','service_suspended']) {
     const [enriched] = applyLanguageReviews([clinic], [{ ...review, entries: [{ ...entry, mode }] }]);
     assert.deepEqual(enriched.supportedLanguages, ['ja']);
     assert.equal(enriched.languageSupport[0].mode, mode);

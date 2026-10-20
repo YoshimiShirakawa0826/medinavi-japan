@@ -93,4 +93,4 @@ npm run prepare:data
 これらは施設への直接確認や当日の受入可否の検証ではありません。
 
 公式サイトによる言語情報の確認範囲と未確認事項は
-`docs/LANGUAGE_REVIEW_2026-10-20.md` を参照してください。
+`docs/WEBSITE_LANGUAGE_REVIEW_2026-10-20.md` を参照してください。

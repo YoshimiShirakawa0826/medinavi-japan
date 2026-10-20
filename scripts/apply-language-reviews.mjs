@@ -1,8 +1,8 @@
 const appLanguages = ['ja', 'en', 'zh', 'ko', 'es'];
 const modes = new Set(['doctor', 'staff', 'in_person_interpreter', 'telephone_interpreter', 'video_interpreter',
-  'interpretation_support', 'clinical_support', 'patient_arranged_interpreter', 'contact_only', 'machine_translation', 'onsite_interpreter_unavailable']);
+  'interpretation_support', 'clinical_support', 'patient_arranged_interpreter', 'contact_only', 'machine_translation', 'onsite_interpreter_unavailable', 'service_suspended']);
 const reservations = new Set(['required', 'advance_contact', 'not_required', 'unknown']);
-const nonClinical = new Set(['patient_arranged_interpreter', 'contact_only', 'machine_translation', 'onsite_interpreter_unavailable']);
+const nonClinical = new Set(['patient_arranged_interpreter', 'contact_only', 'machine_translation', 'onsite_interpreter_unavailable', 'service_suspended']);
 
 function webUrl(value) {
   try {

@@ -3,7 +3,7 @@ export type Language = 'ja' | 'en' | 'zh' | 'ko' | 'es';
 export type LanguageSupport = {
   languages: string[];
   mode: 'doctor' | 'staff' | 'in_person_interpreter' | 'telephone_interpreter' | 'video_interpreter'
-    | 'interpretation_support' | 'clinical_support' | 'patient_arranged_interpreter' | 'contact_only' | 'machine_translation' | 'onsite_interpreter_unavailable';
+    | 'interpretation_support' | 'clinical_support' | 'patient_arranged_interpreter' | 'contact_only' | 'machine_translation' | 'onsite_interpreter_unavailable' | 'service_suspended';
   reservation: 'required' | 'advance_contact' | 'not_required' | 'unknown';
   notes: Record<Language, string>;
   sources: Array<{ url: string; checkedAt: string; quote: string; contentSha256: string }>;

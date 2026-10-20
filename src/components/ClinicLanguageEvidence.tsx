@@ -16,6 +16,7 @@ const words = {
   contact_only: ['問い合わせ時の対応', 'Enquiries only', '仅限咨询联系', '문의 시 지원', 'Solo consultas de contacto'],
   machine_translation: ['機械翻訳による補助', 'Machine translation assistance', '机器翻译辅助', '기계 번역 보조', 'Ayuda de traducción automática'],
   onsite_interpreter_unavailable: ['院内の医療通訳なし（公式記載）', 'No on-site medical interpreter (official statement)', '院内无医疗口译（官网说明）', '병원 내 의료 통역 없음 (공식 안내)', 'Sin intérprete médico presencial (declaración oficial)'],
+  service_suspended: ['通訳休止の記載あり（再開は要確認）', 'Interpreting suspension notice (confirm resumption)', '有口译暂停公告（需确认是否恢复）', '통역 중단 안내 있음 (재개 여부 확인 필요)', 'Aviso de suspensión de interpretación (confirmar reanudación)'],
   required: ['予約が必要', 'Appointment required', '需预约', '예약 필요', 'Cita necesaria'],
   advance_contact: ['事前の連絡・相談が必要', 'Contact in advance', '需提前联系确认', '사전 연락 필요', 'Contactar con antelación'],
   not_required: ['予約不要の記載あり', 'Listed as no appointment required', '注明无需预约', '예약 불필요 안내 있음', 'Se indica que no se necesita cita'],
