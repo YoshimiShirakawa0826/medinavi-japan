@@ -1,0 +1,54 @@
+name: Official clinic website language audit
+
+on:
+  push:
+    branches: [codex/clinic-language-audit-20261020]
+    paths:
+      - .github/workflows/clinic-language-audit.yml
+      - scripts/website-audit/**
+      - tests/test_website_audit.py
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: clinic-language-audit-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      max-parallel: 8
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5, 6, 7]
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Test the research code
+        run: python3 -m unittest discover -s tests -p test_website_audit.py
+      - name: Read official sites for this shard
+        run: python3 scripts/website-audit/audit.py --shard ${{ matrix.shard }} --shards 8 --workers 8 --max-pages 6 --max-seconds 4200
+      - name: Package resumable per-site checkpoints
+        if: always()
+        run: |
+          if [ -d audit-output/sites ]; then
+            tar -czf audit-output/checkpoints.tgz -C audit-output sites
+          fi
+      - name: Preserve results and source pages
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: clinic-language-audit-${{ matrix.shard }}
+          path: |
+            audit-output/*.gz
+            audit-output/*.tgz
+            audit-output/summary.json
+            audit-cache/
+          if-no-files-found: warn
+          retention-days: 3
+          compression-level: 0

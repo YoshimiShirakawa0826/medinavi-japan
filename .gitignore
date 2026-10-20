@@ -27,6 +27,8 @@ __pycache__/
 /public/data/coverage.json
 /public/data/prefectures/
 /data/generated/
+/audit-output/
+/audit-cache/
 
 # misc
 .DS_Store
