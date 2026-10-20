@@ -73,3 +73,25 @@ HTTPSの転送先がHTTPになる場合も停止します。
 Actionsアーティファクトとして3日間保存します。`checkpoints.tgz` は再開用のURL別記録です。
 アーティファクトは実行結果の保存先であり、本番アプリが読み込むデータではありません。
 レビューした根拠の登録やプレビュー反映は別途行います。
+
+## 全施設の結果をまとめる
+
+8区分のアーティファクトを展開したディレクトリから、レビュー済みの根拠を施設IDで結合します。
+
+```sh
+python3 scripts/build-website-audit-report.py \
+  --results audit-artifacts/*/audit-output/site-results.jsonl.gz \
+  --require-all-targets --output audit-output/report
+```
+
+同一実行の重複しない区分だけを指定します。想定外・重複URLはエラーにします。
+`--require-all-targets` は全対象URLの結果行があることを検証します。
+`allTargetUrlsProcessed` は全対象の指定ページ範囲内の処理が終わったかを表します。
+URLの形式不正等で取得を試みられない行があるため、`urlsAttempted` とは分けています。
+`languageConfirmationComplete` は全施設の診療言語が確認済みかを表し、今回の一次調査では偽です。
+
+集計CSVでは、日本語の状態説明、登録済み言語・方法・条件・出典・確認日と、
+照合前候補の引用・URL・SHA-256・ページ取得日時を別々の列にします。
+登録済みの情報は必ず施設IDで結合し、同じURLを持つ別施設には転用しません。
+日本語のみとの明記、休止、問い合わせ、機械翻訳、患者自身の通訳手配を
+「診療での外国語対応を確認」に混ぜません。

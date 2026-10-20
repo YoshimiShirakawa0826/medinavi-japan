@@ -60,6 +60,27 @@ class AuditReportTest(unittest.TestCase):
         row = report.describe(self.clinic(), {'pages': [{'status': 'robots_unavailable', 'errorKind': 'http_error', 'httpStatus': 403}]}, None, False)
         self.assertIn('robots_unavailable:http_error:403', row['retrieval_or_manual_review_reasons'])
 
+    def test_rejected_invalid_urls_are_processed_without_claiming_a_page_attempt(self):
+        clinic = self.clinic()
+        clinic['website'] = 'www.invalid.example'
+        result = {'pages': [], 'complete': True, 'error': 'unsupported_url'}
+        rows, summary = report.build_report([clinic], {clinic['website']: result}, [], [])
+        self.assertTrue(summary['allTargetUrlsProcessed'])
+        self.assertFalse(summary['allTargetUrlsAttempted'])
+        self.assertEqual(summary['urlsAttempted'], 0)
+        self.assertIn('unsupported_url', rows[0]['retrieval_or_manual_review_reasons'])
+
+    def test_clinical_policy_is_shown_ahead_of_generic_homepage_navigation(self):
+        result = {'pages': [
+            {'url': 'https://example.com/', 'status': 'retrieved', 'textCharacters': 500,
+             'candidates': ['Menu: English Privacy policy Translation']},
+            {'url': 'https://example.com/foreign-patients', 'status': 'retrieved', 'textCharacters': 600,
+             'candidates': ['We have no on-site medical interpreters. Please bring your own.']}], 'complete': True}
+        row = report.describe(self.clinic(), result, None, False)
+        self.assertIn('/foreign-patients', row['candidate_source_url_unreviewed'])
+        self.assertIn('no on-site', row['candidate_quote_unreviewed'])
+        self.assertEqual(row['registered_clinical_languages'], '')
+
     def test_duplicate_or_unexpected_results_are_rejected(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / 'results.gz'

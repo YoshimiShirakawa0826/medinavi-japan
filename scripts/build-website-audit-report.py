@@ -6,6 +6,7 @@ import gzip
 import importlib.util
 import json
 from pathlib import Path
+import re
 
 spec = importlib.util.spec_from_file_location('website_audit', Path(__file__).parent / 'website-audit/audit.py')
 audit = importlib.util.module_from_spec(spec)
@@ -22,6 +23,16 @@ STATUS_JA = {
     'not_started_time_budget': '時間上限による未着手',
     'retrieval_unavailable_or_manual_review_required': '取得不可または画像・PDF等の個別確認が必要',
 }
+
+
+def candidate_relevance(candidate):
+    page, quote = candidate
+    # This only chooses a useful excerpt for a human. Negative statements and
+    # suspended services are relevant too; it never classifies capability.
+    score = 30 if re.search(r'interpret|foreign|language.support|通訳', page.get('url', ''), re.I) else 0
+    score += 20 if re.search(r'医療通訳|英語で.{0,15}(?:診療|診察)|対応言語|medical interpret|English.speaking|speak English', quote, re.I) else 0
+    score += 10 if re.search(r'予約|休止|ありません|無料|有料|suspend|not available|no.{0,20}interpret|book|fee', quote, re.I) else 0
+    return score
 
 
 def read_results(paths, known_websites):
@@ -70,7 +81,7 @@ def describe(clinic, result, review, held):
         reasons.append(result['error'])
     if result and result.get('stopReason'):
         reasons.append(result['stopReason'])
-    first_page, first_quote = candidates[0] if candidates else ({}, '')
+    first_page, first_quote = max(candidates, key=candidate_relevance) if candidates else ({}, '')
     sources = [source for entry in entries for source in entry['sources']]
     return {
         'facility_id': clinic['id'], 'prefecture_code': clinic['prefecture'],
@@ -113,6 +124,8 @@ def build_report(clinics, results, reviews, holds):
         'urlsAttempted': sum(bool(result.get('pages')) for result in results.values()),
         'urlsWithBody': sum(any(page.get('textCharacters', 0) >= 150 for page in result.get('pages', [])) for result in results.values()),
         'urlsCompletedWithinSelectedPageBudget': sum(bool(result.get('complete')) for result in results.values()),
+        'allTargetUrlsProcessed': set(results) == {clinic['website'] for clinic in clinics}
+            and all(result.get('complete') for result in results.values()),
         'allTargetUrlsAttempted': all(results.get(clinic['website'], {}).get('pages') for clinic in clinics),
         'languageConfirmationComplete': False,
         'counts': dict(sorted(counts.items())),
