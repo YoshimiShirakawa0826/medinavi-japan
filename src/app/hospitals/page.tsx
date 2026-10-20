@@ -13,7 +13,6 @@ import { telephoneHref, nabiiClinicUrl } from '@/lib/clinic-contact';
 import { searchRadius, updateSearch, saveSearchLocation, RESULT_PAGE_SIZE, weekendStatus, prefectureSearchChanges } from '@/lib/search-state';
 import { prefectureByCode } from '../../../data/prefectures.mjs';
 import { PrefectureSelect } from '@/components/PrefectureSelect';
-import { NationalCoverage } from '@/components/NationalCoverage';
 import { useCoverage } from '@/lib/use-coverage';
 import { useClinicSearch } from '@/lib/use-clinic-search';
 import { useSearchLocation } from '@/lib/use-search-location';
@@ -224,7 +223,6 @@ function HospitalsContent() {
             geo.clear(); saveSearchLocation(null); setMapTarget(null); setMapVisible(false);
             changeSearch(prefectureSearchChanges(code));
           }} />
-          <NationalCoverage counts={counts} selected={prefectureCode} />
           {(langFilter || engTodayFilter) && <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm leading-relaxed text-amber-900">
             <p>{t('nation.languageCoverage')}</p>
             <button type="button" onClick={() => changeSearch({ lang: null, engtoday: null })} className="mt-2 min-h-11 font-bold underline underline-offset-4">{t('nation.clearLanguage')}</button>

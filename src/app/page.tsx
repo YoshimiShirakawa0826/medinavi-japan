@@ -9,7 +9,6 @@ import { departments } from '@/types';
 import { AREA_PRESETS, getGeoFailureStatus, isGeoFailureStatus, type GeoStatus } from '@/lib/geo';
 import { saveSearchLocation } from '@/lib/search-state';
 import { PrefectureSelect } from '@/components/PrefectureSelect';
-import { NationalCoverage } from '@/components/NationalCoverage';
 import { useCoverage } from '@/lib/use-coverage';
 
 export default function Home() {
@@ -73,7 +72,6 @@ export default function Home() {
             <select value={careLanguage} onChange={event => setCareLanguage(event.target.value)} className={inputClass}><option value="">{t('home.anyLanguage')}</option><option value="en">English</option><option value="ja">日本語</option><option value="zh">中文</option><option value="ko">한국어</option><option value="es">Español</option></select>
           </label>
         </div>
-        <NationalCoverage counts={counts} selected={prefecture} />
         <label className="block space-y-2 text-sm font-bold text-slate-700"><span>{t('search.keyword')}</span><input type="search" maxLength={120} value={keyword} onChange={event => setKeyword(event.target.value)} placeholder={t('search.placeholder')} className={inputClass} /></label>
         <details className="rounded-xl border border-slate-200 px-4 py-3">
           <summary className="cursor-pointer min-h-8 text-sm font-bold text-slate-700">{t('ux.filterDetails')}</summary>

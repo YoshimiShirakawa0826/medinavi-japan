@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useState } from 'react';
 import { PrefectureSelect } from '@/components/PrefectureSelect';
-import { NationalCoverage } from '@/components/NationalCoverage';
 import { useCoverage } from '@/lib/use-coverage';
 import { prefectureByCode } from '../../../data/prefectures.mjs';
 import { AlertCircle, ArrowLeft, ChevronRight, Info, Clock, Search, CheckCircle } from 'lucide-react';
@@ -92,7 +91,6 @@ function SymptomsContent() {
         <PrefectureSelect value={prefecture} counts={counts} onChange={code => { setPrefecture(code); setArea(''); }} />
         <label className="text-sm font-bold text-slate-700">{t('search.language')}<select value={careLanguage} onChange={event => setCareLanguage(event.target.value)} className="block mt-2 min-h-11 w-full rounded-xl border border-slate-300 bg-white px-3 font-normal"><option value="">{t('home.anyLanguage')}</option><option value="en">English</option><option value="ja">日本語</option><option value="zh">中文</option><option value="ko">한국어</option><option value="es">Español</option></select></label>
       </div>
-      <NationalCoverage counts={counts} selected={prefecture} />
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {SYMPTOMS.map((s, i) => {
           const selected = sel === i;
