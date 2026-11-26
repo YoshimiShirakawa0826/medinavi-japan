@@ -42,3 +42,10 @@ test('internal department IDs in parentheses are removed from replies', async ()
   const { stripDepartmentIds } = await import('../src/lib/chat/assistant.ts');
   assert.equal(stripDepartmentIds('内科（internal）を受診してください。耳鼻科 (ent) でも可'), '内科を受診してください。耳鼻科 でも可');
 });
+
+test('lines that list the carded clinics are removed from the reply', async () => {
+  const { stripClinicLines } = await import('../src/lib/chat/assistant.ts');
+  const cards = [{ id: 'a', name: { en: 'CLINIC OHIRA', ja: '大平医院' }, address: '', phone: '', departments: [], languages: [], openNow: null, distanceKm: 0.3 }];
+  const reply = '以下是涩谷附近的诊所：\n\n- CLINIC OHIRA（0.3km）\n\n请提前致电确认。';
+  assert.equal(stripClinicLines(reply, cards), '以下是涩谷附近的诊所：\n\n请提前致电确认。');
+});

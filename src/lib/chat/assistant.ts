@@ -100,6 +100,20 @@ export function stripDepartmentIds(text: string): string {
   return text.replace(ID_IN_PARENS, '');
 }
 
+// Clinics are shown as cards. If the model still lists them, drop those lines so
+// names are never shown twice or in a garbled romanisation.
+export function stripClinicLines(text: string, clinics: ClinicCard[]): string {
+  if (!clinics.length) return text;
+  const norm = (value: string) => value.normalize('NFKC').toLowerCase().replace(/\s+/g, ' ').trim();
+  const names = clinics.flatMap(card => [card.name.en, card.name.ja]).map(norm).filter(name => name.length >= 4);
+  const kept = text.split('\n').filter(line => {
+    const value = norm(line);
+    const listed = /^[-*・•\d]/.test(value) || /\(\d+(\.\d+)?\s*km\)|（\d+(\.\d+)?\s*km）/.test(value);
+    return !(listed && names.some(name => value.includes(name)));
+  });
+  return kept.join('\n').replace(/\n{3,}/g, '\n\n').trim();
+}
+
 export type AssistantResult = { reply: string; clinics: ClinicCard[] };
 
 /** One assistant turn: at most two tool rounds, then a final answer without tools. */
@@ -118,7 +132,7 @@ export async function runAssistant(options: {
   for (let round = 0; round < 3; round++) {
     const message = await complete(options.apiKey, messages, round < 2, fetchImpl);
     const calls = message.tool_calls?.filter(call => call?.function?.name === 'search_clinics') ?? [];
-    if (!calls.length) return { reply: stripDepartmentIds(sanitizeReply(message.content ?? '')), clinics };
+    if (!calls.length) return { reply: stripClinicLines(stripDepartmentIds(sanitizeReply(message.content ?? '')), clinics), clinics };
     messages.push({ role: 'assistant', content: message.content || '', tool_calls: message.tool_calls, ...(message.reasoning ? { reasoning: message.reasoning } : {}) });
     for (const call of calls) {
       let args = {};
