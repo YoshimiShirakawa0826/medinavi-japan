@@ -49,7 +49,7 @@ npm run build
 ## AIチャット（試験提供・Sarashina）
 
 - 国産LLM「Sarashina」（SB Intuitions、無償ベータ）の `sarashina3.2-mini-thinking` を使った受診先案内チャット。
-- 有効化: Vercelの環境変数 `CHAT_ENABLED=true` と `SARASHINA_API_KEY` を設定（まずPreviewのみ）。未設定ならボタン自体を表示しない。
+- 有効化: Vercelの環境変数 `SARASHINA_API_KEY` をPreviewに設定するとプレビューで有効。本番は `CHAT_ENABLED=true` も必要。キーがなければボタン自体を表示しない。
 - 安全設計: 危険なサインは5言語のキーワードで判定し、モデルの応答と無関係に119を表示。医療機関はモデルに書かせず、`search_clinics` ツールで自前データを検索してカード表示。モデル出力の電話番号・URLは公的窓口以外を削除。メール・電話番号・パスポート番号らしき文字列は送信前に削除。会話はサーバーに保存しない。
 - 無償ベータの規約上、送信内容はSarashinaの学習に使われる場合がある（拒否は有償プランのみ）。同意画面で明示している。
 - レート制限: 30回/分（全利用者合計）。超過時は症状ページと「ひまわり」へ案内。
