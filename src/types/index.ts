@@ -1,5 +1,8 @@
 export type Language = 'ja' | 'en' | 'zh' | 'ko' | 'es';
 
+/** Minimal clinic record used for server-rendered pages and metadata. */
+export type ClinicSummary = { ja: string; en: string; address: string; phone: string; departments: string[] };
+
 export type CareGuide = {
   uninsuredAccepted?: boolean;
   bookingUrl?: string;

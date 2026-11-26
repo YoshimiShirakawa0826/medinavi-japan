@@ -20,7 +20,7 @@ export default function Home() {
   const [locationStatus, setLocationStatus] = useState<GeoStatus>('idle');
   const params = () => {
     const p = new URLSearchParams();
-    if (area) { p.set('area', area); p.set('location', 'manual'); p.set('dist', 'near'); }
+    if (area) { p.set('area', area); p.set('location', 'manual'); p.set('dist', '3'); }
     if (careLanguage) p.set('lang', careLanguage);
     if (keyword.trim()) p.set('q', keyword.trim());
     if (department) p.set('dept', department);
@@ -34,7 +34,7 @@ export default function Home() {
       const coords = { lat: pos.coords.latitude, lng: pos.coords.longitude };
       if (!saveSearchLocation(coords)) { setLocationStatus('error'); return; }
       const p = params();
-      p.delete('area'); p.set('location', 'device'); p.set('dist', 'near');
+      p.delete('area'); p.set('location', 'device'); p.set('dist', '3');
       router.push(`/hospitals?${p}`);
     }, error => setLocationStatus(getGeoFailureStatus(error)), { enableHighAccuracy: false, timeout: 10000, maximumAge: 60000 });
   };

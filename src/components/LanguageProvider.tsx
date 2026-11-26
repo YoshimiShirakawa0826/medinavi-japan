@@ -1,8 +1,10 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useSyncExternalStore, ReactNode } from 'react';
+import { usePathname } from 'next/navigation';
 import { Language } from '@/types';
 import { uiMessages } from './ui-messages';
+import { v2Messages } from './v2-messages';
 
 interface LanguageContextType {
   language: Language;
@@ -666,11 +668,40 @@ const translations = {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 let activeLanguage: Language = 'en';
+const LANGUAGES: Language[] = ['ja', 'en', 'zh', 'ko', 'es'];
+const isLanguage = (value: unknown): value is Language => typeof value === 'string' && (LANGUAGES as string[]).includes(value);
+
+// A shared link such as /emergency?hl=zh opens in that language.
+// `hl` is used because `lang` already filters clinics by spoken language.
+function languageFromUrl(): Language | null {
+  try {
+    const value = new URLSearchParams(window.location.search).get('hl');
+    return isLanguage(value) ? value : null;
+  } catch { return null; }
+}
+function syncUrlLanguage(language: Language) {
+  try {
+    const url = new URL(window.location.href);
+    if (url.searchParams.get('hl') === language) return;
+    url.searchParams.set('hl', language);
+    window.history.replaceState(window.history.state, '', url);
+  } catch { /* URL sync is optional */ }
+}
 const languageListeners = new Set<() => void>();
+let urlLanguageApplied = false;
 function languageSnapshot(): Language {
+  if (!urlLanguageApplied) {
+    urlLanguageApplied = true;
+    const fromUrl = languageFromUrl();
+    if (fromUrl) {
+      activeLanguage = fromUrl;
+      try { localStorage.setItem('medinavi-language', fromUrl); } catch { /* optional */ }
+      return activeLanguage;
+    }
+  }
   try {
     const saved = localStorage.getItem('medinavi-language');
-    if (saved && ['ja', 'en', 'zh', 'ko', 'es'].includes(saved)) activeLanguage = saved as Language;
+    if (isLanguage(saved)) activeLanguage = saved;
   } catch { /* Fall back to in-memory preference if storage is blocked. */ }
   return activeLanguage;
 }
@@ -682,14 +713,23 @@ function subscribeLanguage(listener: () => void) {
 function setLanguage(language: Language) {
   activeLanguage = language;
   try { localStorage.setItem('medinavi-language', language); } catch { /* optional */ }
+  syncUrlLanguage(language);
   languageListeners.forEach(listener => listener());
 }
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const language = useSyncExternalStore(subscribeLanguage, languageSnapshot, () => 'en' as Language);
+  const pathname = usePathname();
   useEffect(() => { document.documentElement.lang = language; }, [language]);
+  // Keep the language in the address bar so a copied link opens in the same language.
+  useEffect(() => {
+    const hasParam = new URLSearchParams(window.location.search).has('hl');
+    if (language !== 'en' || hasParam) syncUrlLanguage(language);
+  }, [language, pathname]);
 
   const t = (key: string) => {
+    const updated = v2Messages[key]?.[language];
+    if (updated !== undefined) return updated;
     return uiMessages[key]?.[language] || translations[language][key as keyof typeof translations['ja']] || key;
   };
 
