@@ -36,6 +36,7 @@ export const metadata: Metadata = {
   appleWebApp: { capable: true, title: "MediNavi", statusBarStyle: "default" },
   icons: { icon: "/favicon.ico", apple: "/icons/apple-touch-icon.png" },
   formatDetection: { telephone: false },
+  verification: { google: "uELxdOtzxpYLqGoNs3FWjm0Z6DbUqk-HqPtCMpK1Yzo" },
 };
 
 export const viewport: Viewport = {
@@ -50,6 +51,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${sans.className} min-h-screen flex flex-col antialiased`}>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'WebSite',
+          name: 'MediNavi JAPAN',
+          url: SITE_URL,
+          inLanguage: ['en', 'ja', 'zh', 'ko', 'es'],
+          description,
+        }) }} />
         <LanguageProvider>
           <Header />
           <main className="flex-grow">
