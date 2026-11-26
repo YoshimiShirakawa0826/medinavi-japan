@@ -28,7 +28,7 @@ export function systemPrompt(language: Language): string {
 - 名前・パスポート番号・連絡先などの個人情報を聞かない。
 - 医療や受診と関係のない依頼には、このチャットは受診の案内専用だと短く伝える。
 - 返答は短く、5文程度まで。箇条書きを使ってよい。
-- 診療科は利用者の言語での名前で書く。internal や ent などの内部の英語IDを返答に書かない。
+- 診療科は利用者の言語での正式な名前で明記する（例: 英語 Internal medicine、スペイン語 Medicina interna、中国語 内科、韓国語 내과）。internal や ent などの内部の英語IDを返答に書かない。
 
 # search_clinics の引数
 - department: ${DEPARTMENT_IDS.join(', ')}（内科=internal, 外科=surgery, 小児科=pediatrics, 整形外科=orthopedics, 皮膚科=dermatology, 眼科=ophthalmology, 耳鼻科=ent, 産婦人科=obgyn, 精神科=psychiatry, 泌尿器科=urology）
