@@ -9,7 +9,7 @@ import { telephoneHref } from '@/lib/clinic-contact';
 import { EMERGENCY_CONTACTS } from '@/lib/emergency-contacts';
 import type { ClinicCard } from '@/lib/chat/clinic-search';
 
-type Turn = { role: 'user' | 'assistant'; content: string; clinics?: ClinicCard[]; emergency?: boolean; failed?: 'busy' | 'unavailable' };
+type Turn = { role: 'user' | 'assistant'; content: string; clinics?: ClinicCard[]; emergency?: boolean; failed?: 'busy' | 'unavailable'; detail?: string };
 
 const MAX_TURNS = 10;
 const MAX_LENGTH = 800;
@@ -87,7 +87,7 @@ export function ChatWidget() {
       });
       const data = await response.json().catch(() => ({}));
       if (!response.ok) {
-        setTurns(current => [...current, { role: 'assistant', content: '', emergency: !!data.emergency, failed: data.error === 'busy' ? 'busy' : 'unavailable' }]);
+        setTurns(current => [...current, { role: 'assistant', content: '', emergency: !!data.emergency, failed: data.error === 'busy' ? 'busy' : 'unavailable', detail: typeof data.detail === 'string' ? data.detail : `HTTP ${response.status}` }]);
       } else {
         setTurns(current => [...current, { role: 'assistant', content: String(data.reply || ''), clinics: Array.isArray(data.clinics) ? data.clinics : [], emergency: !!data.emergency }]);
       }
@@ -153,6 +153,7 @@ export function ChatWidget() {
                     {turn.failed ? (
                       <div className="rounded-2xl bg-slate-100 p-3 text-sm text-slate-700 space-y-2">
                         <p>{tx(turn.failed === 'busy' ? TEXT.busy : TEXT.unavailable)}</p>
+                        {turn.detail && <p className="break-all font-mono text-[10px] text-slate-500">{turn.detail}</p>}
                         <div className="flex flex-wrap gap-2">
                           <Link href="/symptoms" className="rounded-lg border border-brand-300 bg-white px-3 py-1.5 text-xs font-bold text-brand-700">{tx(TEXT.symptoms)}</Link>
                           <a href={EMERGENCY_CONTACTS.himawari.href} className="rounded-lg border border-brand-300 bg-white px-3 py-1.5 text-xs font-bold text-brand-700">{tx(TEXT.himawari)} {EMERGENCY_CONTACTS.himawari.display}</a>

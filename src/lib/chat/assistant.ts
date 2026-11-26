@@ -58,10 +58,12 @@ type ApiMessage = { role: 'system' | 'user' | 'assistant' | 'tool'; content: str
 export class SarashinaError extends Error {
   status: number;
   retryAfter?: number;
-  constructor(status: number, retryAfter?: number) {
-    super(`Sarashina API error ${status}`);
+  detail?: string;
+  constructor(status: number, retryAfter?: number, detail?: string) {
+    super(`Sarashina API error ${status}${detail ? `: ${detail}` : ''}`);
     this.status = status;
     this.retryAfter = retryAfter;
+    this.detail = detail;
   }
 }
 
@@ -81,7 +83,8 @@ async function complete(apiKey: string, messages: ApiMessage[], withTools: boole
   });
   if (!response.ok) {
     const retry = Number(response.headers.get('retry-after'));
-    throw new SarashinaError(response.status, Number.isFinite(retry) ? retry : undefined);
+    const detail = (await response.text().catch(() => '')).replace(/\s+/g, ' ').slice(0, 300);
+    throw new SarashinaError(response.status, Number.isFinite(retry) ? retry : undefined, detail);
   }
   const data = await response.json();
   const message = data?.choices?.[0]?.message;

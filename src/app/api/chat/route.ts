@@ -32,7 +32,7 @@ function parseBody(body: unknown): { language: Language; history: Turn[] } | nul
 export async function POST(request: Request) {
   if (!chatEnabled()) return Response.json({ error: 'disabled' }, { status: 404 });
   const apiKey = process.env.SARASHINA_API_KEY;
-  if (!apiKey) return Response.json({ error: 'disabled' }, { status: 503 });
+  if (!apiKey) return Response.json({ error: 'unavailable', detail: process.env.VERCEL_ENV === 'production' ? undefined : 'SARASHINA_API_KEY is empty at runtime' }, { status: 503 });
 
   let parsed: ReturnType<typeof parseBody> = null;
   try { parsed = parseBody(await request.json()); } catch { parsed = null; }
@@ -46,9 +46,15 @@ export async function POST(request: Request) {
     const result = await runAssistant({ apiKey, language: parsed.language, history, records: records as SearchRecord[] });
     return Response.json({ ...result, emergency }, { headers: { 'Cache-Control': 'no-store' } });
   } catch (error) {
+    // Logged for Vercel function logs; the API key is never part of the message.
+    console.error('[chat] Sarashina request failed:', error instanceof Error ? error.message : error);
     const status = error instanceof SarashinaError ? error.status : 502;
+    // Outside production, show the cause in the chat to make setup problems visible.
+    const detail = process.env.VERCEL_ENV === 'production' ? undefined
+      : error instanceof SarashinaError ? `${error.status} ${error.detail ?? ''}`.trim()
+      : error instanceof Error ? `${error.name}: ${error.message}` : 'unknown';
     const busy = status === 429;
-    return Response.json({ error: busy ? 'busy' : 'unavailable', emergency, retryAfter: error instanceof SarashinaError ? error.retryAfter : undefined },
+    return Response.json({ error: busy ? 'busy' : 'unavailable', emergency, detail, retryAfter: error instanceof SarashinaError ? error.retryAfter : undefined },
       { status: busy ? 429 : 502, headers: { 'Cache-Control': 'no-store' } });
   }
 }
