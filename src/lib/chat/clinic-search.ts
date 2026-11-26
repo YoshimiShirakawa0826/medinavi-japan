@@ -30,7 +30,7 @@ export const AREA_IDS = AREA_PRESETS.map(area => area.name);
 const LANGUAGE_IDS: Language[] = ['ja', 'en', 'zh', 'ko', 'es'];
 
 /** Up to `limit` clinics from our own data. Cosmetic-focused clinics are excluded. */
-export function searchClinics(records: SearchRecord[], args: ClinicSearchArgs, now: Date, limit = 5): ClinicCard[] {
+export function searchClinics(records: SearchRecord[], args: ClinicSearchArgs, now: Date, limit = 5, preferLanguage?: Language): ClinicCard[] {
   const department = args.department && DEPARTMENT_IDS.includes(args.department) ? args.department : null;
   const area = AREA_PRESETS.find(item => item.name === args.area) ?? null;
   const language = args.language && (LANGUAGE_IDS as string[]).includes(args.language) ? args.language as Language : null;
@@ -50,7 +50,10 @@ export function searchClinics(records: SearchRecord[], args: ClinicSearchArgs, n
     return [{ record, openNow, distanceKm }];
   });
 
+  // Nearest first; then clinics listing the visitor's language, then those open now.
+  const speaks = (record: SearchRecord) => !!preferLanguage && preferLanguage !== 'ja' && record.supportedLanguages.includes(preferLanguage);
   matches.sort((a, b) => (a.distanceKm ?? 0) - (b.distanceKm ?? 0)
+    || Number(speaks(b.record)) - Number(speaks(a.record))
     || Number(b.openNow === true) - Number(a.openNow === true));
 
   return matches.slice(0, limit).map(({ record, openNow, distanceKm }) => ({
@@ -65,12 +68,19 @@ export function searchClinics(records: SearchRecord[], args: ClinicSearchArgs, n
   }));
 }
 
-/** Short text for the model: it may describe results but must not repeat contact details. */
-export function describeForModel(cards: ClinicCard[]): string {
-  if (!cards.length) return JSON.stringify({ found: 0 });
+/**
+ * Summary for the model. Names, addresses and phone numbers are deliberately left out:
+ * the app shows them as cards, and the model would only repeat or mis-romanise them.
+ */
+export function describeForModel(cards: ClinicCard[], args: ClinicSearchArgs): string {
+  if (!cards.length) return JSON.stringify({ found: 0, searched: args, hint: 'Suggest widening the area or removing the language/open-now condition, and mention HIMAWARI 03-5285-8181.' });
+  const distances = cards.map(card => card.distanceKm).filter((d): d is number => d !== null);
   return JSON.stringify({
     found: cards.length,
-    note: 'The app shows these clinics to the user as cards with name, address, phone and map. Do not repeat phone numbers or addresses.',
-    clinics: cards.map(card => ({ name: card.name.en || card.name.ja, departments: card.departments, open_now: card.openNow, distance_km: card.distanceKm })),
+    searched: args,
+    nearest_km: distances.length ? Math.min(...distances) : null,
+    open_now_count: cards.filter(card => card.openNow === true).length,
+    languages_listed: [...new Set(cards.flatMap(card => card.languages))],
+    shown_to_user: 'The clinics are shown below your reply as cards with name, address, phone and map. Do not list clinic names, addresses or phone numbers. Refer to "the clinics below".',
   });
 }

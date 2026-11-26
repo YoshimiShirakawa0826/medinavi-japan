@@ -21,3 +21,18 @@ test('language filter keeps only clinics listing that language; unknown values a
   assert.deepEqual(searchClinics(records, { language: 'en', area: 'Shinjuku' }, now).map(card => card.id), ['a']);
   assert.equal(searchClinics(records, { department: 'dentistry', area: 'nowhere' }, now).length, 3);
 });
+
+test('the visitor language ranks first without filtering others out', () => {
+  const pool = [
+    { ...base, id: 'x', name: { ja: 'A', en: 'A' }, address: '', latitude: 0, longitude: 0, departments: ['internal'], supportedLanguages: ['ja'] },
+    { ...base, id: 'y', name: { ja: 'B', en: 'B' }, address: '', latitude: 0, longitude: 0, departments: ['internal'], supportedLanguages: ['ja', 'es'] },
+  ];
+  assert.deepEqual(searchClinics(pool, { department: 'internal' }, now, 5, 'es').map(c => c.id), ['y', 'x']);
+});
+
+test('the model never receives clinic names, addresses or phone numbers', async () => {
+  const { describeForModel } = await import('../src/lib/chat/clinic-search.ts');
+  const text = describeForModel(searchClinics(records, { department: 'internal' }, now), { department: 'internal' });
+  assert.doesNotMatch(text, /新宿内科|Shinjuku Naika|03-0000-0000/);
+  assert.match(text, /"found":/);
+});

@@ -19,7 +19,8 @@ export function systemPrompt(language: Language): string {
 - あなたは医師ではない。診断しない。病名や「〜の可能性が高い」などの見立てを言わない。薬の量や治療法を指示しない。
 - できるのは次の案内だけ: (1) 受診する診療科の目安 (2) すぐ119番すべき危険なサイン (3) このアプリの医療機関検索 (4) 公的な相談窓口。
 - 意識がない、呼吸が苦しい、強い胸の痛み、大量の出血、けいれん、急な手足のまひ、ろれつが回らない、重いアレルギー反応、自分を傷つけたい気持ちなどがあれば、最初に「すぐ119に電話してください」と伝える。
-- 医療機関を探してほしいとき、または症状から受診先を案内するときは search_clinics を使う。結果はアプリが名前・住所・電話・地図つきのカードで表示するので、あなたは電話番号・住所・URLを書かない。検索結果にない医療機関の名前を出さない。
+- 症状を聞いたら、まず受診する診療科を1つ伝え、すぐに search_clinics を呼ぶ。場所が分からなくても聞き返さずに area なしで検索する（東京全体から表示される）。場所を聞くのは、結果を示したあとに「場所を教えてもらえれば近くを探せます」と一度だけ添える。
+- 検索結果はアプリが名前・住所・電話・地図つきのカードとして返答の下に表示する。あなたは医療機関の名前・住所・電話番号・URLを書かず、「下に表示した医療機関」と言う。
 - 使ってよい電話番号は次だけ: 119（救急車）、110（警察）、#7119（救急相談・日本語のみ）、03-3212-2323（#7119と同じ窓口）、03-5285-8181（東京都ひまわり：英語・中国語・韓国語・タイ語・スペイン語、毎日9〜20時）、050-3816-2787（JNTO Japan Visitor Hotline：英語・中国語・韓国語、24時間）。
 - 歯の痛みはこのアプリでは探せない。ひまわり（03-5285-8181）か、JNTOの医療機関検索を案内する。
 - 軽い症状なら薬局の薬剤師に相談できることを伝えてよい。
@@ -32,7 +33,7 @@ export function systemPrompt(language: Language): string {
 # search_clinics の引数
 - department: ${DEPARTMENT_IDS.join(', ')}（内科=internal, 外科=surgery, 小児科=pediatrics, 整形外科=orthopedics, 皮膚科=dermatology, 眼科=ophthalmology, 耳鼻科=ent, 産婦人科=obgyn, 精神科=psychiatry, 泌尿器科=urology）
 - area: ${AREA_IDS.join(', ')}（利用者が言った場所に最も近いもの。分からなければ省略）
-- language: 利用者が希望する診察の言語（ja, en, zh, ko, es）。
+- language: 利用者が「英語で」「スペイン語が話せる」など診察の言語を希望したときだけ指定（ja, en, zh, ko, es）。希望がなければ省略する（利用者の言語に対応する医療機関が自動的に上位に並ぶ）。
 - open_now: 「今すぐ」「今開いている」と言われたら true。`;
 }
 
@@ -122,9 +123,9 @@ export async function runAssistant(options: {
     for (const call of calls) {
       let args = {};
       try { args = JSON.parse(call.function.arguments || '{}'); } catch { /* use defaults */ }
-      const found = searchClinics(options.records, args, options.now ?? new Date());
+      const found = searchClinics(options.records, args, options.now ?? new Date(), 5, options.language);
       if (found.length) clinics = found;
-      messages.push({ role: 'tool', tool_call_id: call.id, content: describeForModel(found) });
+      messages.push({ role: 'tool', tool_call_id: call.id, content: describeForModel(found, args) });
     }
   }
   return { reply: '', clinics };
