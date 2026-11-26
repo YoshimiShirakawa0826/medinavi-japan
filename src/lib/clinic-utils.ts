@@ -87,3 +87,19 @@ export async function loadClinics(signal?: AbortSignal): Promise<Hospital[]> {
   clinicsCache = data as Hospital[];
   return clinicsCache;
 }
+
+// Cosmetic-focused clinics (beauty surgery, hair removal, AGA, etc.) rarely help a
+// visitor who is sick or injured. A clinic counts as cosmetic-focused only when its
+// name advertises cosmetic care and does not also name a general department.
+const COSMETIC_NAME = /美容|ビューティ|beauty|aesthetic|esthetic|エステ|脱毛|植毛|(?:^|[^a-z])aga(?:[^a-z]|$)|アンチエイジング|anti-?aging/i;
+const COSMETIC_PREFIXED = /美容(?:皮膚科|皮フ科|皮ふ科|外科|整形外科|形成外科|内科)?|形成外科/g;
+const GENERAL_DEPARTMENT = /皮膚科|皮フ科|皮ふ科|ひふ科|内科|小児科|眼科|耳鼻|婦人科|産科|泌尿器|整形外科|ファミリー|総合/;
+
+export function isCosmeticFocused(hospital: Pick<Hospital, 'name'>): boolean {
+  const ja = (hospital.name.ja || '').normalize('NFKC');
+  const en = (hospital.name.en || '').normalize('NFKC');
+  if (!COSMETIC_NAME.test(`${ja} ${en}`)) return false;
+  // Remove the cosmetic department words, then look for a general department.
+  const remainder = ja.replace(COSMETIC_PREFIXED, '');
+  return !GENERAL_DEPARTMENT.test(remainder);
+}

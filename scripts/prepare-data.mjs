@@ -54,3 +54,13 @@ const reviewedClinics = applyAccessReviews(applyAccessReviews(clinics, governmen
 // Compact JSON avoids shipping indentation for thousands of records.
 await writeFile(outputPath, JSON.stringify(applyCareGuidance(reviewedClinics)) + '\n');
 console.log(`Prepared ${clinics.length} clinics with ${phoneCount} phone numbers; ${governmentReviews.length} Nabii reviews and ${websiteReviews.length} clinic website reviews.`);
+
+// A compact index for server-rendered clinic pages (title, description, summary
+// shown before the full data set loads). Generated, not committed.
+const indexPath = path.join(projectRoot, 'src', 'generated', 'clinic-index.json');
+await mkdir(path.dirname(indexPath), { recursive: true });
+const clinicIndex = Object.fromEntries(clinics.map(clinic => [clinic.id, {
+  ja: clinic.name?.ja || '', en: clinic.name?.en || '', address: clinic.address?.ja || '',
+  phone: clinic.phone || '', departments: Array.isArray(clinic.departments) ? clinic.departments : [],
+}]));
+await writeFile(indexPath, JSON.stringify(clinicIndex) + '\n');

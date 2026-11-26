@@ -8,7 +8,7 @@ import { Hospital, Language, departments } from '@/types';
 import { MapPin, Phone, AlertTriangle, ArrowLeft, CheckCircle, CreditCard, Shield, Sparkles, Navigation, ExternalLink, Wallet, LocateFixed, Info, X } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Suspense } from 'react';
-import { clinicMapUrl, hasClinicCoordinates, loadClinics, matchesDepartment, pageWindow, scheduledOpenStatus, uninsuredStatus } from '@/lib/clinic-utils';
+import { clinicMapUrl, hasClinicCoordinates, isCosmeticFocused, loadClinics, matchesDepartment, pageWindow, scheduledOpenStatus, uninsuredStatus } from '@/lib/clinic-utils';
 import { telephoneHref, nabiiClinicUrl } from '@/lib/clinic-contact';
 import { matchesKeyword, searchRadius, updateSearch, readSearchLocation, saveSearchLocation, RESULT_PAGE_SIZE, weekendStatus } from '@/lib/search-state';
 import {
@@ -68,6 +68,8 @@ function HospitalsContent() {
   const selfPayFilter = searchParams.get('selfpay') === 'true';
   const includeUnknown = searchParams.get('uninsuredUnknown') === 'true';
   const keyword = searchParams.get('q') || '';
+  // 美容目的のクリニックは、病気・けがの受診先として既定では表示しない。
+  const includeCosmetic = searchParams.get('cosmetic') === 'true';
 
   // 距離検索には、現在地取得または明示的な駅選択が必要。
   const geo = useGeolocation();
@@ -98,7 +100,7 @@ function HospitalsContent() {
     setSeededCoords(null);
     saveSearchLocation(null);
     setMapTarget(null);
-    changeSearch({ area: a.name, location: 'manual', dist: 'near' });
+    changeSearch({ area: a.name, location: 'manual', dist: '3' });
   };
 
   const requestLocation = () => {
@@ -106,7 +108,7 @@ function HospitalsContent() {
     saveSearchLocation(null);
     setMapVisible(false);
     setMapTarget(null);
-    changeSearch({ area: null, location: 'device', dist: 'near' });
+    changeSearch({ area: null, location: 'device', dist: '3' });
     geo.request(coords => { setSeededCoords(coords); saveSearchLocation(coords); });
   };
 
@@ -148,10 +150,13 @@ function HospitalsContent() {
     requestAnimationFrame(() => mapRef.current?.scrollIntoView({ block: 'start', behavior: 'smooth' }));
   };
 
+  const cosmeticIds = useMemo(() => new Set(hospitals.filter(isCosmeticFocused).map(h => h.id)), [hospitals]);
+
   // フィルタ→Haversine距離付与→（距離モード時）半径絞り込み＆近い順ソート。
   // 無関係な状態変化（地図の開閉・コピー等）での再計算を避けるため useMemo でメモ化する。
   const processed = useMemo(() => {
     const filtered = hospitals.filter(h => {
+      if (!includeCosmetic && cosmeticIds.has(h.id)) return false;
       if (!matchesDepartment(h, deptFilter)) return false;
       if (!matchesKeyword(h, keyword)) return false;
       if (langFilter && !h.supportedLanguages.includes(langFilter as Language)) return false;
@@ -173,7 +178,7 @@ function HospitalsContent() {
     }
     return arr;
   }, [
-    hospitals, refPoint, activeRadius, keyword,
+    hospitals, cosmeticIds, includeCosmetic, refPoint, activeRadius, keyword,
     deptFilter, langFilter, openNowFilter, engTodayFilter, cardFilter,
     insuranceFilter, nightWeekendFilter, walkInFilter, verifiedFilter, reviewedFilter, selfPayFilter, includeUnknown,
   ]);
@@ -195,6 +200,11 @@ function HospitalsContent() {
     }).join(', ');
   };
 
+  // 中国語・日本語の利用者には漢字表記の方が読みやすい。ローマ字表記は英語等の利用者向け。
+  const displayName = (h: Hospital) => (language === 'ja' || language === 'zh')
+    ? h.name.ja.normalize('NFKC') || h.name.en
+    : h.name[language] || h.name.en || h.name.ja;
+
   // D: 適用中フィルタのチップ表示。× で該当パラメータを URL から除去（distance は専用UIのため対象外）。
   const langName = (code: string) =>
     code === 'en' ? 'English' : code === 'zh' ? '中文' : code === 'ko' ? '한국어' : code === 'es' ? 'Español' : '日本語';
@@ -214,6 +224,7 @@ function HospitalsContent() {
   if (verifiedFilter)    activeFilters.push({ key: 'verified',     label: t('filter.verified') });
   if (reviewedFilter) activeFilters.push({ key: 'reviewed', label: t('filter.websiteReviewed') });
   if (selfPayFilter)     activeFilters.push({ key: 'selfpay',      label: t('filter.selfPay') });
+  if (includeCosmetic)   activeFilters.push({ key: 'cosmetic',     label: t('list.cosmeticShown') });
 
   if (loading) {
     return (
@@ -266,6 +277,10 @@ function HospitalsContent() {
           </div>
 
           <p className="text-xs leading-relaxed text-slate-500">{t('data.notice')} {t('status.notice')}</p>
+          {!includeCosmetic && cosmeticIds.size > 0 && <p className="text-xs leading-relaxed text-slate-500">
+            {t('list.cosmeticHidden').replace('{n}', cosmeticIds.size.toLocaleString())}{' '}
+            <button type="button" onClick={() => changeSearch({ cosmetic: 'true' })} className="font-bold text-brand-700 underline underline-offset-2">{t('list.showCosmetic')}</button>
+          </p>}
           {selfPayFilter && <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900 space-y-3">
             <p>{t(includeUnknown ? 'selfpay.unknownIncluded' : 'selfpay.coverageNote')}</p>
             <label className="flex min-h-11 items-center gap-3 font-semibold"><input type="checkbox" checked={includeUnknown} onChange={event => changeSearch({ uninsuredUnknown: event.target.checked ? 'true' : null })} className="h-4 w-4" />{t('selfpay.showUnknown')}</label>
@@ -390,8 +405,11 @@ function HospitalsContent() {
           {!refPoint && <p className="text-xs text-slate-500">{t('list.sortDefault')}</p>}
           <div ref={resultsRef} className={`scroll-mt-32 grid items-start gap-4 ${mapVisible ? '' : 'lg:grid-cols-2'}`}>
             {processed.length === 0 ? (
-              <div className="bg-white/50 border border-slate-200 rounded-3xl p-8 text-center text-slate-500 font-medium">
-                {t('list.empty')}
+              <div className="bg-white/50 border border-slate-200 rounded-3xl p-8 text-center text-slate-500 font-medium space-y-3">
+                {typeof activeRadius === 'number' ? <>
+                  <p>{t('list.radiusEmpty')}</p>
+                  <button type="button" onClick={() => changeSearch({ dist: 'near' })} className="rounded-xl bg-brand-600 px-4 py-3 text-sm font-bold text-white">{t('list.widen')}</button>
+                </> : t('list.empty')}
               </div>
             ) : (
               visible.map(({ h: hospital, dist }) => (
@@ -422,9 +440,14 @@ function HospitalsContent() {
                   {!hasClinicCoordinates(hospital.latitude, hospital.longitude) && <p className="mb-3 text-xs text-slate-500">{t('list.coordinatesMissing')}</p>}
                   <Link href={`/hospitals/${hospital.id}?returnTo=${encodeURIComponent(`/hospitals${searchParams.size ? `?${searchParams}` : ''}`)}`} className="block group" prefetch={false}>
                     <div className="flex justify-between items-start gap-4 mb-3">
-                      <h2 className="text-lg font-bold leading-snug text-slate-900 group-hover:text-brand-600 transition-colors">
-                        {hospital.name[language] || hospital.name.en || hospital.name.ja}
-                      </h2>
+                      <div className="min-w-0">
+                        <h2 className="text-lg font-bold leading-snug text-slate-900 group-hover:text-brand-600 transition-colors">
+                          {displayName(hospital)}
+                        </h2>
+                        {displayName(hospital) !== hospital.name.ja && hospital.name.ja && (
+                          <p lang="ja" className="mt-1 text-sm text-slate-600">{hospital.name.ja.normalize('NFKC')}</p>
+                        )}
+                      </div>
                       {hospital.emergencyAccepted && (
                         <span className="inline-flex items-center gap-1 bg-emergency-50 text-emergency-700 text-xs px-2.5 py-1 rounded-full font-bold whitespace-nowrap border border-emergency-200">
                           <AlertTriangle className="w-3.5 h-3.5" /> {t('detail.emergency')}
@@ -436,7 +459,7 @@ function HospitalsContent() {
                       <p className="font-semibold text-brand-700">{hospital.departments.length ? getDeptNames(hospital.departments) : t('detail.deptUnknown')}</p>
                       <p className="flex items-start gap-2.5">
                         <MapPin className="w-4 h-4 text-slate-400 mt-0.5 flex-shrink-0" />
-                        <span>{hospital.address[language] || hospital.address.ja}</span>
+                        <span lang="ja">{hospital.address.ja.normalize('NFKC')}</span>
                       </p>
                     </div>
 

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from 'next/link';
 import { useLanguage } from '@/components/LanguageProvider';
 
 export function Footer() {
@@ -17,8 +18,8 @@ export function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-xs border-t border-slate-800/50 pt-8">
           <p className="font-medium">&copy; {new Date().getFullYear()} {t('app.name')}. All rights reserved.</p>
           <div className="flex gap-6">
-            <span className="font-medium">{t('footer.termsPending')}</span>
-            <span className="font-medium">{t('footer.privacyPending')}</span>
+            <Link href="/terms" className="font-medium hover:text-white underline-offset-4 hover:underline">{t('footer.terms')}</Link>
+            <Link href="/privacy" className="font-medium hover:text-white underline-offset-4 hover:underline">{t('footer.privacy')}</Link>
           </div>
         </div>
       </div>
