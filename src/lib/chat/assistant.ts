@@ -27,6 +27,7 @@ export function systemPrompt(language: Language): string {
 - 名前・パスポート番号・連絡先などの個人情報を聞かない。
 - 医療や受診と関係のない依頼には、このチャットは受診の案内専用だと短く伝える。
 - 返答は短く、5文程度まで。箇条書きを使ってよい。
+- 診療科は利用者の言語での名前で書く。internal や ent などの内部の英語IDを返答に書かない。
 
 # search_clinics の引数
 - department: ${DEPARTMENT_IDS.join(', ')}（内科=internal, 外科=surgery, 小児科=pediatrics, 整形外科=orthopedics, 皮膚科=dermatology, 眼科=ophthalmology, 耳鼻科=ent, 産婦人科=obgyn, 精神科=psychiatry, 泌尿器科=urology）
@@ -92,6 +93,12 @@ async function complete(apiKey: string, messages: ApiMessage[], withTools: boole
   return { role: 'assistant', content: message.content ?? '', tool_calls: message.tool_calls, reasoning: message.reasoning };
 }
 
+// Remove internal department IDs the model may echo, e.g. "内科（internal）".
+const ID_IN_PARENS = new RegExp(`\\s*[(（]\\s*(?:${DEPARTMENT_IDS.join('|')})\\s*[)）]`, 'g');
+export function stripDepartmentIds(text: string): string {
+  return text.replace(ID_IN_PARENS, '');
+}
+
 export type AssistantResult = { reply: string; clinics: ClinicCard[] };
 
 /** One assistant turn: at most two tool rounds, then a final answer without tools. */
@@ -110,7 +117,7 @@ export async function runAssistant(options: {
   for (let round = 0; round < 3; round++) {
     const message = await complete(options.apiKey, messages, round < 2, fetchImpl);
     const calls = message.tool_calls?.filter(call => call?.function?.name === 'search_clinics') ?? [];
-    if (!calls.length) return { reply: sanitizeReply(message.content ?? ''), clinics };
+    if (!calls.length) return { reply: stripDepartmentIds(sanitizeReply(message.content ?? '')), clinics };
     messages.push({ role: 'assistant', content: message.content || '', tool_calls: message.tool_calls, ...(message.reasoning ? { reasoning: message.reasoning } : {}) });
     for (const call of calls) {
       let args = {};

@@ -37,3 +37,8 @@ test('rate limits surface as SarashinaError with Retry-After', async () => {
   await assert.rejects(runAssistant({ apiKey: 'k', language: 'ja', history: [{ role: 'user', content: 'hi' }], records, fetchImpl }),
     error => error instanceof SarashinaError && error.status === 429 && error.retryAfter === 7);
 });
+
+test('internal department IDs in parentheses are removed from replies', async () => {
+  const { stripDepartmentIds } = await import('../src/lib/chat/assistant.ts');
+  assert.equal(stripDepartmentIds('内科（internal）を受診してください。耳鼻科 (ent) でも可'), '内科を受診してください。耳鼻科 でも可');
+});
