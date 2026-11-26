@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 const ja: LegalText = {
   title: 'プライバシーポリシー',
-  intro: 'MediNavi JAPAN（以下「当サービス」）は、利用者のプライバシーを尊重し、個人情報の保護に関する法律その他の法令に従って情報を取り扱います。当サービスは会員登録を必要とせず、氏名・連絡先・健康状態などを入力するフォームはありません。',
+  intro: 'MediNavi JAPAN（以下「当サービス」）は、利用者のプライバシーを尊重し、個人情報の保護に関する法律その他の法令に従って情報を取り扱います。当サービスは会員登録を必要とせず、氏名・連絡先などを入力するフォームはありません。',
   sections: [
     { heading: '位置情報', body: [
       '「現在地を使う」を押したときに限り、端末の位置情報の利用を許可するよう求めます。許可は任意です。',
@@ -22,6 +22,11 @@ const ja: LegalText = {
     ] },
     { heading: 'アクセスログ', body: [
       '当サービスはVercel Inc.のホスティングを利用しています。ページの配信にあたり、IPアドレス、ブラウザの種類、アクセス日時などがホスティング事業者のログに記録される場合があります。これらはサービスの提供、障害対応、不正利用の防止のために使われます。データが日本国外のサーバーで処理される場合があります。',
+    ] },
+    { heading: 'AIチャット（試験提供）', body: [
+      'AIチャットを提供している場合、入力したメッセージは回答を作るために SB Intuitions株式会社の「Sarashina」API に送信されます。同社の規約により、送信内容はAIモデルの改善（学習）などに利用される場合があります。',
+      'メールアドレス、電話番号、パスポート番号に似た文字列は、送信前に当サービス側で自動的に削除します。名前や連絡先、詳しい病歴など個人を特定できる情報は入力しないでください。会話の内容は当サービスのサーバーには保存せず、画面を閉じると消えます。',
+      'チャットの利用は任意です。利用前に表示される説明に同意した場合のみ利用できます。',
     ] },
     { heading: '外部サービス', body: [
       '電話、WhatsApp、地図、公的機関のサイトなど外部サービスへ移動した後の情報の取り扱いは、各提供者のプライバシーポリシーに従います。',
@@ -41,7 +46,7 @@ const ja: LegalText = {
 
 const en: LegalText = {
   title: 'Privacy Policy',
-  intro: 'MediNavi JAPAN (the "Service") respects your privacy and handles information in line with Japan\'s Act on the Protection of Personal Information and other laws. The Service has no sign-up and no form that asks for your name, contact details or health information.',
+  intro: 'MediNavi JAPAN (the "Service") respects your privacy and handles information in line with Japan\'s Act on the Protection of Personal Information and other laws. The Service has no sign-up and no form that asks for your name or contact details.',
   sections: [
     { heading: 'Location', body: [
       'We ask for permission to use your device\'s location only when you press "Use my location". Allowing it is optional.',
@@ -54,6 +59,11 @@ const en: LegalText = {
     ] },
     { heading: 'Access logs', body: [
       'The Service is hosted by Vercel Inc. When pages are delivered, information such as IP address, browser type and access time may be recorded in the hosting provider\'s logs. It is used to provide the Service, fix problems and prevent abuse. This data may be processed on servers outside Japan.',
+    ] },
+    { heading: 'AI chat (beta)', body: [
+      'Where the AI chat is offered, the messages you type are sent to the "Sarashina" API of SB Intuitions Corp. to create a reply. Under its terms, the content sent may be used to improve (train) its AI models.',
+      'Before sending, the Service automatically removes text that looks like an email address, phone number or passport number. Do not enter your name, contact details, detailed medical history or anything else that identifies you. Conversations are not stored on our servers and disappear when you close the chat.',
+      'Using the chat is optional and starts only after you agree to the notice shown first.',
     ] },
     { heading: 'External services', body: [
       'Once you move to an external service — a phone call, WhatsApp, a map or a public-sector website — that provider\'s privacy policy applies.',
