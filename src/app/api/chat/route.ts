@@ -4,6 +4,7 @@ import { runAssistant, SarashinaError } from '@/lib/chat/assistant';
 import type { SearchRecord } from '@/lib/chat/clinic-search';
 import { detectEmergency, redactPersonalInfo } from '@/lib/chat/safety';
 import { chatEnabled } from '@/lib/chat/config';
+import { allowRequest, isSameOrigin } from '@/lib/chat/rate-limit';
 
 // The model may think for a while; allow up to 60 seconds.
 export const maxDuration = 60;
@@ -34,6 +35,10 @@ export async function POST(request: Request) {
   // Tolerate whitespace, line breaks or quotes pasted along with the key.
   const apiKey = process.env.SARASHINA_API_KEY?.trim().replace(/^["']|["']$/g, '').trim();
   if (!apiKey) return Response.json({ error: 'unavailable', detail: process.env.VERCEL_ENV === 'production' ? undefined : 'SARASHINA_API_KEY is empty at runtime' }, { status: 503 });
+
+  if (!isSameOrigin(request)) return Response.json({ error: 'forbidden' }, { status: 403 });
+  const visitor = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
+  if (!allowRequest(visitor)) return Response.json({ error: 'busy', retryAfter: 60 }, { status: 429 });
 
   let parsed: ReturnType<typeof parseBody> = null;
   try { parsed = parseBody(await request.json()); } catch { parsed = null; }

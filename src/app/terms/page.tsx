@@ -25,6 +25,7 @@ const ja: LegalText = {
     { heading: '外部サービス', body: [
       '当サービスは、地図サービス（Google マップ、OpenStreetMap）、WhatsApp、公的機関のウェブサイトなど外部サービスへのリンクを含みます。外部サービスの利用には、それぞれの提供者の規約とプライバシーポリシーが適用されます。',
       'オンライン診療の相談窓口は、利用方法や予約の案内を行うもので、診察や処方を行うものではありません。返信や受診を保証するものでもありません。',
+      'AIチャット（試験提供）は、SB Intuitions株式会社の生成AI「Sarashina」を利用した受診先の案内です。AIの回答は誤ることがあり、診断ではありません。混雑時や提供元の都合により、予告なく利用できなくなることがあります。',
     ] },
     { heading: '禁止事項', body: [
       '法令または公序良俗に反する行為、当サービスや第三者の権利を侵害する行為、当サービスの運営を妨げる行為（過度な自動アクセスを含みます）、掲載情報を誤解を招く形で再配布する行為を禁止します。',
@@ -62,6 +63,7 @@ const en: LegalText = {
     { heading: 'External services', body: [
       'The Service links to external services such as map services (Google Maps, OpenStreetMap), WhatsApp and public-sector websites. Their own terms and privacy policies apply when you use them.',
       'The online consultation support line helps with access and booking only. It does not examine or prescribe, and it does not guarantee a reply or a consultation.',
+      'The AI chat (beta) uses "Sarashina", a generative AI by SB Intuitions Corp., to suggest where to seek care. AI answers can be wrong and are not a diagnosis. The chat may become unavailable without notice when busy or at the provider\'s discretion.',
     ] },
     { heading: 'Prohibited conduct', body: [
       'You must not break the law, infringe the rights of the Service or others, interfere with the Service (including excessive automated access), or redistribute listings in a misleading way.',
