@@ -31,7 +31,8 @@ function parseBody(body: unknown): { language: Language; history: Turn[] } | nul
 
 export async function POST(request: Request) {
   if (!chatEnabled()) return Response.json({ error: 'disabled' }, { status: 404 });
-  const apiKey = process.env.SARASHINA_API_KEY;
+  // Tolerate whitespace, line breaks or quotes pasted along with the key.
+  const apiKey = process.env.SARASHINA_API_KEY?.trim().replace(/^["']|["']$/g, '').trim();
   if (!apiKey) return Response.json({ error: 'unavailable', detail: process.env.VERCEL_ENV === 'production' ? undefined : 'SARASHINA_API_KEY is empty at runtime' }, { status: 503 });
 
   let parsed: ReturnType<typeof parseBody> = null;
