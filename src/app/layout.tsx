@@ -6,6 +6,8 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ServiceWorkerRegistration } from "@/components/ServiceWorkerRegistration";
 import { SITE_URL } from "@/lib/site";
+import { ChatWidget } from "@/components/ChatWidget";
+import { chatEnabled } from "@/lib/chat/config";
 
 const sans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -54,6 +56,7 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
+          {chatEnabled() && <ChatWidget />}
         </LanguageProvider>
         <ServiceWorkerRegistration />
       </body>

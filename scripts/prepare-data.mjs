@@ -64,3 +64,15 @@ const clinicIndex = Object.fromEntries(clinics.map(clinic => [clinic.id, {
   phone: clinic.phone || '', departments: Array.isArray(clinic.departments) ? clinic.departments : [],
 }]));
 await writeFile(indexPath, JSON.stringify(clinicIndex) + '\n');
+
+// Compact records for the chat assistant's clinic search tool (server only).
+const searchPath = path.join(projectRoot, 'src', 'generated', 'clinic-search.json');
+const finalClinics = JSON.parse(await readFile(outputPath, 'utf8'));
+await writeFile(searchPath, JSON.stringify(finalClinics.map(clinic => ({
+  id: clinic.id, name: { ja: clinic.name?.ja || '', en: clinic.name?.en || '' },
+  address: clinic.address?.ja || '', phone: clinic.phone || '',
+  latitude: clinic.latitude, longitude: clinic.longitude,
+  departments: clinic.departments || [], supportedLanguages: clinic.supportedLanguages || [],
+  openingHours: clinic.openingHours, closedDays: clinic.closedDays,
+  careGuide: clinic.careGuide ? { scheduleNeedsConfirmation: clinic.careGuide.scheduleNeedsConfirmation, receptionHours: clinic.careGuide.receptionHours } : undefined,
+}))) + '\n');

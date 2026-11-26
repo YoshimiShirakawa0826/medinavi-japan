@@ -110,17 +110,5 @@ export const DISTANCE_OPTIONS: Array<{ value: number | null; labelKey: string }>
   { value: null, labelKey: "distance.nearest" },
 ];
 
-// 位置情報が使えない/拒否された場合のフォールバック基準点（東京主要エリア・駅）。
-// 座標は各駅周辺の既知の代表点。実際の現在地ではなく「目安」として使う。
-export const AREA_PRESETS: Array<{ name: string; lat: number; lng: number }> = [
-  { name: "Shinjuku",   lat: 35.6896, lng: 139.7006 },
-  { name: "Tokyo Sta.", lat: 35.6812, lng: 139.7671 },
-  { name: "Shibuya",    lat: 35.6580, lng: 139.7016 },
-  { name: "Ikebukuro",  lat: 35.7295, lng: 139.7109 },
-  { name: "Ueno",       lat: 35.7141, lng: 139.7774 },
-  { name: "Shinagawa",  lat: 35.6285, lng: 139.7387 },
-  { name: "Asakusa",    lat: 35.7148, lng: 139.7967 },
-  { name: "Ginza",      lat: 35.6717, lng: 139.7650 },
-  { name: "Akihabara",  lat: 35.6984, lng: 139.7731 },
-  { name: "Roppongi",   lat: 35.6628, lng: 139.7315 },
-];
+// エリア・駅の基準点はサーバー（チャットの検索）でも使うため areas.ts に置く。
+export { AREA_PRESETS } from './areas';
