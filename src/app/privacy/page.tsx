@@ -27,6 +27,7 @@ const ja: LegalText = {
       'AIチャットを提供している場合、入力したメッセージは回答を作るために SB Intuitions株式会社の「Sarashina」API に送信されます。同社の規約により、送信内容はAIモデルの改善（学習）などに利用される場合があります。',
       'メールアドレス、電話番号、パスポート番号に似た文字列は、送信前に当サービス側で自動的に削除します。名前や連絡先、詳しい病歴など個人を特定できる情報は入力しないでください。会話の内容は当サービスのサーバーには保存せず、画面を閉じると消えます。',
       'チャットの利用は任意です。利用前に表示される説明に同意した場合のみ利用できます。',
+      'チャットのマイク（音声入力）を使う場合、音声はお使いのブラウザの機能で文字に変換されます。ブラウザによっては、提供元（Google、Appleなど）のサーバーに音声が送られます。当サービスが音声を受け取ったり保存したりすることはありません。回答の読み上げは端末の機能で行います。',
     ] },
     { heading: '外部サービス', body: [
       '電話、WhatsApp、地図、公的機関のサイトなど外部サービスへ移動した後の情報の取り扱いは、各提供者のプライバシーポリシーに従います。',
@@ -64,6 +65,7 @@ const en: LegalText = {
       'Where the AI chat is offered, the messages you type are sent to the "Sarashina" API of SB Intuitions Corp. to create a reply. Under its terms, the content sent may be used to improve (train) its AI models.',
       'Before sending, the Service automatically removes text that looks like an email address, phone number or passport number. Do not enter your name, contact details, detailed medical history or anything else that identifies you. Conversations are not stored on our servers and disappear when you close the chat.',
       'Using the chat is optional and starts only after you agree to the notice shown first.',
+      'If you use the chat microphone (voice input), your browser converts your voice to text. Depending on the browser, the audio is sent to its provider (such as Google or Apple). The Service never receives or stores audio. Reading answers aloud uses your device.',
     ] },
     { heading: 'External services', body: [
       'Once you move to an external service — a phone call, WhatsApp, a map or a public-sector website — that provider\'s privacy policy applies.',
