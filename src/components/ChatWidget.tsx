@@ -2,12 +2,13 @@
 
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
-import { MessageCircle, X, Send, Phone, MapPin, AlertCircle, ExternalLink, Loader2 } from 'lucide-react';
+import { MessageCircle, X, Send, Phone, MapPin, AlertCircle, ExternalLink, Loader2, Mic, Square, Volume2, VolumeX } from 'lucide-react';
 import { useLanguage } from '@/components/LanguageProvider';
 import { departments, type Language } from '@/types';
 import { telephoneHref } from '@/lib/clinic-contact';
 import { EMERGENCY_CONTACTS } from '@/lib/emergency-contacts';
 import type { ClinicCard } from '@/lib/chat/clinic-search';
+import { appendSpoken, recognitionConstructor, speechErrorKind, speechSynthesisAvailable, transcriptOf, SPEECH_LOCALES, type Recognition, type SpeechErrorKind } from '@/lib/chat/speech';
 
 type Turn = { role: 'user' | 'assistant'; content: string; clinics?: ClinicCard[]; emergency?: boolean; failed?: 'busy' | 'unavailable'; detail?: string };
 
@@ -25,6 +26,15 @@ const TEXT = {
   notice1: L('このAIは医師ではなく、診断はしません。受診する科と窓口を案内します。', 'This AI is not a doctor and does not diagnose. It suggests which department and help line to use.', '本AI不是医生，不做诊断。仅指引就诊科室和咨询窗口。', '이 AI는 의사가 아니며 진단하지 않습니다. 진료과와 상담 창구를 안내합니다.', 'Esta IA no es un médico y no diagnostica. Le orienta sobre qué especialidad y qué línea de ayuda usar.'),
   notice2: L('入力した内容は SB Intuitions 社に送信され、AIの改善（学習）に使われる場合があります。名前・連絡先・パスポート番号などは入力しないでください。', 'Your messages are sent to SB Intuitions and may be used to improve (train) their AI. Do not enter your name, contact details or passport number.', '您输入的内容会发送给SB Intuitions公司，并可能用于改进（训练）其AI。请勿输入姓名、联系方式、护照号码等。', '입력한 내용은 SB Intuitions사로 전송되며 AI 개선(학습)에 사용될 수 있습니다. 이름・연락처・여권 번호 등은 입력하지 마세요.', 'Sus mensajes se envían a SB Intuitions y pueden usarse para mejorar (entrenar) su IA. No escriba su nombre, datos de contacto ni número de pasaporte.'),
   notice3: L('命に関わる症状があれば、チャットより先に 119 に電話してください。', 'For life-threatening symptoms, call 119 before using this chat.', '如有危及生命的症状，请先拨打119，而不是使用聊天。', '생명이 위험한 증상이 있으면 채팅보다 먼저 119에 전화하세요.', 'Ante síntomas graves, llame al 119 antes de usar este chat.'),
+  notice4: L('マイクで音声入力を使う場合、音声はブラウザの提供元（Google・Appleなど）のサーバーで文字に変換されることがあります。', 'If you use the microphone, your browser provider (such as Google or Apple) may convert your voice to text on its servers.', '使用麦克风语音输入时，语音可能会在浏览器提供商（Google、Apple等）的服务器上转换为文字。', '마이크로 음성 입력을 사용하면 음성이 브라우저 제공업체(Google・Apple 등)의 서버에서 문자로 변환될 수 있습니다.', 'Si usa el micrófono, el proveedor de su navegador (como Google o Apple) puede convertir su voz en texto en sus servidores.'),
+  micStart: L('音声で入力', 'Speak instead of typing', '语音输入', '음성으로 입력', 'Hablar en lugar de escribir'),
+  micStop: L('音声入力を止める', 'Stop voice input', '停止语音输入', '음성 입력 중지', 'Detener la entrada de voz'),
+  listening: L('聞き取り中… 話し終えたら止めるボタンを押してください。内容を確認してから送信できます。', 'Listening… Tap stop when you finish. You can check the text before sending.', '正在聆听… 说完后请点击停止。发送前可以确认文字。', '듣는 중… 말을 마치면 중지 버튼을 누르세요. 보내기 전에 내용을 확인할 수 있습니다.', 'Escuchando… Pulse detener al terminar. Podrá revisar el texto antes de enviarlo.'),
+  micDenied: L('マイクの使用が許可されていません。ブラウザの設定でこのサイトのマイクを許可してください。', 'Microphone access is blocked. Allow the microphone for this site in your browser settings.', '麦克风未获授权。请在浏览器设置中允许本网站使用麦克风。', '마이크 사용이 허용되지 않았습니다. 브라우저 설정에서 이 사이트의 마이크를 허용하세요.', 'El acceso al micrófono está bloqueado. Permítalo para este sitio en la configuración del navegador.'),
+  micNoSpeech: L('声が聞き取れませんでした。もう一度お試しください。', 'No speech was detected. Please try again.', '没有听到声音。请再试一次。', '음성이 감지되지 않았습니다. 다시 시도하세요.', 'No se detectó voz. Inténtelo de nuevo.'),
+  micFailed: L('音声入力を使えませんでした。文字で入力してください。', 'Voice input is not available right now. Please type instead.', '暂时无法使用语音输入。请改用文字输入。', '지금은 음성 입력을 사용할 수 없습니다. 문자로 입력하세요.', 'La entrada de voz no está disponible ahora. Escriba su mensaje.'),
+  speak: L('読み上げ', 'Read aloud', '朗读', '읽어 주기', 'Leer en voz alta'),
+  stopSpeaking: L('読み上げを止める', 'Stop reading', '停止朗读', '읽기 중지', 'Dejar de leer'),
   agree: L('同意してはじめる', 'Agree and start', '同意并开始', '동의하고 시작', 'Aceptar y empezar'),
   placeholder: L('症状や探している医療機関を入力', 'Describe your symptoms or what you need', '请输入症状或想找的医疗机构', '증상이나 찾는 의료기관을 입력하세요', 'Describa sus síntomas o lo que necesita'),
   send: L('送信', 'Send', '发送', '보내기', 'Enviar'),
@@ -58,6 +68,73 @@ export function ChatWidget() {
   const tx = (entry: Record<Language, string>) => entry[language];
   const userTurns = turns.filter(turn => turn.role === 'user').length;
 
+  // ---- Voice input (Web Speech API). Shown only where the browser supports it.
+  // The panel is never server-rendered (it opens on click), so reading browser support here is safe.
+  const [micSupported] = useState(() => !!recognitionConstructor());
+  const [listening, setListening] = useState(false);
+  const [micError, setMicError] = useState<SpeechErrorKind | null>(null);
+  const recognitionRef = useRef<Recognition | null>(null);
+  const typedBeforeRef = useRef('');
+  // ---- Read-aloud (speech synthesis, on the device).
+  const [ttsSupported] = useState(() => speechSynthesisAvailable());
+  const [speakingIndex, setSpeakingIndex] = useState<number | null>(null);
+
+  const stopListening = () => { recognitionRef.current?.stop(); };
+  const stopSpeaking = () => {
+    if (speechSynthesisAvailable()) window.speechSynthesis.cancel();
+    setSpeakingIndex(null);
+  };
+
+  // Stop the mic and any reading when the chat closes, the language changes or the page unmounts.
+  // Cancelling fires the end/error callbacks, which reset the related state.
+  useEffect(() => {
+    const cancelAll = () => {
+      recognitionRef.current?.abort();
+      if (speechSynthesisAvailable()) window.speechSynthesis.cancel();
+    };
+    if (!open) cancelAll();
+    return cancelAll;
+  }, [open, language]);
+
+  const startListening = () => {
+    const Ctor = recognitionConstructor();
+    if (!Ctor || listening) return;
+    stopSpeaking();
+    const recognition = new Ctor();
+    recognition.lang = SPEECH_LOCALES[language];
+    recognition.interimResults = true;
+    recognition.continuous = false;
+    recognition.maxAlternatives = 1;
+    typedBeforeRef.current = input;
+    recognition.onresult = event => {
+      const spoken = transcriptOf(event.results);
+      setInput(appendSpoken(typedBeforeRef.current, spoken, language).slice(0, MAX_LENGTH));
+    };
+    recognition.onerror = event => { setMicError(speechErrorKind(event.error)); };
+    recognition.onend = () => { setListening(false); recognitionRef.current = null; };
+    recognitionRef.current = recognition;
+    setMicError(null);
+    try {
+      recognition.start();
+      setListening(true);
+    } catch {
+      setMicError('failed');
+      recognitionRef.current = null;
+    }
+  };
+
+  const toggleSpeak = (index: number, text: string) => {
+    if (!speechSynthesisAvailable()) return;
+    if (speakingIndex === index) { stopSpeaking(); return; }
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = SPEECH_LOCALES[language];
+    utterance.onend = () => setSpeakingIndex(current => (current === index ? null : current));
+    utterance.onerror = () => setSpeakingIndex(current => (current === index ? null : current));
+    setSpeakingIndex(index);
+    window.speechSynthesis.speak(utterance);
+  };
+
   const lastAnswerRef = useRef<HTMLDivElement>(null);
   // Show the start of a new answer (where any 119 alert is), not the end of the clinic list.
   useEffect(() => {
@@ -75,6 +152,7 @@ export function ChatWidget() {
   const send = async (text: string) => {
     const content = text.trim().slice(0, MAX_LENGTH);
     if (!content || pending || userTurns >= MAX_TURNS) return;
+    recognitionRef.current?.abort();
     const next: Turn[] = [...turns, { role: 'user', content }];
     setTurns(next);
     setInput('');
@@ -114,7 +192,7 @@ export function ChatWidget() {
               <h2 id="chat-title" className="flex items-center gap-2 font-extrabold text-slate-900">{tx(TEXT.title)} <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-bold text-amber-900">{tx(TEXT.beta)}</span></h2>
               <p className="text-[11px] text-slate-500">{tx(TEXT.poweredBy)}</p>
             </div>
-            <button onClick={() => setOpen(false)} aria-label={tx(TEXT.close)} className="rounded-lg p-2 text-slate-500 hover:bg-slate-100"><X className="h-5 w-5" aria-hidden /></button>
+            <button onClick={() => { stopSpeaking(); setOpen(false); }} aria-label={tx(TEXT.close)} className="rounded-lg p-2 text-slate-500 hover:bg-slate-100"><X className="h-5 w-5" aria-hidden /></button>
           </header>
 
           <a href="tel:119" className="flex items-center justify-center gap-2 bg-emergency-600 px-4 py-2 text-xs font-bold text-white"><Phone className="h-3.5 w-3.5" aria-hidden />{t('home.emergencyShort')}</a>
@@ -126,6 +204,7 @@ export function ChatWidget() {
                 <li>{tx(TEXT.notice1)}</li>
                 <li className="font-semibold text-slate-900">{tx(TEXT.notice2)}</li>
                 <li>{tx(TEXT.notice3)}</li>
+                {micSupported && <li>{tx(TEXT.notice4)}</li>}
               </ul>
               <button onClick={() => setAgreed(true)} className="w-full rounded-xl bg-brand-600 px-4 py-3 font-bold text-white hover:bg-brand-700">{tx(TEXT.agree)}</button>
               <Link href="/privacy" className="block text-center text-xs text-slate-500 underline">{t('footer.privacy')}</Link>
@@ -160,7 +239,16 @@ export function ChatWidget() {
                         </div>
                       </div>
                     ) : turn.content && (
-                      <p className="whitespace-pre-wrap rounded-2xl rounded-bl-sm bg-slate-100 px-3 py-2 text-sm leading-relaxed text-slate-800">{turn.content}</p>
+                      <div className="space-y-1">
+                        <p className="whitespace-pre-wrap rounded-2xl rounded-bl-sm bg-slate-100 px-3 py-2 text-sm leading-relaxed text-slate-800">{turn.content}</p>
+                        {ttsSupported && (
+                          <button type="button" onClick={() => toggleSpeak(index, turn.content)} aria-pressed={speakingIndex === index}
+                            className="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-xs font-bold text-brand-700 hover:bg-brand-50">
+                            {speakingIndex === index ? <VolumeX className="h-3.5 w-3.5" aria-hidden /> : <Volume2 className="h-3.5 w-3.5" aria-hidden />}
+                            {tx(speakingIndex === index ? TEXT.stopSpeaking : TEXT.speak)}
+                          </button>
+                        )}
+                      </div>
                     )}
                     {!!turn.clinics?.length && (
                       <div className="space-y-2">
@@ -192,12 +280,23 @@ export function ChatWidget() {
               <form onSubmit={event => { event.preventDefault(); send(input); }} className="border-t border-slate-100 p-3 space-y-1">
                 <div className="flex gap-2">
                   <label htmlFor="chat-input" className="sr-only">{tx(TEXT.placeholder)}</label>
-                  <textarea id="chat-input" value={input} onChange={event => setInput(event.target.value)} maxLength={MAX_LENGTH} rows={2}
+                  <textarea id="chat-input" value={input} onChange={event => setInput(event.target.value)} maxLength={MAX_LENGTH} rows={micSupported ? 3 : 2}
                     onKeyDown={event => { if (event.key === 'Enter' && !event.shiftKey && !event.nativeEvent.isComposing) { event.preventDefault(); send(input); } }}
                     placeholder={tx(TEXT.placeholder)} disabled={pending || userTurns >= MAX_TURNS}
                     className="min-w-0 flex-1 resize-none rounded-xl border border-slate-300 px-3 py-2 text-base sm:text-sm" />
-                  <button type="submit" disabled={pending || !input.trim() || userTurns >= MAX_TURNS} aria-label={tx(TEXT.send)} className="self-end rounded-xl bg-brand-600 p-3 text-white disabled:opacity-40"><Send className="h-4 w-4" aria-hidden /></button>
+                  <div className="flex flex-col justify-end gap-2">
+                    {micSupported && (
+                      <button type="button" onClick={listening ? stopListening : startListening} disabled={pending || userTurns >= MAX_TURNS}
+                        aria-label={tx(listening ? TEXT.micStop : TEXT.micStart)} aria-pressed={listening} title={tx(listening ? TEXT.micStop : TEXT.micStart)}
+                        className={`rounded-xl p-3 disabled:opacity-40 ${listening ? 'bg-emergency-600 text-white animate-pulse' : 'border border-brand-300 bg-white text-brand-700 hover:bg-brand-50'}`}>
+                        {listening ? <Square className="h-4 w-4" aria-hidden /> : <Mic className="h-4 w-4" aria-hidden />}
+                      </button>
+                    )}
+                    <button type="submit" disabled={pending || !input.trim() || userTurns >= MAX_TURNS} aria-label={tx(TEXT.send)} className="rounded-xl bg-brand-600 p-3 text-white disabled:opacity-40"><Send className="h-4 w-4" aria-hidden /></button>
+                  </div>
                 </div>
+                {listening && <p role="status" className="text-xs font-semibold text-emergency-700">{tx(TEXT.listening)}</p>}
+                {micError && !listening && <p role="alert" className="text-xs text-amber-800">{tx(micError === 'denied' ? TEXT.micDenied : micError === 'nospeech' ? TEXT.micNoSpeech : TEXT.micFailed)}</p>}
                 <p className="text-[10px] text-slate-400">{tx(TEXT.disclaimer)}</p>
               </form>
             </>
